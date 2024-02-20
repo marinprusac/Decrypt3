@@ -1,0 +1,38 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform float readyness : hint_range(0,1);
+uniform vec3 color;
+
+void fragment(){
+	vec4 pixelColor = texture(TEXTURE, UV);
+	
+	vec4 tone = vec4(color.rgb, 1);
+	
+	// when on cooldown
+	if(readyness < 1.0) {
+		float yval = floor(UV.y*10.0)/10.0;
+		// ready part
+		if(yval + readyness > 1.0){
+			COLOR = vec4(pixelColor.rgb * tone.rgb * 0.5, pixelColor.a);
+		}
+		// unready part
+		else{
+			COLOR = vec4(pixelColor.rgb * 0.25, pixelColor.a);
+		}
+	}
+	// when ready
+	else{
+		float flashy = step(sin(TIME*5.0), 0);
+		COLOR = vec4(tone.rgb*pixelColor.rgb*(1.0+flashy/2.0), pixelColor.a);
+	}
+	
+
+	
+
+	
+	
+	
+}"

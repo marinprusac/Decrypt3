@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://DigitDisplay/DigitDisplay.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Keyboard/Keyboard.tscn" type="PackedScene" id=2]
+
+[node name="Login" type="Node2D"]
+
+[node name="Keyboard" parent="." instance=ExtResource( 2 )]
+
+[node name="DigitDisplay" parent="." instance=ExtResource( 1 )]
+position = Vector2( 342, 310 )
+length = 3
+spacing = 10
+
+[connection signal="digit_erased" from="Keyboard" to="DigitDisplay" method="erase"]
+[connection signal="digit_pressed" from="Keyboard" to="DigitDisplay" method="key_pressed"]
+[connection signal="enter" from="Keyboard" to="DigitDisplay" method="clear"]
