@@ -1,109 +1,84 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://Art/Keys/key_pressed.png" type="Texture" id=1]
-[ext_resource path="res://Art/Keys/key_1.png" type="Texture" id=2]
-[ext_resource path="res://Art/Keys/key_6.png" type="Texture" id=3]
-[ext_resource path="res://Art/Keys/key_7.png" type="Texture" id=4]
-[ext_resource path="res://Art/Keys/key_9.png" type="Texture" id=5]
-[ext_resource path="res://Art/Keys/key_enter.png" type="Texture" id=6]
-[ext_resource path="res://Art/Keys/key_2.png" type="Texture" id=7]
-[ext_resource path="res://Art/Keys/key_3.png" type="Texture" id=8]
-[ext_resource path="res://Art/Keys/key_8.png" type="Texture" id=9]
-[ext_resource path="res://Art/Keys/key_4.png" type="Texture" id=10]
-[ext_resource path="res://Art/Keys/key_5.png" type="Texture" id=11]
-[ext_resource path="res://Art/Keys/key_erase.png" type="Texture" id=12]
+[ext_resource path="res://Keyboard/Key.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Art/digit_4.png" type="Texture" id=2]
+[ext_resource path="res://Art/digit_1.png" type="Texture" id=3]
+[ext_resource path="res://Art/digit_8.png" type="Texture" id=4]
+[ext_resource path="res://Art/erase.png" type="Texture" id=5]
+[ext_resource path="res://Art/password.png" type="Texture" id=6]
+[ext_resource path="res://Art/digit_3.png" type="Texture" id=7]
+[ext_resource path="res://Art/digit_2.png" type="Texture" id=8]
+[ext_resource path="res://Art/digit_5.png" type="Texture" id=9]
+[ext_resource path="res://Art/digit_6.png" type="Texture" id=10]
+[ext_resource path="res://Art/digit_7.png" type="Texture" id=11]
+[ext_resource path="res://Art/digit_9.png" type="Texture" id=12]
+[ext_resource path="res://Art/digit_0.png" type="Texture" id=13]
 [ext_resource path="res://Keyboard/Keyboard.gd" type="Script" id=14]
-
-[sub_resource type="CircleShape2D" id=1]
-radius = 5.0
 
 [node name="Keyboard" type="Node2D"]
 script = ExtResource( 14 )
 
 [node name="Keys" type="Node2D" parent="."]
-position = Vector2( 114, 559 )
-scale = Vector2( 12, 12 )
+modulate = Color( 0.2552, 0.88, 0.2552, 1 )
+position = Vector2( 131, 595 )
+scale = Vector2( 11, 11 )
 
-[node name="TouchKey_1" type="TouchScreenButton" parent="Keys"]
-normal = ExtResource( 2 )
-pressed = ExtResource( 1 )
-shape = SubResource( 1 )
-
-[node name="TouchKey_2" type="TouchScreenButton" parent="Keys"]
-position = Vector2( 15, 0 )
-normal = ExtResource( 7 )
-pressed = ExtResource( 1 )
-shape = SubResource( 1 )
-
-[node name="TouchKey_3" type="TouchScreenButton" parent="Keys"]
-position = Vector2( 30, 0 )
-normal = ExtResource( 8 )
-pressed = ExtResource( 1 )
-shape = SubResource( 1 )
-
-[node name="TouchKey_4" type="TouchScreenButton" parent="Keys"]
-position = Vector2( 0, 15 )
-normal = ExtResource( 10 )
-pressed = ExtResource( 1 )
-shape = SubResource( 1 )
-
-[node name="TouchKey_5" type="TouchScreenButton" parent="Keys"]
-position = Vector2( 15, 15 )
-normal = ExtResource( 11 )
-pressed = ExtResource( 1 )
-shape = SubResource( 1 )
-
-[node name="TouchKey_6" type="TouchScreenButton" parent="Keys"]
-position = Vector2( 30, 15 )
+[node name="Key_1" parent="Keys" instance=ExtResource( 1 )]
 normal = ExtResource( 3 )
-pressed = ExtResource( 1 )
-shape = SubResource( 1 )
 
-[node name="TouchKey_7" type="TouchScreenButton" parent="Keys"]
-position = Vector2( 0, 30 )
-normal = ExtResource( 4 )
-pressed = ExtResource( 1 )
-shape = SubResource( 1 )
+[node name="Key_2" parent="Keys" instance=ExtResource( 1 )]
+position = Vector2( 15, 0 )
+normal = ExtResource( 8 )
 
-[node name="TouchKey_8" type="TouchScreenButton" parent="Keys"]
-position = Vector2( 15, 30 )
-normal = ExtResource( 9 )
-pressed = ExtResource( 1 )
-shape = SubResource( 1 )
+[node name="Key_3" parent="Keys" instance=ExtResource( 1 )]
+position = Vector2( 30, 0 )
+normal = ExtResource( 7 )
 
-[node name="TouchKey_9" type="TouchScreenButton" parent="Keys"]
-position = Vector2( 30, 30 )
-normal = ExtResource( 5 )
-pressed = ExtResource( 1 )
-shape = SubResource( 1 )
-
-[node name="TouchKey_erase" type="TouchScreenButton" parent="Keys"]
-position = Vector2( 0, 45 )
-normal = ExtResource( 12 )
-pressed = ExtResource( 1 )
-shape = SubResource( 1 )
-
-[node name="TouchKey_0" type="TouchScreenButton" parent="Keys"]
-position = Vector2( 15, 45 )
+[node name="Key_4" parent="Keys" instance=ExtResource( 1 )]
+position = Vector2( 0, 15 )
 normal = ExtResource( 2 )
-pressed = ExtResource( 1 )
-shape = SubResource( 1 )
 
-[node name="TouchKey_enter" type="TouchScreenButton" parent="Keys"]
+[node name="Key_5" parent="Keys" instance=ExtResource( 1 )]
+position = Vector2( 15, 15 )
+normal = ExtResource( 9 )
+
+[node name="Key_6" parent="Keys" instance=ExtResource( 1 )]
+position = Vector2( 30, 15 )
+normal = ExtResource( 10 )
+
+[node name="Key_7" parent="Keys" instance=ExtResource( 1 )]
+position = Vector2( 0, 30 )
+normal = ExtResource( 11 )
+
+[node name="Key_8" parent="Keys" instance=ExtResource( 1 )]
+position = Vector2( 15, 30 )
+normal = ExtResource( 4 )
+
+[node name="Key_9" parent="Keys" instance=ExtResource( 1 )]
+position = Vector2( 30, 30 )
+normal = ExtResource( 12 )
+
+[node name="Key_Erase" parent="Keys" instance=ExtResource( 1 )]
+position = Vector2( 0, 45 )
+normal = ExtResource( 5 )
+
+[node name="Key_0" parent="Keys" instance=ExtResource( 1 )]
+position = Vector2( 15, 45 )
+normal = ExtResource( 13 )
+
+[node name="Key_Enter" parent="Keys" instance=ExtResource( 1 )]
 position = Vector2( 30, 45 )
 normal = ExtResource( 6 )
-pressed = ExtResource( 1 )
-shape = SubResource( 1 )
 
-[connection signal="pressed" from="Keys/TouchKey_1" to="." method="press_1"]
-[connection signal="pressed" from="Keys/TouchKey_2" to="." method="press_2"]
-[connection signal="pressed" from="Keys/TouchKey_3" to="." method="press_3"]
-[connection signal="pressed" from="Keys/TouchKey_4" to="." method="press_4"]
-[connection signal="pressed" from="Keys/TouchKey_5" to="." method="press_5"]
-[connection signal="pressed" from="Keys/TouchKey_6" to="." method="press_6"]
-[connection signal="pressed" from="Keys/TouchKey_7" to="." method="press_7"]
-[connection signal="pressed" from="Keys/TouchKey_8" to="." method="press_8"]
-[connection signal="pressed" from="Keys/TouchKey_9" to="." method="press_9"]
-[connection signal="pressed" from="Keys/TouchKey_erase" to="." method="press_erase"]
-[connection signal="pressed" from="Keys/TouchKey_0" to="." method="press_0"]
-[connection signal="pressed" from="Keys/TouchKey_enter" to="." method="press_enter"]
+[connection signal="pressed" from="Keys/Key_1" to="." method="press_1"]
+[connection signal="pressed" from="Keys/Key_2" to="." method="press_2"]
+[connection signal="pressed" from="Keys/Key_3" to="." method="press_3"]
+[connection signal="pressed" from="Keys/Key_4" to="." method="press_4"]
+[connection signal="pressed" from="Keys/Key_5" to="." method="press_5"]
+[connection signal="pressed" from="Keys/Key_6" to="." method="press_6"]
+[connection signal="pressed" from="Keys/Key_7" to="." method="press_7"]
+[connection signal="pressed" from="Keys/Key_8" to="." method="press_8"]
+[connection signal="pressed" from="Keys/Key_9" to="." method="press_9"]
+[connection signal="pressed" from="Keys/Key_Erase" to="." method="press_erase"]
+[connection signal="pressed" from="Keys/Key_0" to="." method="press_0"]
+[connection signal="pressed" from="Keys/Key_Enter" to="." method="press_enter"]

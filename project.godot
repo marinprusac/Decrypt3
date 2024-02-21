@@ -22,7 +22,7 @@ _global_script_class_icons={
 
 config/name="Decrypt 3"
 run/main_scene="res://Login/Login.tscn"
-config/icon="res://icon.png"
+config/icon="res://Art/icon.png"
 
 [display]
 
