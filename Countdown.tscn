@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://TextDisplay/TextDisplay.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Countdown.gd" type="Script" id=2]
+
+[node name="Countdown" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="TextDisplay" parent="." instance=ExtResource( 1 )]
+position = Vector2( 364, 337 )
+length = 5
+spacing = 15
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="second_passed"]
