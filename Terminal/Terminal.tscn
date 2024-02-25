@@ -1,0 +1,116 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Fonts/MonoPixelFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Keyboard/Keyboard.tscn" type="PackedScene" id=2]
+[ext_resource path="res://TextDisplay/TextDisplay.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Keyboard/Key.tscn" type="PackedScene" id=4]
+
+[node name="Terminal" type="Node2D"]
+
+[node name="Name" type="Node2D" parent="."]
+position = Vector2( 360, 10 )
+scale = Vector2( 8, 8 )
+
+[node name="Label" type="Label" parent="Name"]
+margin_left = -36.0
+margin_right = 36.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 1 )
+text = "Terminal A"
+align = 1
+valign = 1
+
+[node name="A1" type="Node2D" parent="."]
+position = Vector2( 100, 220 )
+scale = Vector2( 8, 8 )
+
+[node name="Label" type="Label" parent="A1"]
+margin_left = -38.0
+margin_right = 38.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 1 )
+text = "A1"
+align = 1
+valign = 1
+
+[node name="TextDisplay" parent="A1" instance=ExtResource( 3 )]
+modulate = Color( 0.0352941, 0.470588, 0, 1 )
+position = Vector2( 0, 25 )
+scale = Vector2( 1.2, 1.2 )
+length = 2
+
+[node name="Key" parent="A1" instance=ExtResource( 4 )]
+position = Vector2( -6, 15 )
+
+[node name="Label" type="Label" parent="A1/Key"]
+margin_left = -0.4
+margin_right = 11.6
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 1 )
+text = "^"
+align = 1
+valign = 1
+
+[node name="A2" type="Node2D" parent="."]
+position = Vector2( 360, 220 )
+scale = Vector2( 8, 8 )
+
+[node name="Label" type="Label" parent="A2"]
+margin_left = -36.0
+margin_right = 36.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 1 )
+text = "A2"
+align = 1
+valign = 1
+
+[node name="TextDisplay" parent="A2" instance=ExtResource( 3 )]
+modulate = Color( 0.0352941, 0.470588, 0, 1 )
+position = Vector2( 0, 25 )
+scale = Vector2( 1.2, 1.2 )
+length = 2
+
+[node name="Key" parent="A2" instance=ExtResource( 4 )]
+position = Vector2( -6, 15 )
+
+[node name="Label" type="Label" parent="A2/Key"]
+margin_left = -0.4
+margin_right = 11.6
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 1 )
+text = "^"
+align = 1
+valign = 1
+
+[node name="A3" type="Node2D" parent="."]
+position = Vector2( 620, 220 )
+scale = Vector2( 8, 8 )
+
+[node name="Label" type="Label" parent="A3"]
+margin_left = -36.0
+margin_right = 36.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 1 )
+text = "A3"
+align = 1
+valign = 1
+
+[node name="TextDisplay" parent="A3" instance=ExtResource( 3 )]
+modulate = Color( 0.0352941, 0.470588, 0, 1 )
+position = Vector2( 0, 25 )
+scale = Vector2( 1.2, 1.2 )
+length = 2
+
+[node name="Key2" parent="A3" instance=ExtResource( 4 )]
+position = Vector2( -6, 15 )
+
+[node name="Label" type="Label" parent="A3/Key2"]
+margin_left = -0.4
+margin_right = 11.6
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 1 )
+text = "^"
+align = 1
+valign = 1
+
+[node name="Keyboard" parent="." instance=ExtResource( 2 )]

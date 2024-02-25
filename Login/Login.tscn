@@ -5,12 +5,12 @@
 
 [node name="Login" type="Node2D"]
 
-[node name="TextDisplay" parent="." instance=ExtResource( 1 )]
-position = Vector2( 360, 389 )
-length = 3
-spacing = 11
-
 [node name="Keyboard" parent="." instance=ExtResource( 2 )]
+
+[node name="TextDisplay" parent="." instance=ExtResource( 1 )]
+position = Vector2( 356, 382 )
+scale = Vector2( 10, 10 )
+length = 3
 
 [connection signal="digit_erased" from="Keyboard" to="TextDisplay" method="erase"]
 [connection signal="digit_pressed" from="Keyboard" to="TextDisplay" method="append"]

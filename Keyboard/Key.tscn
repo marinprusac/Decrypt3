@@ -7,12 +7,7 @@
 radius = 6.0
 
 [node name="Key" type="TouchScreenButton"]
+normal = ExtResource( 2 )
 pressed = ExtResource( 1 )
 shape = SubResource( 1 )
 shape_visible = false
-
-[node name="Sprite" type="Sprite" parent="."]
-use_parent_material = true
-z_index = -1
-texture = ExtResource( 2 )
-centered = false
