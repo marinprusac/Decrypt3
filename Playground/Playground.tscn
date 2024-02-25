@@ -1,10 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Fonts/MonoPixelFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Playground/Playground.gd" type="Script" id=1]
 
 [node name="Playground" type="Node2D"]
-
-[node name="Label" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
-custom_fonts/font = ExtResource( 1 )
+script = ExtResource( 1 )

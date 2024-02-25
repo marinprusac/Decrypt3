@@ -16,7 +16,7 @@ guessing = true
 
 [node name="Title" type="Node2D" parent="."]
 position = Vector2( 360, 20 )
-scale = Vector2( 8, 8 )
+scale = Vector2( 7, 7 )
 
 [node name="Label" type="Label" parent="Title"]
 margin_left = -36.0
@@ -43,7 +43,6 @@ align = 1
 valign = 1
 
 [node name="TextDisplay" parent="Passwords/T1" instance=ExtResource( 3 )]
-modulate = Color( 0.0352941, 0.470588, 0, 1 )
 position = Vector2( 0, 21.625 )
 scale = Vector2( 1.2, 1.2 )
 length = 2
@@ -74,7 +73,6 @@ align = 1
 valign = 1
 
 [node name="TextDisplay" parent="Passwords/T2" instance=ExtResource( 3 )]
-modulate = Color( 0.0352941, 0.470588, 0, 1 )
 position = Vector2( 0, 21.625 )
 scale = Vector2( 1.2, 1.2 )
 length = 2
@@ -105,7 +103,6 @@ align = 1
 valign = 1
 
 [node name="TextDisplay" parent="Passwords/T3" instance=ExtResource( 3 )]
-modulate = Color( 0.0352941, 0.470588, 0, 1 )
 position = Vector2( 0, 21.625 )
 scale = Vector2( 1.2, 1.2 )
 length = 2
@@ -125,3 +122,17 @@ valign = 1
 [node name="Keyboard" parent="." instance=ExtResource( 2 )]
 position = Vector2( 134.5, 600 )
 scale = Vector2( 11, 11 )
+
+[node name="QuitButton" parent="." instance=ExtResource( 4 )]
+position = Vector2( 32, 36 )
+scale = Vector2( 6, 6 )
+
+[node name="Label" type="Label" parent="QuitButton"]
+margin_left = 2.66667
+margin_top = -1.66667
+margin_right = 42.6667
+margin_bottom = 12.3333
+custom_fonts/font = ExtResource( 1 )
+text = "X"
+
+[connection signal="pressed" from="QuitButton" to="." method="on_quit"]

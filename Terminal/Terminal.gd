@@ -1,13 +1,13 @@
 extends Node2D
 
+signal password_submitted(password)
+signal quitted()
 
 export var terminal_name: String = "?"
 export var guessed_passwords: Dictionary
 export var guessing = false
 
 var guessing_index = -1
-
-
 
 func _ready():
 	$Title/Label.text = "Terminal " + terminal_name
@@ -16,7 +16,6 @@ func _ready():
 	var password_nodes = $Passwords.get_children()
 	
 	for i in range(len(password_nodes)):
-		print(i)
 		var pass_node: Node2D = password_nodes[i]
 		var label = pass_node.get_node("Label")
 		var display = pass_node.get_node("TextDisplay")
@@ -28,14 +27,17 @@ func _ready():
 		if guessing:
 			if i in guessed_passwords.keys():
 				display.write(guessed_passwords[i])
+				display.modulate = Color(0, 0.5, 0)
 				button.visible = false
 			else:
 				display.visible = false
 		else:
 			if i in guessed_passwords.keys():
 				display.write(guessed_passwords[i])
+				display.modulate = Color(0, 0.5, 0)
 			else:
 				display.write("??")
+				display.modulate = Color(0.25, 0.25, 0.25)
 			button.visible = false
 
 
@@ -56,5 +58,21 @@ func on_choose_guess(index: int):
 			display.visible = true
 			$Keyboard.connect("digit_pressed", display, "append")
 			$Keyboard.connect("digit_erased", display, "erase")
-			$Keyboard.connect("enter", display, "clear")
-			
+			$Keyboard.connect("enter", self, "on_submit_password")
+
+
+func on_submit_password():
+	if guessing_index == -1:
+		return
+	var pass_node = $Passwords.get_child(guessing_index)
+	var display = pass_node.get_node("TextDisplay")
+	var password = display.get_content()
+	
+	if len(password) != display.length:
+		return
+		
+	emit_signal("password_submitted")
+
+
+func on_quit():
+	emit_signal("quitted")

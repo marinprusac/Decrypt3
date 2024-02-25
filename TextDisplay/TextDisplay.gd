@@ -7,6 +7,9 @@ onready var label = get_node("Label")
 func _ready():
 	label.text = "_".repeat(length)
 
+func get_content():
+	return content
+
 func write(text: String):
 	if len(text) >  length:
 		content = text.substr(0, length)
