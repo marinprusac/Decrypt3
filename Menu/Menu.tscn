@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Fonts/MonoPixelFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Keyboard/Key.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Art/list.png" type="Texture" id=9]
 [ext_resource path="res://Art/info.png" type="Texture" id=10]
 [ext_resource path="res://Menu/PlayerItem.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Menu/Menu.gd" type="Script" id=12]
 
 [sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 4 )
@@ -38,6 +39,8 @@ shader_param/readyness = 1.0
 shader_param/color = Vector3( 0.875, 0.875, 0.25 )
 
 [node name="Menu" type="Node2D"]
+script = ExtResource( 12 )
+terminals_solved = [ true, false, false, false ]
 
 [node name="Header" type="Node2D" parent="."]
 scale = Vector2( 10, 10 )
@@ -68,10 +71,10 @@ pressed = null
 position = Vector2( 80, 180 )
 scale = Vector2( 10, 10 )
 
-[node name="TerminalA" parent="Terminals" instance=ExtResource( 2 )]
+[node name="A" parent="Terminals" instance=ExtResource( 2 )]
 pressed = null
 
-[node name="Label" type="Label" parent="Terminals/TerminalA"]
+[node name="Label" type="Label" parent="Terminals/A"]
 margin_left = 2.8
 margin_top = -1.8
 margin_right = 8.8
@@ -81,11 +84,11 @@ text = "A"
 align = 1
 valign = 1
 
-[node name="TerminalB" parent="Terminals" instance=ExtResource( 2 )]
+[node name="B" parent="Terminals" instance=ExtResource( 2 )]
 position = Vector2( 15, 0 )
 pressed = null
 
-[node name="Label" type="Label" parent="Terminals/TerminalB"]
+[node name="Label" type="Label" parent="Terminals/B"]
 margin_left = 2.8
 margin_top = -1.8
 margin_right = 8.8
@@ -95,11 +98,11 @@ text = "B"
 align = 1
 valign = 1
 
-[node name="TerminalC" parent="Terminals" instance=ExtResource( 2 )]
+[node name="C" parent="Terminals" instance=ExtResource( 2 )]
 position = Vector2( 30, 0 )
 pressed = null
 
-[node name="Label" type="Label" parent="Terminals/TerminalC"]
+[node name="Label" type="Label" parent="Terminals/C"]
 margin_left = 2.8
 margin_top = -1.8
 margin_right = 8.8
@@ -109,11 +112,11 @@ text = "C"
 align = 1
 valign = 1
 
-[node name="TerminalD" parent="Terminals" instance=ExtResource( 2 )]
+[node name="D" parent="Terminals" instance=ExtResource( 2 )]
 position = Vector2( 45, 0 )
 pressed = null
 
-[node name="Label" type="Label" parent="Terminals/TerminalD"]
+[node name="Label" type="Label" parent="Terminals/D"]
 margin_left = 2.8
 margin_top = -1.8
 margin_right = 8.8
@@ -167,52 +170,52 @@ position = Vector2( 63, 100 )
 position = Vector2( 145, 1000 )
 scale = Vector2( 10, 10 )
 
-[node name="CrackAbility" parent="Abilities" instance=ExtResource( 2 )]
+[node name="Crack" parent="Abilities" instance=ExtResource( 2 )]
 material = SubResource( 4 )
 position = Vector2( 8, 0 )
 pressed = null
 
-[node name="Sprite" type="Sprite" parent="Abilities/CrackAbility"]
+[node name="Sprite" type="Sprite" parent="Abilities/Crack"]
 use_parent_material = true
 position = Vector2( 5.5, 5.50002 )
 texture = ExtResource( 7 )
 
-[node name="BackdoorAbility" parent="Abilities" instance=ExtResource( 2 )]
+[node name="Backdoor" parent="Abilities" instance=ExtResource( 2 )]
 material = SubResource( 5 )
 position = Vector2( 24, 0 )
 pressed = null
 
-[node name="Sprite" type="Sprite" parent="Abilities/BackdoorAbility"]
+[node name="Sprite" type="Sprite" parent="Abilities/Backdoor"]
 use_parent_material = true
 position = Vector2( 5.5, 5.50002 )
 texture = ExtResource( 8 )
 
-[node name="HackAbility" parent="Abilities" instance=ExtResource( 2 )]
+[node name="Hack" parent="Abilities" instance=ExtResource( 2 )]
 material = SubResource( 1 )
 position = Vector2( 0, 13 )
 pressed = null
 
-[node name="Sprite" type="Sprite" parent="Abilities/HackAbility"]
+[node name="Sprite" type="Sprite" parent="Abilities/Hack"]
 use_parent_material = true
 position = Vector2( 5.5, 5.50002 )
 texture = ExtResource( 3 )
 
-[node name="ProtectAbility" parent="Abilities" instance=ExtResource( 2 )]
+[node name="Protect" parent="Abilities" instance=ExtResource( 2 )]
 material = SubResource( 2 )
 position = Vector2( 16, 13 )
 pressed = null
 
-[node name="Sprite" type="Sprite" parent="Abilities/ProtectAbility"]
+[node name="Sprite" type="Sprite" parent="Abilities/Protect"]
 use_parent_material = true
 position = Vector2( 5.5, 5.50002 )
 texture = ExtResource( 6 )
 
-[node name="ScanAbility" parent="Abilities" instance=ExtResource( 2 )]
+[node name="Scan" parent="Abilities" instance=ExtResource( 2 )]
 material = SubResource( 3 )
 position = Vector2( 32, 13 )
 pressed = null
 
-[node name="Sprite" type="Sprite" parent="Abilities/ScanAbility"]
+[node name="Sprite" type="Sprite" parent="Abilities/Scan"]
 use_parent_material = true
 position = Vector2( 5.5, 5.50002 )
 texture = ExtResource( 5 )
