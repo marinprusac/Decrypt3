@@ -1,11 +1,27 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://TextDisplay/TextDisplay.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Keyboard/Keyboard.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Fonts/MonoPixelFont.tres" type="DynamicFont" id=3]
 
 [node name="Login" type="Node2D"]
 
+[node name="Title" type="Node2D" parent="."]
+position = Vector2( 360, 20 )
+scale = Vector2( 8, 8 )
+
+[node name="Label" type="Label" parent="Title"]
+margin_left = -36.0
+margin_right = 36.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 3 )
+text = "Login"
+align = 1
+valign = 1
+
 [node name="Keyboard" parent="." instance=ExtResource( 2 )]
+position = Vector2( 134.5, 600 )
+scale = Vector2( 11, 11 )
 
 [node name="TextDisplay" parent="." instance=ExtResource( 1 )]
 position = Vector2( 356, 382 )

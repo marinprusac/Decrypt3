@@ -1,48 +1,57 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Fonts/MonoPixelFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Keyboard/Keyboard.tscn" type="PackedScene" id=2]
 [ext_resource path="res://TextDisplay/TextDisplay.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Keyboard/Key.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Terminal/Terminal.gd" type="Script" id=5]
 
 [node name="Terminal" type="Node2D"]
+script = ExtResource( 5 )
+terminal_name = "A"
+guessed_passwords = {
+0: "22"
+}
+guessing = true
 
-[node name="Name" type="Node2D" parent="."]
-position = Vector2( 360, 10 )
+[node name="Title" type="Node2D" parent="."]
+position = Vector2( 360, 20 )
 scale = Vector2( 8, 8 )
 
-[node name="Label" type="Label" parent="Name"]
+[node name="Label" type="Label" parent="Title"]
 margin_left = -36.0
 margin_right = 36.0
 margin_bottom = 14.0
 custom_fonts/font = ExtResource( 1 )
-text = "Terminal A"
+text = "Terminal ?"
 align = 1
 valign = 1
 
-[node name="A1" type="Node2D" parent="."]
-position = Vector2( 100, 220 )
+[node name="Passwords" type="Node2D" parent="."]
+
+[node name="T1" type="Node2D" parent="Passwords"]
+position = Vector2( 150, 230 )
 scale = Vector2( 8, 8 )
 
-[node name="Label" type="Label" parent="A1"]
+[node name="Label" type="Label" parent="Passwords/T1"]
 margin_left = -38.0
 margin_right = 38.0
 margin_bottom = 14.0
 custom_fonts/font = ExtResource( 1 )
-text = "A1"
+text = "?1"
 align = 1
 valign = 1
 
-[node name="TextDisplay" parent="A1" instance=ExtResource( 3 )]
+[node name="TextDisplay" parent="Passwords/T1" instance=ExtResource( 3 )]
 modulate = Color( 0.0352941, 0.470588, 0, 1 )
-position = Vector2( 0, 25 )
+position = Vector2( 0, 21.625 )
 scale = Vector2( 1.2, 1.2 )
 length = 2
 
-[node name="Key" parent="A1" instance=ExtResource( 4 )]
-position = Vector2( -6, 15 )
+[node name="Key" parent="Passwords/T1" instance=ExtResource( 4 )]
+position = Vector2( -6, 17.125 )
 
-[node name="Label" type="Label" parent="A1/Key"]
+[node name="Label" type="Label" parent="Passwords/T1/Key"]
 margin_left = -0.4
 margin_right = 11.6
 margin_bottom = 13.0
@@ -51,29 +60,29 @@ text = "^"
 align = 1
 valign = 1
 
-[node name="A2" type="Node2D" parent="."]
-position = Vector2( 360, 220 )
+[node name="T2" type="Node2D" parent="Passwords"]
+position = Vector2( 360, 230 )
 scale = Vector2( 8, 8 )
 
-[node name="Label" type="Label" parent="A2"]
+[node name="Label" type="Label" parent="Passwords/T2"]
 margin_left = -36.0
 margin_right = 36.0
 margin_bottom = 14.0
 custom_fonts/font = ExtResource( 1 )
-text = "A2"
+text = "?2"
 align = 1
 valign = 1
 
-[node name="TextDisplay" parent="A2" instance=ExtResource( 3 )]
+[node name="TextDisplay" parent="Passwords/T2" instance=ExtResource( 3 )]
 modulate = Color( 0.0352941, 0.470588, 0, 1 )
-position = Vector2( 0, 25 )
+position = Vector2( 0, 21.625 )
 scale = Vector2( 1.2, 1.2 )
 length = 2
 
-[node name="Key" parent="A2" instance=ExtResource( 4 )]
-position = Vector2( -6, 15 )
+[node name="Key" parent="Passwords/T2" instance=ExtResource( 4 )]
+position = Vector2( -6, 17.125 )
 
-[node name="Label" type="Label" parent="A2/Key"]
+[node name="Label" type="Label" parent="Passwords/T2/Key"]
 margin_left = -0.4
 margin_right = 11.6
 margin_bottom = 13.0
@@ -82,29 +91,29 @@ text = "^"
 align = 1
 valign = 1
 
-[node name="A3" type="Node2D" parent="."]
-position = Vector2( 620, 220 )
+[node name="T3" type="Node2D" parent="Passwords"]
+position = Vector2( 570, 230 )
 scale = Vector2( 8, 8 )
 
-[node name="Label" type="Label" parent="A3"]
+[node name="Label" type="Label" parent="Passwords/T3"]
 margin_left = -36.0
 margin_right = 36.0
 margin_bottom = 14.0
 custom_fonts/font = ExtResource( 1 )
-text = "A3"
+text = "?3"
 align = 1
 valign = 1
 
-[node name="TextDisplay" parent="A3" instance=ExtResource( 3 )]
+[node name="TextDisplay" parent="Passwords/T3" instance=ExtResource( 3 )]
 modulate = Color( 0.0352941, 0.470588, 0, 1 )
-position = Vector2( 0, 25 )
+position = Vector2( 0, 21.625 )
 scale = Vector2( 1.2, 1.2 )
 length = 2
 
-[node name="Key2" parent="A3" instance=ExtResource( 4 )]
-position = Vector2( -6, 15 )
+[node name="Key" parent="Passwords/T3" instance=ExtResource( 4 )]
+position = Vector2( -6, 17.125 )
 
-[node name="Label" type="Label" parent="A3/Key2"]
+[node name="Label" type="Label" parent="Passwords/T3/Key"]
 margin_left = -0.4
 margin_right = 11.6
 margin_bottom = 13.0
@@ -114,3 +123,5 @@ align = 1
 valign = 1
 
 [node name="Keyboard" parent="." instance=ExtResource( 2 )]
+position = Vector2( 134.5, 600 )
+scale = Vector2( 11, 11 )
