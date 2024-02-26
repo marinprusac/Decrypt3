@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Resources/Theme/MonoPixelFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Resources/Theme/MainTheme.tres" type="Theme" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+signal connecting_canceled()
+
+func _on_trying_to_connect(_password):
+	visible = true
+
+func _on_connected():
+	visible = false
+
+func _on_connecting_failed():
+	visible = false
+
+func stop_connecting():
+	emit_signal(\"connecting_canceled\")
+	visible = false
+
+
+"
+
+[node name="Connecting" type="Control"]
+theme = ExtResource( 3 )
+script = SubResource( 1 )
+
+[node name="Sign" type="Label" parent="."]
+use_parent_material = true
+margin_top = 525.0
+margin_right = 90.0
+margin_bottom = 539.0
+rect_scale = Vector2( 8, 8 )
+custom_fonts/font = ExtResource( 1 )
+text = "Connecting"
+align = 1
+valign = 1
+
+[node name="Dots" type="Label" parent="."]
+use_parent_material = true
+margin_top = 595.0
+margin_right = 90.0
+margin_bottom = 609.0
+rect_scale = Vector2( 8, 8 )
+custom_fonts/font = ExtResource( 1 )
+text = "..."
+align = 1
+valign = 1
+
+[node name="CancelButton" type="Button" parent="."]
+margin_left = 255.0
+margin_top = 720.0
+margin_right = 298.0
+margin_bottom = 733.0
+rect_scale = Vector2( 5, 5 )
+text = "Cancel"
+
+[connection signal="pressed" from="CancelButton" to="." method="stop_connecting"]

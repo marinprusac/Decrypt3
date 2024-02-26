@@ -9,19 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node2D",
+"base": "Control",
 "class": "Keyboard",
 "language": "GDScript",
-"path": "res://Keyboard/Keyboard.gd"
+"path": "res://Tool Nodes/Keyboard/Keyboard.gd"
+}, {
+"base": "Control",
+"class": "Login",
+"language": "GDScript",
+"path": "res://Scenes/Login/Login.gd"
 } ]
 _global_script_class_icons={
-"Keyboard": ""
+"Keyboard": "",
+"Login": ""
 }
 
 [application]
 
 config/name="Decrypt 3"
-run/main_scene="res://Terminal/Terminal.tscn"
+run/main_scene="res://Master/Master.tscn"
 config/icon="res://Art/icon.png"
 
 [display]

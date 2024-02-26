@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/Terminal/Terminal.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Terminal/TerminalPort.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Resources/Theme/MonoPixelFont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Tool Nodes/Keyboard/Keyboard.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Resources/Theme/MainTheme.tres" type="Theme" id=5]
+
+[node name="Terminal" type="Control"]
+theme = ExtResource( 5 )
+script = ExtResource( 1 )
+terminal_name = "A"
+guessed_passwords = {
+0: "22"
+}
+guessing = true
+
+[node name="Title" type="Label" parent="."]
+margin_left = 108.0
+margin_top = 20.0
+margin_right = 180.0
+margin_bottom = 34.0
+rect_scale = Vector2( 7, 7 )
+custom_fonts/font = ExtResource( 3 )
+text = "Terminal ?"
+align = 1
+valign = 1
+
+[node name="Ports" type="CenterContainer" parent="."]
+margin_left = 3.0
+margin_top = 154.0
+margin_right = 93.0
+margin_bottom = 194.0
+rect_scale = Vector2( 8, 8 )
+
+[node name="Container" type="HBoxContainer" parent="Ports"]
+margin_left = 21.0
+margin_top = 2.0
+margin_right = 68.0
+margin_bottom = 37.0
+
+[node name="TerminalPort1" parent="Ports/Container" instance=ExtResource( 2 )]
+
+[node name="TerminalPort2" parent="Ports/Container" instance=ExtResource( 2 )]
+margin_left = 17.0
+margin_right = 30.0
+
+[node name="TerminalPort3" parent="Ports/Container" instance=ExtResource( 2 )]
+margin_left = 34.0
+margin_right = 47.0
+
+[node name="Keyboard" parent="." instance=ExtResource( 4 )]
+margin_left = 119.0
+margin_top = 553.0
+margin_right = 119.0
+margin_bottom = 553.0
+rect_scale = Vector2( 10, 10 )

@@ -1,0 +1,52 @@
+[gd_resource type="Theme" load_steps=11 format=2]
+
+[ext_resource path="res://Resources/Theme/MonoPixelFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Resources/Theme/slot_styleboxtexture.tres" type="StyleBox" id=3]
+[ext_resource path="res://Resources/Theme/pressed_styleboxtexture.tres" type="StyleBox" id=4]
+[ext_resource path="res://Art/Buttons/previous_page.png" type="Texture" id=7]
+[ext_resource path="res://Art/Buttons/next_page.png" type="Texture" id=8]
+[ext_resource path="res://Resources/Theme/normal_styleboxtexture.tres" type="StyleBox" id=9]
+[ext_resource path="res://Resources/Theme/panel_styleboxtexture.tres" type="StyleBox" id=10]
+[ext_resource path="res://Resources/Theme/disabled_styleboxtexture.tres" type="StyleBox" id=11]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[resource]
+Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_focus = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = ExtResource( 1 )
+Button/styles/disabled = ExtResource( 11 )
+Button/styles/focus = SubResource( 1 )
+Button/styles/hover = ExtResource( 3 )
+Button/styles/normal = ExtResource( 3 )
+Button/styles/pressed = ExtResource( 4 )
+ItemList/colors/font_color_selected = Color( 0, 0, 0, 1 )
+ItemList/fonts/font = ExtResource( 1 )
+ItemList/styles/bg = ExtResource( 10 )
+ItemList/styles/bg_focus = SubResource( 12 )
+ItemList/styles/selected = ExtResource( 4 )
+ItemList/styles/selected_focus = ExtResource( 4 )
+Label/fonts/font = ExtResource( 1 )
+Panel/styles/panel = ExtResource( 10 )
+PopupDialog/styles/panel = ExtResource( 10 )
+TabContainer/colors/font_color_bg = Color( 1, 1, 1, 1 )
+TabContainer/colors/font_color_fg = Color( 0.254902, 0.254902, 0.254902, 1 )
+TabContainer/fonts/font = ExtResource( 1 )
+TabContainer/icons/decrement = ExtResource( 7 )
+TabContainer/icons/decrement_highlight = ExtResource( 7 )
+TabContainer/icons/increment = ExtResource( 8 )
+TabContainer/icons/increment_highlight = ExtResource( 8 )
+TabContainer/styles/panel = ExtResource( 10 )
+TabContainer/styles/tab_bg = ExtResource( 9 )
+TabContainer/styles/tab_disabled = ExtResource( 11 )
+TabContainer/styles/tab_fg = ExtResource( 4 )
+VScrollBar/styles/grabber = ExtResource( 9 )
+VScrollBar/styles/grabber_highlight = ExtResource( 9 )
+VScrollBar/styles/grabber_pressed = ExtResource( 4 )
+VScrollBar/styles/scroll = ExtResource( 3 )

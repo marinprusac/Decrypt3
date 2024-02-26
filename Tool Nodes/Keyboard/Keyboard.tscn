@@ -1,0 +1,103 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Tool Nodes/Keyboard/Keyboard.gd" type="Script" id=1]
+[ext_resource path="res://Resources/Theme/MainTheme.tres" type="Theme" id=2]
+
+[node name="Keyboard" type="Control"]
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+columns = 3
+
+[node name="Key_1" type="Button" parent="GridContainer"]
+margin_right = 13.0
+margin_bottom = 13.0
+text = "1"
+
+[node name="Key_2" type="Button" parent="GridContainer"]
+margin_left = 17.0
+margin_right = 30.0
+margin_bottom = 13.0
+text = "2"
+
+[node name="Key_3" type="Button" parent="GridContainer"]
+margin_left = 34.0
+margin_right = 47.0
+margin_bottom = 13.0
+text = "3"
+
+[node name="Key_4" type="Button" parent="GridContainer"]
+margin_top = 17.0
+margin_right = 13.0
+margin_bottom = 30.0
+text = "4"
+
+[node name="Key_5" type="Button" parent="GridContainer"]
+margin_left = 17.0
+margin_top = 17.0
+margin_right = 30.0
+margin_bottom = 30.0
+text = "5"
+
+[node name="Key_6" type="Button" parent="GridContainer"]
+margin_left = 34.0
+margin_top = 17.0
+margin_right = 47.0
+margin_bottom = 30.0
+text = "6"
+
+[node name="Key_7" type="Button" parent="GridContainer"]
+margin_top = 34.0
+margin_right = 13.0
+margin_bottom = 47.0
+text = "7"
+
+[node name="Key_8" type="Button" parent="GridContainer"]
+margin_left = 17.0
+margin_top = 34.0
+margin_right = 30.0
+margin_bottom = 47.0
+text = "8"
+
+[node name="Key_9" type="Button" parent="GridContainer"]
+margin_left = 34.0
+margin_top = 34.0
+margin_right = 47.0
+margin_bottom = 47.0
+text = "9"
+
+[node name="Erase" type="Button" parent="GridContainer"]
+margin_top = 51.0
+margin_right = 13.0
+margin_bottom = 64.0
+text = "<"
+
+[node name="Key_0" type="Button" parent="GridContainer"]
+margin_left = 17.0
+margin_top = 51.0
+margin_right = 30.0
+margin_bottom = 64.0
+text = "0"
+
+[node name="Enter" type="Button" parent="GridContainer"]
+margin_left = 34.0
+margin_top = 51.0
+margin_right = 47.0
+margin_bottom = 64.0
+text = "#"
+
+[connection signal="pressed" from="GridContainer/Key_1" to="." method="press_1"]
+[connection signal="pressed" from="GridContainer/Key_2" to="." method="press_2"]
+[connection signal="pressed" from="GridContainer/Key_3" to="." method="press_3"]
+[connection signal="pressed" from="GridContainer/Key_4" to="." method="press_4"]
+[connection signal="pressed" from="GridContainer/Key_5" to="." method="press_5"]
+[connection signal="pressed" from="GridContainer/Key_6" to="." method="press_6"]
+[connection signal="pressed" from="GridContainer/Key_7" to="." method="press_7"]
+[connection signal="pressed" from="GridContainer/Key_8" to="." method="press_8"]
+[connection signal="pressed" from="GridContainer/Key_9" to="." method="press_9"]
+[connection signal="pressed" from="GridContainer/Erase" to="." method="press_erase"]
+[connection signal="pressed" from="GridContainer/Key_0" to="." method="press_0"]
+[connection signal="pressed" from="GridContainer/Enter" to="." method="press_enter"]
