@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Button",
+"class": "AbilityButton",
+"language": "GDScript",
+"path": "res://Scenes/Menu/AbilityButton.gd"
+}, {
 "base": "Control",
 "class": "Keyboard",
 "language": "GDScript",
@@ -18,16 +23,29 @@ _global_script_classes=[ {
 "class": "Login",
 "language": "GDScript",
 "path": "res://Scenes/Login/Login.gd"
+}, {
+"base": "Button",
+"class": "PlayerButton",
+"language": "GDScript",
+"path": "res://Scenes/Menu/PlayerButton.gd"
+}, {
+"base": "Button",
+"class": "TerminalButton",
+"language": "GDScript",
+"path": "res://Scenes/Menu/TerminalButton.gd"
 } ]
 _global_script_class_icons={
+"AbilityButton": "",
 "Keyboard": "",
-"Login": ""
+"Login": "",
+"PlayerButton": "",
+"TerminalButton": ""
 }
 
 [application]
 
 config/name="Decrypt 3"
-run/main_scene="res://Master/Master.tscn"
+run/main_scene="res://Scenes/Menu/Menu.tscn"
 config/icon="res://Art/icon.png"
 
 [display]

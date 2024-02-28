@@ -1,36 +1,54 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Resources/CooldownShader.tres" type="Shader" id=1]
 [ext_resource path="res://Scenes/Menu/AbilityButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Menu/Abilities.gd" type="Script" id=3]
+[ext_resource path="res://Art/Abilities/backdoor.png" type="Texture" id=4]
+[ext_resource path="res://Art/Abilities/hack.png" type="Texture" id=5]
+[ext_resource path="res://Art/Abilities/protect.png" type="Texture" id=6]
 [ext_resource path="res://Art/Buttons/info.png" type="Texture" id=7]
 [ext_resource path="res://Art/Buttons/list.png" type="Texture" id=8]
 [ext_resource path="res://Resources/Theme/MainTheme.tres" type="Theme" id=9]
 [ext_resource path="res://Scenes/Menu/Menu.gd" type="Script" id=10]
+[ext_resource path="res://Art/Abilities/scan.png" type="Texture" id=11]
+[ext_resource path="res://Scenes/Menu/MenuOptionButton.gd" type="Script" id=12]
+[ext_resource path="res://Scenes/Menu/Terminals.gd" type="Script" id=13]
+[ext_resource path="res://Scenes/Menu/Players.gd" type="Script" id=14]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
-shader_param/readyness = 0.337
-shader_param/color = Vector3( 1, 1, 1 )
+shader_param/readyness = 1.0
+shader_param/other_selected = null
+shader_param/selected = null
+shader_param/color = Vector3( 0.5, 1, 0.5 )
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 1 )
-shader_param/readyness = 0.461
-shader_param/color = Vector3( 1, 1, 1 )
+shader_param/readyness = 1.0
+shader_param/other_selected = null
+shader_param/selected = null
+shader_param/color = Vector3( 0.8, 0.4, 0.8 )
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 1 )
-shader_param/readyness = 0.461
-shader_param/color = Vector3( 1, 1, 1 )
+shader_param/readyness = 1.0
+shader_param/other_selected = null
+shader_param/selected = null
+shader_param/color = Vector3( 1, 0.5, 0.5 )
 
 [sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 1 )
-shader_param/readyness = 0.589
-shader_param/color = Vector3( 1, 1, 1 )
+shader_param/readyness = 1.0
+shader_param/other_selected = null
+shader_param/selected = null
+shader_param/color = Vector3( 0.5, 0.5, 1 )
 
 [sub_resource type="ShaderMaterial" id=5]
 shader = ExtResource( 1 )
-shader_param/readyness = 0.461
-shader_param/color = Vector3( 1, 1, 1 )
+shader_param/readyness = 1.0
+shader_param/other_selected = null
+shader_param/selected = null
+shader_param/color = Vector3( 0.8, 0.8, 0.4 )
 
 [node name="Menu" type="Control"]
 theme = ExtResource( 9 )
@@ -44,6 +62,7 @@ margin_bottom = 44.0
 rect_scale = Vector2( 5, 5 )
 icon = ExtResource( 8 )
 icon_align = 1
+script = ExtResource( 12 )
 
 [node name="Name" type="Label" parent="."]
 margin_left = 245.0
@@ -62,6 +81,7 @@ margin_bottom = 42.0
 rect_scale = Vector2( 5, 5 )
 icon = ExtResource( 7 )
 icon_align = 1
+script = ExtResource( 12 )
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 margin_left = 68.0
@@ -76,6 +96,7 @@ margin_top = 15.0
 margin_right = 40.0
 margin_bottom = 15.0
 columns = 5
+script = ExtResource( 13 )
 
 [node name="Players" type="HFlowContainer" parent="."]
 margin_left = 82.0
@@ -83,6 +104,7 @@ margin_top = 491.0
 margin_right = 220.0
 margin_bottom = 574.0
 rect_scale = Vector2( 4, 4 )
+script = ExtResource( 14 )
 
 [node name="Abilities" type="Control" parent="."]
 margin_left = 152.0
@@ -90,6 +112,7 @@ margin_top = 953.0
 margin_right = 211.0
 margin_bottom = 994.0
 rect_scale = Vector2( 7, 7 )
+script = ExtResource( 3 )
 
 [node name="Crack" parent="Abilities" instance=ExtResource( 2 )]
 material = SubResource( 1 )
@@ -100,11 +123,13 @@ margin_right = 27.0
 material = SubResource( 2 )
 margin_left = 31.0
 margin_right = 48.0
+icon = ExtResource( 4 )
 
 [node name="Hack" parent="Abilities" instance=ExtResource( 2 )]
 material = SubResource( 3 )
 margin_top = 21.0
 margin_bottom = 38.0
+icon = ExtResource( 5 )
 
 [node name="Protect" parent="Abilities" instance=ExtResource( 2 )]
 material = SubResource( 4 )
@@ -112,6 +137,7 @@ margin_left = 21.0
 margin_top = 21.0
 margin_right = 38.0
 margin_bottom = 38.0
+icon = ExtResource( 6 )
 
 [node name="Scan" parent="Abilities" instance=ExtResource( 2 )]
 material = SubResource( 5 )
@@ -119,3 +145,14 @@ margin_left = 42.0
 margin_top = 21.0
 margin_right = 59.0
 margin_bottom = 38.0
+icon = ExtResource( 11 )
+
+[connection signal="ability_toggled" from="Abilities" to="Notices" method="_on_ability_toggled"]
+[connection signal="ability_toggled" from="Abilities" to="Info" method="_on_ability_toggled"]
+[connection signal="ability_toggled" from="Abilities" to="CenterContainer/Terminals" method="_on_ability_toggled"]
+[connection signal="ability_toggled" from="Abilities" to="Players" method="_on_ability_toggled"]
+[connection signal="toggled" from="Abilities/Crack" to="Abilities" method="_on_button_toggled"]
+[connection signal="toggled" from="Abilities/Backdoor" to="Abilities" method="_on_button_toggled"]
+[connection signal="toggled" from="Abilities/Hack" to="Abilities" method="_on_button_toggled"]
+[connection signal="toggled" from="Abilities/Protect" to="Abilities" method="_on_button_toggled"]
+[connection signal="toggled" from="Abilities/Scan" to="Abilities" method="_on_button_toggled"]
