@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Resources/Theme/MainTheme.tres" type="Theme" id=1]
+
+[node name="TerminalButton" type="Button"]
+margin_right = 13.0
+margin_bottom = 13.0
+theme = ExtResource( 1 )
+text = "?"
+icon_align = 1

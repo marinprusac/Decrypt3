@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Resources/CooldownShader.tres" type="Shader" id=1]
+[ext_resource path="res://Art/Abilities/password.png" type="Texture" id=2]
+[ext_resource path="res://Resources/Theme/MainTheme.tres" type="Theme" id=3]
+[ext_resource path="res://Scenes/Menu/AbilityButton.gd" type="Script" id=4]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/readyness = 0.523
+shader_param/color = Vector3( 1, 1, 1 )
+
+[node name="AbilityButton" type="Button"]
+material = SubResource( 1 )
+margin_right = 17.0
+margin_bottom = 17.0
+theme = ExtResource( 3 )
+toggle_mode = true
+icon = ExtResource( 2 )
+script = ExtResource( 4 )

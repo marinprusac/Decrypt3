@@ -1,27 +1,40 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Resources/CooldownShader.tres" type="Shader" id=1]
-[ext_resource path="res://Art/Abilities/protect.png" type="Texture" id=2]
-[ext_resource path="res://Art/Abilities/password.png" type="Texture" id=3]
-[ext_resource path="res://Art/Abilities/scan.png" type="Texture" id=4]
-[ext_resource path="res://Art/Abilities/hack.png" type="Texture" id=5]
-[ext_resource path="res://Art/Abilities/backdoor.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/Menu/AbilityButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Art/Buttons/info.png" type="Texture" id=7]
 [ext_resource path="res://Art/Buttons/list.png" type="Texture" id=8]
 [ext_resource path="res://Resources/Theme/MainTheme.tres" type="Theme" id=9]
+[ext_resource path="res://Scenes/Menu/Menu.gd" type="Script" id=10]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
-shader_param/readyness = 0.829
-shader_param/color = Vector3( 0.5, 1, 0.5 )
+shader_param/readyness = 0.337
+shader_param/color = Vector3( 1, 1, 1 )
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 1 )
-shader_param/readyness = 0.274
-shader_param/color = Vector3( 0.8, 0.4, 0.8 )
+shader_param/readyness = 0.461
+shader_param/color = Vector3( 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 1 )
+shader_param/readyness = 0.461
+shader_param/color = Vector3( 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 1 )
+shader_param/readyness = 0.589
+shader_param/color = Vector3( 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 1 )
+shader_param/readyness = 0.461
+shader_param/color = Vector3( 1, 1, 1 )
 
 [node name="Menu" type="Control"]
 theme = ExtResource( 9 )
+script = ExtResource( 10 )
 
 [node name="Notices" type="Button" parent="."]
 margin_left = 24.0
@@ -50,87 +63,19 @@ rect_scale = Vector2( 5, 5 )
 icon = ExtResource( 7 )
 icon_align = 1
 
-[node name="Terminals" type="GridContainer" parent="."]
-margin_left = 79.0
-margin_top = 190.0
-margin_right = 160.0
-margin_bottom = 220.0
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_left = 68.0
+margin_top = 168.0
+margin_right = 149.0
+margin_bottom = 198.0
 rect_scale = Vector2( 7, 7 )
+
+[node name="Terminals" type="GridContainer" parent="CenterContainer"]
+margin_left = 40.0
+margin_top = 15.0
+margin_right = 40.0
+margin_bottom = 15.0
 columns = 5
-
-[node name="Button" type="Button" parent="Terminals"]
-margin_right = 13.0
-margin_bottom = 13.0
-text = "A"
-icon_align = 1
-
-[node name="Button2" type="Button" parent="Terminals"]
-margin_left = 17.0
-margin_right = 30.0
-margin_bottom = 13.0
-text = "B"
-icon_align = 1
-
-[node name="Button3" type="Button" parent="Terminals"]
-margin_left = 34.0
-margin_right = 47.0
-margin_bottom = 13.0
-disabled = true
-text = "C"
-icon_align = 1
-
-[node name="Button4" type="Button" parent="Terminals"]
-margin_left = 51.0
-margin_right = 64.0
-margin_bottom = 13.0
-text = "D"
-icon_align = 1
-
-[node name="Button5" type="Button" parent="Terminals"]
-margin_left = 68.0
-margin_right = 81.0
-margin_bottom = 13.0
-text = "E"
-icon_align = 1
-
-[node name="Button6" type="Button" parent="Terminals"]
-margin_top = 17.0
-margin_right = 13.0
-margin_bottom = 30.0
-text = "F"
-icon_align = 1
-
-[node name="Button7" type="Button" parent="Terminals"]
-margin_left = 17.0
-margin_top = 17.0
-margin_right = 30.0
-margin_bottom = 30.0
-text = "G"
-icon_align = 1
-
-[node name="Button8" type="Button" parent="Terminals"]
-margin_left = 34.0
-margin_top = 17.0
-margin_right = 47.0
-margin_bottom = 30.0
-text = "H"
-icon_align = 1
-
-[node name="Button9" type="Button" parent="Terminals"]
-margin_left = 51.0
-margin_top = 17.0
-margin_right = 64.0
-margin_bottom = 30.0
-text = "I"
-icon_align = 1
-
-[node name="Button10" type="Button" parent="Terminals"]
-margin_left = 68.0
-margin_top = 17.0
-margin_right = 81.0
-margin_bottom = 30.0
-text = "J"
-icon_align = 1
 
 [node name="Players" type="HFlowContainer" parent="."]
 margin_left = 82.0
@@ -139,163 +84,6 @@ margin_right = 220.0
 margin_bottom = 574.0
 rect_scale = Vector2( 4, 4 )
 
-[node name="Button2" type="Button" parent="Players"]
-margin_right = 41.0
-margin_bottom = 13.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-disabled = true
-text = "Marin"
-icon_align = 1
-
-[node name="Button3" type="Button" parent="Players"]
-margin_left = 45.0
-margin_right = 92.0
-margin_bottom = 13.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-disabled = true
-text = "Jelena"
-icon_align = 1
-
-[node name="Button4" type="Button" parent="Players"]
-margin_left = 96.0
-margin_right = 137.0
-margin_bottom = 13.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-disabled = true
-text = "Lukas"
-icon_align = 1
-
-[node name="Button5" type="Button" parent="Players"]
-margin_top = 17.0
-margin_right = 43.0
-margin_bottom = 30.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-disabled = true
-text = "Patrik"
-icon_align = 1
-
-[node name="Button6" type="Button" parent="Players"]
-margin_left = 47.0
-margin_top = 17.0
-margin_right = 102.0
-margin_bottom = 30.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-disabled = true
-text = "Katarina"
-icon_align = 1
-
-[node name="Button7" type="Button" parent="Players"]
-margin_left = 106.0
-margin_top = 17.0
-margin_right = 137.0
-margin_bottom = 30.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-disabled = true
-text = "Nika"
-icon_align = 1
-
-[node name="Button8" type="Button" parent="Players"]
-margin_top = 34.0
-margin_right = 43.0
-margin_bottom = 47.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-disabled = true
-text = "Mauro"
-icon_align = 1
-
-[node name="Button9" type="Button" parent="Players"]
-margin_left = 47.0
-margin_top = 34.0
-margin_right = 90.0
-margin_bottom = 47.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-disabled = true
-text = "Juraj"
-icon_align = 1
-
-[node name="Button10" type="Button" parent="Players"]
-margin_left = 94.0
-margin_top = 34.0
-margin_right = 137.0
-margin_bottom = 47.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-disabled = true
-text = "Juraj"
-icon_align = 1
-
-[node name="Button11" type="Button" parent="Players"]
-margin_top = 51.0
-margin_right = 43.0
-margin_bottom = 64.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-disabled = true
-text = "Juraj"
-icon_align = 1
-
-[node name="Button12" type="Button" parent="Players"]
-margin_left = 47.0
-margin_top = 51.0
-margin_right = 90.0
-margin_bottom = 64.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-disabled = true
-text = "Juraj"
-icon_align = 1
-
-[node name="Button13" type="Button" parent="Players"]
-margin_left = 94.0
-margin_top = 51.0
-margin_right = 137.0
-margin_bottom = 64.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-disabled = true
-text = "Juraj"
-icon_align = 1
-
-[node name="Button14" type="Button" parent="Players"]
-margin_top = 68.0
-margin_right = 43.0
-margin_bottom = 81.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-disabled = true
-text = "Juraj"
-icon_align = 1
-
-[node name="Button15" type="Button" parent="Players"]
-margin_left = 47.0
-margin_top = 68.0
-margin_right = 90.0
-margin_bottom = 81.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-disabled = true
-text = "Juraj"
-icon_align = 1
-
-[node name="Button16" type="Button" parent="Players"]
-margin_left = 94.0
-margin_top = 68.0
-margin_right = 137.0
-margin_bottom = 81.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-disabled = true
-text = "Juraj"
-icon_align = 1
-
 [node name="Abilities" type="Control" parent="."]
 margin_left = 152.0
 margin_top = 953.0
@@ -303,36 +91,31 @@ margin_right = 211.0
 margin_bottom = 994.0
 rect_scale = Vector2( 7, 7 )
 
-[node name="Crack" type="Button" parent="Abilities"]
+[node name="Crack" parent="Abilities" instance=ExtResource( 2 )]
 material = SubResource( 1 )
 margin_left = 10.0
 margin_right = 27.0
-margin_bottom = 17.0
-icon = ExtResource( 3 )
 
-[node name="Backdoor" type="Button" parent="Abilities"]
+[node name="Backdoor" parent="Abilities" instance=ExtResource( 2 )]
 material = SubResource( 2 )
 margin_left = 31.0
 margin_right = 48.0
-margin_bottom = 17.0
-icon = ExtResource( 6 )
 
-[node name="Hack" type="Button" parent="Abilities"]
+[node name="Hack" parent="Abilities" instance=ExtResource( 2 )]
+material = SubResource( 3 )
 margin_top = 21.0
-margin_right = 17.0
 margin_bottom = 38.0
-icon = ExtResource( 5 )
 
-[node name="Protect" type="Button" parent="Abilities"]
+[node name="Protect" parent="Abilities" instance=ExtResource( 2 )]
+material = SubResource( 4 )
 margin_left = 21.0
 margin_top = 21.0
 margin_right = 38.0
 margin_bottom = 38.0
-icon = ExtResource( 2 )
 
-[node name="Scan" type="Button" parent="Abilities"]
+[node name="Scan" parent="Abilities" instance=ExtResource( 2 )]
+material = SubResource( 5 )
 margin_left = 42.0
 margin_top = 21.0
 margin_right = 59.0
 margin_bottom = 38.0
-icon = ExtResource( 4 )

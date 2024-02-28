@@ -3,23 +3,10 @@
 [ext_resource path="res://Tool Nodes/TextDisplay/TextDisplay.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Tool Nodes/Keyboard/Keyboard.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Resources/Theme/MonoPixelFont.tres" type="DynamicFont" id=3]
-
-[sub_resource type="GDScript" id=1]
-script/source = "extends Control
-class_name Login
-
-signal password_submitted(password)
-
-func start():
-	visible = true
-
-func submit_password():
-	visible = false
-	emit_signal(\"password_submitted\", $TextDisplay.get_content())
-"
+[ext_resource path="res://Scenes/Login/Login.gd" type="Script" id=4]
 
 [node name="Login" type="Control"]
-script = SubResource( 1 )
+script = ExtResource( 4 )
 
 [node name="Label" type="Label" parent="."]
 margin_left = 72.0

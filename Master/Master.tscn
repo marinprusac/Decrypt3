@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Master/Master.gd" type="Script" id=1]
-[ext_resource path="res://Master/NetworkClient.gd" type="Script" id=2]
+[ext_resource path="res://NetworkClient/NetworkClient.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Login/Login.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Connecting/Connecting.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Packager/Packager.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Terminal/Terminals.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Info/Info.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Notifications/Messages.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Menu/Menu.tscn" type="PackedScene" id=9]
 
 [node name="Master" type="Node"]
 script = ExtResource( 1 )
@@ -11,10 +16,24 @@ script = ExtResource( 1 )
 [node name="NetworkClient" type="Node" parent="."]
 script = ExtResource( 2 )
 
+[node name="Packager" parent="." instance=ExtResource( 5 )]
+
 [node name="Login" parent="." instance=ExtResource( 3 )]
 visible = false
 
 [node name="Connecting" parent="." instance=ExtResource( 4 )]
+visible = false
+
+[node name="Menu" parent="." instance=ExtResource( 9 )]
+visible = false
+
+[node name="Messages" parent="." instance=ExtResource( 8 )]
+visible = false
+
+[node name="Info" parent="." instance=ExtResource( 7 )]
+visible = false
+
+[node name="Terminals" parent="." instance=ExtResource( 6 )]
 visible = false
 
 [connection signal="connected" from="NetworkClient" to="Connecting" method="_on_connected"]
