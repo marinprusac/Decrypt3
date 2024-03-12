@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Master/Master.gd" type="Script" id=1]
 [ext_resource path="res://NetworkClient/NetworkClient.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scenes/Info/Info.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Notifications/Messages.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Menu/Menu.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Notifications/Popup.tscn" type="PackedScene" id=10]
 
 [node name="Master" type="Node"]
 script = ExtResource( 1 )
@@ -36,12 +37,27 @@ visible = false
 [node name="Terminals" parent="." instance=ExtResource( 6 )]
 visible = false
 
-[connection signal="connected" from="NetworkClient" to="." method="_on_connected"]
+[node name="MessagePopup" parent="." instance=ExtResource( 10 )]
+margin_left = 21.0
+margin_top = 346.0
+margin_right = 191.0
+margin_bottom = 466.0
+
+[connection signal="connected" from="NetworkClient" to="Connecting" method="_on_connected"]
+[connection signal="connected" from="NetworkClient" to="Menu" method="enter"]
 [connection signal="failed_to_connect" from="NetworkClient" to="Login" method="start"]
 [connection signal="failed_to_connect" from="NetworkClient" to="Connecting" method="_on_connecting_failed"]
 [connection signal="packet_received" from="NetworkClient" to="ClientPackager" method="_on_receive_packet"]
 [connection signal="server_disconnected" from="NetworkClient" to="." method="_on_disconnected"]
 [connection signal="trying_to_connect" from="NetworkClient" to="Connecting" method="_on_trying_to_connect"]
+[connection signal="new_message" from="ClientPackager" to="Messages" method="refresh"]
+[connection signal="new_message" from="ClientPackager" to="MessagePopup" method="open_message"]
 [connection signal="welcome" from="ClientPackager" to="Menu" method="initialize"]
+[connection signal="welcome" from="ClientPackager" to="Messages" method="initialize"]
+[connection signal="welcome" from="ClientPackager" to="Info" method="initialize"]
 [connection signal="password_submitted" from="Login" to="NetworkClient" method="try_connect"]
 [connection signal="connecting_canceled" from="Connecting" to="Login" method="start"]
+[connection signal="opened_info" from="Menu" to="Info" method="enter"]
+[connection signal="opened_messages" from="Menu" to="Messages" method="enter"]
+[connection signal="exited_messages" from="Messages" to="Menu" method="enter"]
+[connection signal="exited_info" from="Info" to="Menu" method="enter"]

@@ -15,6 +15,8 @@ func initialize(welcome_packet_content: Dictionary):
 	$CenterContainer/Terminals.initialize(terminals)
 	$Abilities.refresh(abilities)
 
+
+
 func refresh_abilities(abilities_packet: Dictionary):
 	$Abilities.refresh(abilities_packet)
 
@@ -23,6 +25,9 @@ func refresh_players(players_packet: Dictionary):
 
 func refresh_terminals(terminals_packet: Dictionary):
 	$CenterContainer/Terminals.refresh(terminals_packet)
+
+func enter():
+	visible = true
 
 func open_terminal(terminal_name, crack_mode):
 	visible = false

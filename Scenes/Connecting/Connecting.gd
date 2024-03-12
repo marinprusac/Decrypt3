@@ -12,7 +12,6 @@ func _on_connecting_failed():
 	visible = false
 
 func stop_connecting():
-	emit_signal("connecting_canceled")
 	visible = false
 
 

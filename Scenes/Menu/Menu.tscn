@@ -56,9 +56,9 @@ script = ExtResource( 10 )
 
 [node name="Notices" type="Button" parent="."]
 margin_left = 24.0
-margin_top = 27.0
+margin_top = 24.0
 margin_right = 41.0
-margin_bottom = 44.0
+margin_bottom = 41.0
 rect_scale = Vector2( 5, 5 )
 icon = ExtResource( 8 )
 icon_align = 1

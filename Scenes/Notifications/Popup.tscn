@@ -4,7 +4,6 @@
 [ext_resource path="res://Resources/Theme/MainTheme.tres" type="Theme" id=2]
 
 [node name="Popup" type="PopupDialog"]
-visible = true
 margin_left = 25.0
 margin_right = 195.0
 margin_bottom = 120.0
@@ -19,23 +18,23 @@ margin_right = 165.0
 margin_bottom = 21.0
 theme = ExtResource( 2 )
 
-[node name="Label" type="Label" parent="Panel"]
-margin_left = 61.0
+[node name="Title" type="Label" parent="Panel"]
+margin_left = 6.0
 margin_top = 5.0
-margin_right = 100.0
+margin_right = 155.0
 margin_bottom = 12.0
 text = "Notice"
 align = 1
 valign = 1
 
-[node name="Label" type="Label" parent="."]
+[node name="Description" type="Label" parent="."]
 margin_left = 9.0
 margin_top = 27.0
 margin_right = 241.0
 margin_bottom = 206.0
 rect_scale = Vector2( 0.5, 0.5 )
 
-[node name="Button" type="Button" parent="."]
+[node name="DismissButton" type="Button" parent="."]
 margin_left = 75.25
 margin_top = 96.75
 margin_right = 88.25
@@ -43,4 +42,4 @@ margin_bottom = 109.75
 rect_scale = Vector2( 1.25, 1.25 )
 text = "X"
 
-[connection signal="button_down" from="Button" to="." method="on_dismiss"]
+[connection signal="pressed" from="DismissButton" to="." method="_on_dismiss"]

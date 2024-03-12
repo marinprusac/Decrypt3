@@ -1,11 +1,21 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Resources/Theme/MainTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Scenes/Info/Info.gd" type="Script" id=2]
 
 [node name="Info" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="ExitButton" type="Button" parent="."]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 41.0
+margin_bottom = 41.0
+rect_scale = Vector2( 5, 5 )
+text = "X"
 
 [node name="Label" type="Label" parent="."]
 margin_left = 244.0
@@ -283,3 +293,5 @@ Selected player is backdoored if the correct team is inputed. They have their co
 Cooldown:
 - Black: 4 min"
 autowrap = true
+
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit"]

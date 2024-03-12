@@ -102,12 +102,12 @@ func _on_connect():
 			},
 			"messages": [
 				{
-					"type": "Hack Action",
+					"icon": "Hack",
 					"title": "Hack: Jelena",
 					"content": "You successfully hacked Jelena!"
 				},
 				{
-					"type": "Terminal Decrypt",
+					"icon": "Password",
 					"title": "Terminal A Decrypted",
 					"content": "Terminal A has been successfully decrypted."
 				}
@@ -123,10 +123,25 @@ func _on_disconnect():
 	emit_signal("server_disconnected")
 	try_connect(_last_password)
 
-func _process(_delta):
+
+var counter = 5.0
+
+func _process(delta):
 	if Input.is_action_just_pressed("ui_up"):
 		_on_connect()
 	if Input.is_action_just_pressed("ui_down"):
 		_on_disconnect()
 	if Input.is_action_just_pressed("ui_left"):
 		emit_signal("failed_to_connect")
+	counter -= delta
+	if counter <= 0:
+		var msg_packet = {
+			"packet_type": "new_message",
+			"packet_data": {
+				"icon": "Backdoor",
+				"title": "Terminal C Sabotaged",
+				"content": "Oh no!"
+			}
+		}
+		_on_receive(msg_packet)
+		counter = 100
