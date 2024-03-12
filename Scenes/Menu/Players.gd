@@ -1,37 +1,50 @@
 extends HFlowContainer
 
-func refresh_last_targets(abilities_packet):
-	
-	for player in get_children():
-		player.last_used_abilities = []
-		player.backdoored = false
-	
-	for ability_name in abilities_packet.keys():
-		var ability = abilities_packet[ability_name]
-		if ability["last_target"] != null:
-			var player: PlayerButton = get_node(ability["last_target"])
-			if player:
-				player.last_used_abilities.append(ability_name)
-	
-	var backdoored_players = abilities_packet["Backdoor"]["players"]
-	for player_name in backdoored_players:
-		var player: PlayerButton = get_node(player_name)
-		player.modulate = Color(1, 0.5, 1)
-		player.backdoored = true
+onready var player_button = preload("res://Scenes/Menu/PlayerButton.tscn")
+var players_data: Dictionary = {}
+
+
+var activity_mode = "none"
+
+func initialize(players, player_name):
+	players_data = players
+	for player in players.keys():
+		var player_packet = players[player]
+		var pbutton = player_button.instance()
+		pbutton.name = player
+		pbutton.text = player
+		if player == player_name:
+			pbutton.modulate = Color.turquoise
+		elif player_packet["ally"]:
+			pbutton.modulate = Color.lime
+		elif "Backdoored" in player_packet["effects"]:
+			pbutton.modulate = Color.purple
+		add_child(pbutton)
+	_refresh_activity()
+
+
+func refresh(players):
+	players_data = players
+	for pbutton in get_children():
+		var player_packet = players[pbutton.name]
+		if "Backdoored" in player_packet["effects"]:
+			pbutton.modulate = Color.purple
+	_refresh_activity()
 
 
 func _on_ability_toggled(pressed, ability_name):
-	for player in get_children():
-		var p: PlayerButton = player
-		if not pressed or p.is_you:
-			p.disabled = true
-		elif ability_name == "Crack":
-			p.disabled = true
-		elif ability_name in p.last_used_abilities:
-			p.disabled = true
-		elif ability_name == "Backdoor" and p.backdoored:
-			p.disabled = true
-		else:
-			p.disabled = false
-		
+	if not pressed:
+		activity_mode = "none"
+	else:
+		activity_mode = ability_name
+	_refresh_activity()
 
+
+func _refresh_activity():
+	for pbutton in get_children():
+		if activity_mode == "all":
+			pbutton.disabled = false
+		elif activity_mode == "none":
+			pbutton.disabled = true
+		else:
+			pbutton.disabled = not activity_mode in players_data[pbutton.name]["usable_abilities"]

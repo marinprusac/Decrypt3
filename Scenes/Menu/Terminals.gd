@@ -1,31 +1,65 @@
 extends GridContainer
 
+onready var terminal_button_preload = preload("res://Scenes/Menu/TerminalButton.tscn")
+var terminals_data: Dictionary = {}
 
-func get_number_of_unsolved_terminals():
-	var count = 0
-	for terminal in get_children():
-		var button: TerminalButton = terminal
-		if not button.solved:
-			count += 1
-	return count
+enum {
+	NONE,
+	UNSOLVED,
+	CRACKABLE,
+	ALL
+}
 
-func set_last_used(terminal_name):
-	if terminal_name:
-		for terminal in get_children():
-			var button: TerminalButton = terminal
-			button.last_cracked = button.name == terminal_name
+var activity_mode = UNSOLVED
 
-func refresh_solved_terminals(terminals_packet):
-	for terminal_packet in terminals_packet:
-		var terminal: TerminalButton = get_node(terminal_packet["name"])
-		terminal.solved = terminal_packet["solved"]
-		terminal.disabled = terminal_packet["solved"]
+func initialize(terminals):
+	terminals_data = terminals
+	for tname in terminals.keys():
+		var terminal_packet = terminals_data[tname]
+		
+		var tbutton = terminal_button_preload.instance()
+		
+		tbutton.name = tname
+		tbutton.text = tname
+		
 		if terminal_packet["solved"]:
-			terminal.modulate = Color(0, 1, 0)
+			tbutton.modulate = Color(0, 1, 0)
+			
+		add_child(tbutton)
+	_refresh_activity()
+
+
+func refresh(terminals):
+	terminals_data = terminals
+	for tname in terminals.keys():
+		var terminal_packet = terminals[tname]
+		var tbutton = get_node(terminal_packet["name"])
+		if terminal_packet["solved"]:
+			tbutton.modulate = Color(0, 1, 0)
+	_refresh_activity()
 
 
 func _on_ability_toggled(pressed, ability_name):
-	for terminal in get_children():
-		var button: TerminalButton = terminal
-		print(pressed, ability_name, get_number_of_unsolved_terminals(), button.last_cracked)
-		button.disabled = button.solved or pressed and (ability_name != "Crack" or get_number_of_unsolved_terminals() > 1 and button.last_cracked)
+	if not pressed:
+		activity_mode = UNSOLVED
+	elif ability_name == "Crack":
+		activity_mode = CRACKABLE
+	else:
+		activity_mode = NONE
+	_refresh_activity()
+
+func _refresh_activity():
+	for terminal_button in get_children():
+		var terminal_data = terminals_data[terminal_button.name]
+		if activity_mode == NONE:
+			terminal_button.disabled = true
+		elif activity_mode == CRACKABLE:
+			terminal_button.disabled = not terminal_data["crackable"]
+		elif activity_mode == UNSOLVED:
+			terminal_button.disabled = terminal_data["solved"]
+		elif activity_mode == ALL:
+			terminal_button.disabled = false
+
+
+
+		

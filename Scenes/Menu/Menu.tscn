@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Resources/CooldownShader.tres" type="Shader" id=1]
-[ext_resource path="res://Scenes/Menu/AbilityButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Art/Abilities/password.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Menu/Abilities.gd" type="Script" id=3]
 [ext_resource path="res://Art/Abilities/backdoor.png" type="Texture" id=4]
 [ext_resource path="res://Art/Abilities/hack.png" type="Texture" id=5]
@@ -114,37 +114,51 @@ margin_bottom = 994.0
 rect_scale = Vector2( 7, 7 )
 script = ExtResource( 3 )
 
-[node name="Crack" parent="Abilities" instance=ExtResource( 2 )]
+[node name="Crack" type="Button" parent="Abilities"]
 material = SubResource( 1 )
 margin_left = 10.0
 margin_right = 27.0
+margin_bottom = 17.0
+theme = ExtResource( 9 )
+toggle_mode = true
+icon = ExtResource( 2 )
 
-[node name="Backdoor" parent="Abilities" instance=ExtResource( 2 )]
+[node name="Backdoor" type="Button" parent="Abilities"]
 material = SubResource( 2 )
 margin_left = 31.0
 margin_right = 48.0
+margin_bottom = 17.0
+theme = ExtResource( 9 )
+toggle_mode = true
 icon = ExtResource( 4 )
 
-[node name="Hack" parent="Abilities" instance=ExtResource( 2 )]
+[node name="Hack" type="Button" parent="Abilities"]
 material = SubResource( 3 )
 margin_top = 21.0
+margin_right = 17.0
 margin_bottom = 38.0
+theme = ExtResource( 9 )
+toggle_mode = true
 icon = ExtResource( 5 )
 
-[node name="Protect" parent="Abilities" instance=ExtResource( 2 )]
+[node name="Protect" type="Button" parent="Abilities"]
 material = SubResource( 4 )
 margin_left = 21.0
 margin_top = 21.0
 margin_right = 38.0
 margin_bottom = 38.0
+theme = ExtResource( 9 )
+toggle_mode = true
 icon = ExtResource( 6 )
 
-[node name="Scan" parent="Abilities" instance=ExtResource( 2 )]
+[node name="Scan" type="Button" parent="Abilities"]
 material = SubResource( 5 )
 margin_left = 42.0
 margin_top = 21.0
 margin_right = 59.0
 margin_bottom = 38.0
+theme = ExtResource( 9 )
+toggle_mode = true
 icon = ExtResource( 11 )
 
 [connection signal="ability_toggled" from="Abilities" to="Notices" method="_on_ability_toggled"]
