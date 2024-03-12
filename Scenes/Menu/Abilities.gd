@@ -32,6 +32,9 @@ func deselect():
 
 
 func _process(delta):
+	if abilities_data.empty():
+		return
+	
 	var time_now = Time.get_unix_time_from_system()
 	
 	for ability in get_children():

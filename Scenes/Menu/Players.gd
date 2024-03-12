@@ -1,5 +1,7 @@
 extends HFlowContainer
 
+signal used_ability_on_player(ability_name, target_name)
+
 onready var player_button = preload("res://Scenes/Menu/PlayerButton.tscn")
 var players_data: Dictionary = {}
 
@@ -13,6 +15,7 @@ func initialize(players, player_name):
 		var pbutton = player_button.instance()
 		pbutton.name = player
 		pbutton.text = player
+		pbutton.connect("pressed", self, "_on_button_press", [player])
 		if player == player_name:
 			pbutton.modulate = Color.turquoise
 		elif player_packet["ally"]:
@@ -48,3 +51,6 @@ func _refresh_activity():
 			pbutton.disabled = true
 		else:
 			pbutton.disabled = not activity_mode in players_data[pbutton.name]["usable_abilities"]
+
+func _on_button_press(player_name):
+	emit_signal("used_ability_on_player", activity_mode, player_name)

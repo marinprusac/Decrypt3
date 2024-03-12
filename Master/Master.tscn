@@ -4,7 +4,7 @@
 [ext_resource path="res://NetworkClient/NetworkClient.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Login/Login.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Connecting/Connecting.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Packager/Packager.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Packager/ClientPackager.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Terminal/Terminals.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Info/Info.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Notifications/Messages.tscn" type="PackedScene" id=8]
@@ -16,7 +16,7 @@ script = ExtResource( 1 )
 [node name="NetworkClient" type="Node" parent="."]
 script = ExtResource( 2 )
 
-[node name="Packager" parent="." instance=ExtResource( 5 )]
+[node name="ClientPackager" parent="." instance=ExtResource( 5 )]
 
 [node name="Login" parent="." instance=ExtResource( 3 )]
 visible = false
@@ -36,9 +36,12 @@ visible = false
 [node name="Terminals" parent="." instance=ExtResource( 6 )]
 visible = false
 
-[connection signal="connected" from="NetworkClient" to="Connecting" method="_on_connected"]
+[connection signal="connected" from="NetworkClient" to="." method="_on_connected"]
 [connection signal="failed_to_connect" from="NetworkClient" to="Login" method="start"]
 [connection signal="failed_to_connect" from="NetworkClient" to="Connecting" method="_on_connecting_failed"]
+[connection signal="packet_received" from="NetworkClient" to="ClientPackager" method="_on_receive_packet"]
+[connection signal="server_disconnected" from="NetworkClient" to="." method="_on_disconnected"]
 [connection signal="trying_to_connect" from="NetworkClient" to="Connecting" method="_on_trying_to_connect"]
+[connection signal="welcome" from="ClientPackager" to="Menu" method="initialize"]
 [connection signal="password_submitted" from="Login" to="NetworkClient" method="try_connect"]
 [connection signal="connecting_canceled" from="Connecting" to="Login" method="start"]

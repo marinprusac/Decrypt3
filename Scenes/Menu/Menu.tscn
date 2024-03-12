@@ -161,6 +161,10 @@ theme = ExtResource( 9 )
 toggle_mode = true
 icon = ExtResource( 11 )
 
+[connection signal="pressed" from="Notices" to="." method="open_messages"]
+[connection signal="pressed" from="Info" to="." method="open_info"]
+[connection signal="pressed_terminal_button" from="CenterContainer/Terminals" to="." method="open_terminal"]
+[connection signal="used_ability_on_player" from="Players" to="." method="use_player_ability"]
 [connection signal="ability_toggled" from="Abilities" to="Notices" method="_on_ability_toggled"]
 [connection signal="ability_toggled" from="Abilities" to="Info" method="_on_ability_toggled"]
 [connection signal="ability_toggled" from="Abilities" to="CenterContainer/Terminals" method="_on_ability_toggled"]

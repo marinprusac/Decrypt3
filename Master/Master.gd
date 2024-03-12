@@ -1,17 +1,19 @@
 extends Node
 
 
-onready var network_client = get_node("NetworkClient")
-onready var login_scene = get_node("Login")
-onready var connecting_scene = get_node("Connecting")
-onready var terminals = get_node("Terminals")
-
-var menu_scene = null
-var messages_scene = null
-var info_scene = null
-
 func _ready():
-	login_scene.start()
+	$Login.start()
+	
+func _on_connected():
+	$Connecting.visible = false
+	$Menu.visible = true
+
+func _on_disconnected():
+	$Connecting.visible = false
+	$Menu.visible = false
+	$Messages.visible = false
+	$Info.visible = false
+	$Login.start()
 	
 
 

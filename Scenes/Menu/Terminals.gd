@@ -1,5 +1,7 @@
 extends GridContainer
 
+signal pressed_terminal_button(tname, crack_mode)
+
 onready var terminal_button_preload = preload("res://Scenes/Menu/TerminalButton.tscn")
 var terminals_data: Dictionary = {}
 
@@ -21,6 +23,7 @@ func initialize(terminals):
 		
 		tbutton.name = tname
 		tbutton.text = tname
+		tbutton.connect("pressed", self, "_on_button_press", [tname])
 		
 		if terminal_packet["solved"]:
 			tbutton.modulate = Color(0, 1, 0)
@@ -60,6 +63,7 @@ func _refresh_activity():
 		elif activity_mode == ALL:
 			terminal_button.disabled = false
 
-
+func _on_button_press(tname):
+	emit_signal("pressed_terminal_button", tname, activity_mode==CRACKABLE)
 
 		
