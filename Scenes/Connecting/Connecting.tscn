@@ -38,4 +38,4 @@ margin_bottom = 733.0
 rect_scale = Vector2( 5, 5 )
 text = "Cancel"
 
-[connection signal="pressed" from="CancelButton" to="." method="stop_connecting"]
+[connection signal="pressed" from="CancelButton" to="." method="_on_cancel"]

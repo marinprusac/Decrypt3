@@ -14,9 +14,17 @@ var texture_dict = {
 
 var messages_data: Array = []
 
+func enter():
+	visible = true
+
 func initialize(welcome_packet):
 	messages_data = welcome_packet["messages"]
 	re_add()
+
+func _on_disconnected():
+	messages_data = []
+	re_add()
+	visible = false
 
 func refresh(new_message):
 	messages_data.append(new_message)
@@ -41,7 +49,7 @@ func add_item(message_packet):
 	
 
 func _on_select(index):
-	$Popup.open_message(messages_data[index])
+	$Popup.open_message(messages_data[len(messages_data)-1-index])
 
 func _on_deselect():
 	deselect_all()
@@ -49,9 +57,6 @@ func _on_deselect():
 func deselect_all():
 	print("des")
 	$ItemList.unselect_all()
-
-func enter():
-	visible = true
 
 func _on_exit():
 	visible = false

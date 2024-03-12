@@ -31,6 +31,10 @@ func initialize(terminals):
 		add_child(tbutton)
 	_refresh_activity()
 
+func clear():
+	terminals_data.clear()
+	for child in get_children():
+		child.queue_free()
 
 func refresh(terminals):
 	terminals_data = terminals
@@ -65,5 +69,3 @@ func _refresh_activity():
 
 func _on_button_press(tname):
 	emit_signal("pressed_terminal_button", tname, activity_mode==CRACKABLE)
-
-		

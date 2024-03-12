@@ -3,7 +3,10 @@ class_name Login
 
 signal password_submitted(password)
 
-func start():
+func _ready():
+	enter()
+
+func enter():
 	visible = true
 
 func submit_password():

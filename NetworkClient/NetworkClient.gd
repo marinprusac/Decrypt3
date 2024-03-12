@@ -91,7 +91,7 @@ func _on_connect():
 				},
 				"B": {
 					"solved": false,
-					"crackable": false,
+					"crackable": true,
 					"port_passwords": ["11", "", "00"]
 				},
 				"C": {

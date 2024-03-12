@@ -1,10 +1,12 @@
 extends Control
 
-signal opened_terminal(terminal_name)
+signal opened_terminal(terminal_name, crack_mode)
 signal used_ability(ability_name, target_name)
 signal opened_info()
 signal opened_messages()
 
+func enter():
+	visible = true
 
 func initialize(welcome_packet_content: Dictionary):
 	var players = welcome_packet_content["players"]
@@ -15,7 +17,11 @@ func initialize(welcome_packet_content: Dictionary):
 	$CenterContainer/Terminals.initialize(terminals)
 	$Abilities.refresh(abilities)
 
-
+func _on_disconnected():
+	$Abilities.clear()
+	$CenterContainer/Terminals.clear()
+	$Players.clear()
+	visible = false
 
 func refresh_abilities(abilities_packet: Dictionary):
 	$Abilities.refresh(abilities_packet)
@@ -26,13 +32,10 @@ func refresh_players(players_packet: Dictionary):
 func refresh_terminals(terminals_packet: Dictionary):
 	$CenterContainer/Terminals.refresh(terminals_packet)
 
-func enter():
-	visible = true
-
 func open_terminal(terminal_name, crack_mode):
 	visible = false
 	print("Opening terminal ", terminal_name, ". Crack mode: ", crack_mode)
-	emit_signal("opened_terminal", terminal_name)
+	emit_signal("opened_terminal", terminal_name, crack_mode)
 	$Abilities.deselect()
 
 func use_player_ability(ability_name, target_name):

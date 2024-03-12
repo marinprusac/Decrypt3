@@ -9,7 +9,9 @@ var selected_ability = "none"
 
 func refresh(abilities_packet: Dictionary):
 	abilities_data = abilities_packet
-	
+
+func clear():
+	abilities_data = {}
 
 func _on_button_toggled(pressed: bool):
 	for ability in get_children():

@@ -25,6 +25,10 @@ func initialize(players, player_name):
 		add_child(pbutton)
 	_refresh_activity()
 
+func clear():
+	for child in get_children():
+		child.queue_free()
+	players_data.clear()
 
 func refresh(players):
 	players_data = players

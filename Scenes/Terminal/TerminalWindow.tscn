@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Resources/Theme/MonoPixelFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Tool Nodes/Keyboard/Keyboard.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Resources/Theme/MainTheme.tres" type="Theme" id=4]
+[ext_resource path="res://Scenes/Terminal/TerminalWindow.gd" type="Script" id=5]
+
+[node name="TerminalWindow" type="Control"]
+theme = ExtResource( 4 )
+script = ExtResource( 5 )
+
+[node name="QuitButton" type="Button" parent="."]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 41.0
+margin_bottom = 41.0
+rect_scale = Vector2( 5, 5 )
+text = "X"
+
+[node name="Title" type="Label" parent="."]
+margin_left = 108.0
+margin_top = 20.0
+margin_right = 180.0
+margin_bottom = 34.0
+rect_scale = Vector2( 7, 7 )
+custom_fonts/font = ExtResource( 2 )
+text = "Terminal ?"
+align = 1
+valign = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_left = 3.0
+margin_top = 154.0
+margin_right = 93.0
+margin_bottom = 194.0
+rect_scale = Vector2( 8, 8 )
+
+[node name="Ports" type="HBoxContainer" parent="CenterContainer"]
+margin_left = 45.0
+margin_top = 20.0
+margin_right = 45.0
+margin_bottom = 20.0
+
+[node name="Keyboard" parent="." instance=ExtResource( 3 )]
+margin_left = 119.0
+margin_top = 553.0
+margin_right = 119.0
+margin_bottom = 553.0
+rect_scale = Vector2( 10, 10 )
+
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit"]
+[connection signal="enter" from="Keyboard" to="." method="_on_submit_password"]
