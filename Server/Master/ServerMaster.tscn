@@ -1,0 +1,7 @@
+[gd_scene format=2]
+
+[node name="ServerMaster" type="Node"]
+
+[node name="NetworkServer" type="Node" parent="."]
+
+[node name="ServerPackager" type="Node" parent="."]
