@@ -83,12 +83,12 @@ script = ExtResource( 2 )
 
 [node name="Line2D" type="Line2D" parent="."]
 position = Vector2( 97, 11 )
-points = PoolVector2Array( 364, 268, 459, 269, 628, 355 )
+points = PoolVector2Array( 364, 268, 459, 269, 551, 355, 628, 355 )
 default_color = Color( 0.75, 0.25, 0.25, 1 )
 
 [node name="Line2D2" type="Line2D" parent="."]
-position = Vector2( 97, 11 )
-points = PoolVector2Array( 361, 437, 453, 437, 561, 469 )
+position = Vector2( 98, 10 )
+points = PoolVector2Array( 361, 437, 443, 439, 473, 469, 561, 469 )
 default_color = Color( 0.75, 0.25, 0.25, 1 )
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -145,9 +145,9 @@ theme = SubResource( 13 )
 [node name="TextureRect" type="TextureRect" parent="."]
 material = SubResource( 14 )
 margin_left = 676.0
-margin_top = 362.0
-margin_right = 716.0
-margin_bottom = 402.0
+margin_top = 333.0
+margin_right = 720.0
+margin_bottom = 377.0
 rect_scale = Vector2( 13, 13 )
 texture = ExtResource( 3 )
 expand = true
@@ -155,8 +155,8 @@ expand = true
 [node name="GridContainer" type="GridContainer" parent="."]
 margin_left = 1421.0
 margin_top = 200.0
-margin_right = 1461.0
-margin_bottom = 240.0
+margin_right = 1447.0
+margin_bottom = 271.0
 rect_scale = Vector2( 11, 11 )
 columns = 2
 

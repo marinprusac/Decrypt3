@@ -1,0 +1,37 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform bool endangered;
+uniform bool progressed;
+uniform vec3 color_endangered;
+uniform vec3 color_progressed;
+
+void fragment(){
+	
+	vec4 pixelColor = texture(TEXTURE, UV);
+	
+	float original = 1.0;
+	float end_fact = 0.0;
+	float pro_fact = 0.0;
+	
+	if(endangered){
+		original -= sin(TIME)/4.0+0.25;
+		end_fact += sin(TIME)/4.0+0.25;
+	}
+	if(progressed){
+		original -= sin(-TIME)/4.0+0.25;
+		pro_fact += sin(-TIME)/4.0+0.25;
+	}
+	
+	COLOR = vec4(pixelColor.rgb*original + color_endangered*end_fact + color_progressed * pro_fact, pixelColor.a);
+	
+	
+
+	
+
+	
+	
+	
+}"
