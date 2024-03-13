@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Resources/Theme/MonoPixelFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Client/Tool Nodes/Keyboard/Keyboard.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Resources/Theme/MainTheme.tres" type="Theme" id=3]
+[ext_resource path="res://Resources/MainTheme.tres" type="Theme" id=3]
 [ext_resource path="res://Client/Scenes/Terminal/TerminalWindow.gd" type="Script" id=4]
 
 [node name="TerminalWindow" type="Control"]

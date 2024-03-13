@@ -1,0 +1,33 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform float rotation_speed = 0.5;
+uniform float resolution = 40.0;
+uniform vec3 color = vec3(1,1,1);
+
+
+
+void fragment(){
+	
+	
+	float rotation = (TIME/10.0*rotation_speed - float(int(TIME/10.0*rotation_speed)))*3.141592*2.0;
+	
+	
+	
+
+	vec2 grid_uv = round(UV * float(resolution)) / float(resolution);
+	
+	vec2 centered_uv = grid_uv * 2.0 - vec2(1.0, 1.0);
+	
+	vec2 counter_rotated_uv = vec2(centered_uv.x*cos(-rotation)-centered_uv.y*sin(-rotation), centered_uv.x*sin(-rotation)+centered_uv.y*cos(-rotation));
+	
+	vec2 returned_uv = counter_rotated_uv / 2.0 + vec2(0.5, 0.5);
+	
+	vec4 text = texture(TEXTURE, returned_uv);
+	
+	text = vec4(color.rgb, text.a);
+	
+	COLOR = text;
+}"

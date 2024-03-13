@@ -2,27 +2,21 @@ extends Label
 
 signal game_over()
 
-export var hours = 1
-export var minutes = 0
-export var seconds = 0
+export var starting_seconds = 3600
+var current_seconds = starting_seconds
 
-func _ready():
-	$Timer.start()
 
-func _on_second_passed():
-	seconds -= 1
-	if seconds < 0:
-		minutes -= 1
-		if minutes < 0:
-			hours -= 1
-			if hours < 0:
-				emit_signal("game_over")
-				$Timer.stop()
-				return
-			minutes += 60
-		seconds += 60
+func get_print():
+	var seconds = current_seconds
+	var minutes = int(seconds/60)
+	seconds = seconds%60
+	var hours = int(minutes/60)
+	minutes = minutes%60
 	
-	var txt = str(hours)
+	var txt = ""
+	if hours < 10:
+		txt += "0"
+	txt += str(hours)
 	txt += ":"
 	if minutes < 10:
 		txt += "0"
@@ -32,5 +26,21 @@ func _on_second_passed():
 		txt += "0"
 	txt += str(seconds)
 	
-	text = txt
+	return txt
+
+
+func _ready():
+	$Timer.start()
+
+func _on_second_passed():
+	current_seconds -= 1
+	text = get_print()
+
+	if current_seconds <= 0:
+		emit_signal("game_over")
+		$Timer.stop()
+		return
+	
+
+
 
