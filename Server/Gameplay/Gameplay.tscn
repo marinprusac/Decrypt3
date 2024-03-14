@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Resources/MainTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Server/Gameplay/Countdown.gd" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Art/Buttons/previous_page.png" type="Texture" id=12]
 [ext_resource path="res://Art/Buttons/next_page.png" type="Texture" id=13]
 [ext_resource path="res://Server/Gameplay/HackerRepresentation.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Resources/BackdooredShader.tres" type="Shader" id=15]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -62,6 +63,14 @@ shader = ExtResource( 4 )
 shader_param/rotation_speed = 0.5
 shader_param/resolution = 40.0
 shader_param/color = Vector3( 0.75, 0.25, 0.25 )
+
+[sub_resource type="ShaderMaterial" id=15]
+shader = ExtResource( 15 )
+shader_param/shake_power = 0.03
+shader_param/shake_rate = 0.2
+shader_param/shake_speed = 5.0
+shader_param/shake_block_size = 30.5
+shader_param/shake_color_rate = 0.01
 
 [node name="Gameplay" type="Control"]
 anchor_right = 1.0
@@ -161,6 +170,7 @@ rect_scale = Vector2( 11, 11 )
 columns = 2
 
 [node name="Control" parent="GridContainer" instance=ExtResource( 14 )]
+material = SubResource( 15 )
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 11.0
