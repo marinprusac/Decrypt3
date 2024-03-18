@@ -9,6 +9,21 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "AbilityData",
+"language": "GDScript",
+"path": "res://Server/GameData/AbilityData.gd"
+}, {
+"base": "Resource",
+"class": "EffectData",
+"language": "GDScript",
+"path": "res://Server/GameData/EffectData.gd"
+}, {
+"base": "Resource",
+"class": "GameData",
+"language": "GDScript",
+"path": "res://Server/GameData/GameData.gd"
+}, {
 "base": "Control",
 "class": "Keyboard",
 "language": "GDScript",
@@ -18,16 +33,49 @@ _global_script_classes=[ {
 "class": "Login",
 "language": "GDScript",
 "path": "res://Client/Scenes/Login/Login.gd"
+}, {
+"base": "Resource",
+"class": "MessageData",
+"language": "GDScript",
+"path": "res://Server/GameData/MessageData.gd"
+}, {
+"base": "Reference",
+"class": "MyTools",
+"language": "GDScript",
+"path": "res://Client/Tool Nodes/MyTools.gd"
+}, {
+"base": "Resource",
+"class": "PlayerData",
+"language": "GDScript",
+"path": "res://Server/GameData/PlayerData.gd"
+}, {
+"base": "Resource",
+"class": "Settings",
+"language": "GDScript",
+"path": "res://Server/GameData/Settings.gd"
+}, {
+"base": "Resource",
+"class": "TerminalData",
+"language": "GDScript",
+"path": "res://Server/GameData/TerminalData.gd"
 } ]
 _global_script_class_icons={
+"AbilityData": "",
+"EffectData": "",
+"GameData": "",
 "Keyboard": "",
-"Login": ""
+"Login": "",
+"MessageData": "",
+"MyTools": "",
+"PlayerData": "",
+"Settings": "",
+"TerminalData": ""
 }
 
 [application]
 
 config/name="Decrypt 3"
-run/main_scene="res://Server/Gameplay/Gameplay.tscn"
+run/main_scene="res://Server/Master/ServerMaster.tscn"
 config/icon="res://Art/icon.png"
 
 [display]

@@ -15,3 +15,6 @@ func set_value(value):
 
 func set_endagered(is_endangered):
 	pass
+
+func set_done(is_done):
+	pass

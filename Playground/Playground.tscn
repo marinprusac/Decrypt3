@@ -1,35 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Resources/BackdooredShader.tres" type="Shader" id=1]
-[ext_resource path="res://Server/Gameplay/HackerRepresentation.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Art/whitehat.png" type="Texture" id=3]
+[ext_resource path="res://Playground/Playground.gd" type="Script" id=1]
 
-[sub_resource type="ShaderMaterial" id=1]
-shader = ExtResource( 1 )
-shader_param/shake_power = 0.03
-shader_param/shake_rate = 0.75
-shader_param/shake_speed = 5.0
-shader_param/shake_block_size = 22.0
-shader_param/shake_color_rate = 0.02
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 1 )
-shader_param/shake_power = 0.05
-shader_param/shake_rate = 0.75
-shader_param/shake_speed = 5.0
-shader_param/shake_block_size = 22.0
-shader_param/shake_color_rate = 0.03
-
-[node name="Playground" type="Control"]
-
-[node name="TextureRect" type="TextureRect" parent="."]
-material = SubResource( 1 )
-margin_left = 717.0
-margin_top = 253.0
-margin_right = 728.0
-margin_bottom = 264.0
-texture = ExtResource( 3 )
-expand = true
-
-[node name="Control" parent="." instance=ExtResource( 2 )]
-material = SubResource( 2 )
+[node name="Playground" type="Node"]
+script = ExtResource( 1 )
