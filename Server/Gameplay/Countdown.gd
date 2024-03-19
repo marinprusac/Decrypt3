@@ -1,7 +1,5 @@
 extends Label
 
-signal game_over()
-
 export var starting_seconds = 3600
 var current_seconds = starting_seconds
 
@@ -28,16 +26,11 @@ func get_print():
 	
 	return txt
 
-
-func _ready():
-	$Timer.start()
-
 func _on_second_passed():
 	current_seconds -= 1
 	text = get_print()
 
 	if current_seconds <= 0:
-		emit_signal("game_over")
 		$Timer.stop()
 		return
 	

@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Resources/MainTheme.tres" type="Theme" id=1]
-[ext_resource path="res://Client/Tool Nodes/Keyboard/Keyboard.gd" type="Script" id=2]
+[ext_resource path="res://Tool Nodes/Keyboard/Keyboard.gd" type="Script" id=2]
+
 
 [node name="Keyboard" type="Control"]
 theme = ExtResource( 1 )

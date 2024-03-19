@@ -1,12 +1,29 @@
 extends Resource
 class_name GameData
 
-var game_start = null
-var game_end = null
-var players = []
-var terminals = []
+var game_start: float
+var game_end: float
 
-var settings: Settings = null
+var players: Array
+var terminals: Array
+
+var settings: Settings
+
+func start_game():
+	game_start = Time.get_unix_time_from_system()
+	game_end = game_start + settings.initial_game_duration_mins * 60.0
+
+func is_game_over():
+	var time = Time.get_unix_time_from_system()
+	if time >= game_end:
+		return true
+
+	for term in terminals:
+		if not term.solved:
+			return false
+	
+	return true
+
 
 
 func _init(settings: Settings):
@@ -16,6 +33,8 @@ func _init(settings: Settings):
 
 
 func _add_players():
+	players = []
+
 	var player_count = len(settings.player_codes)
 	
 	var delegated_roles = MyTools.divide_by_ratios(player_count, [settings.whitehat_ratio, settings.blackhat_ratio])
@@ -37,7 +56,13 @@ func _add_players():
 		[blackhat_count, red_count, blue_count, yellow_count])
 	
 	for i in range(len(player_names)):
-		players.append(PlayerData.new(player_names[i], roles[i], settings))
-		
+		players.append(PlayerData.new(player_names[i], roles[i], settings.regular_cooldown_mins, settings.expertise_cooldown_mins))
+	
+
 func _add_terminals():
-	pass
+	terminals = []
+	var a_ascii = "A".to_ascii()[0]
+	for i in range(settings.terminal_count):
+		var name = char(a_ascii + i)
+		terminals.append(TerminalData.new(name, settings.ports_per_terminal, settings.digits_per_port))
+	

@@ -1,8 +1,8 @@
 extends Resource
 class_name EffectData
 
-var name
-var permanent
+var name: String
+var permanent: bool
 var start
 var end
 

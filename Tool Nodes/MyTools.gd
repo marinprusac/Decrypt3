@@ -7,8 +7,9 @@ static func divide_by_ratios(count: int, ratios: Array):
 		summed_ratios += ratio
 	var left_over = count
 	for i in range(len(ratios)-1):
-		var delegated =  ceil(left_over * ratios[i] / summed_ratios)
+		var delegated =  ceil(left_over * float(ratios[i]) / summed_ratios)
 		left_over -= delegated
+		summed_ratios -= ratios[i]
 		array.append(delegated)
 	array.append(left_over)
 	return array

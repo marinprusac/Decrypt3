@@ -1,82 +1,24 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Resources/MainTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Server/Gameplay/Countdown.gd" type="Script" id=2]
 [ext_resource path="res://Art/radioactive.png" type="Texture" id=3]
 [ext_resource path="res://Resources/PixelatedRotated.tres" type="Shader" id=4]
-[ext_resource path="res://Server/Gameplay/TerminalProgress.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Resources/Theme/MonoPixelFont.tres" type="DynamicFont" id=6]
-[ext_resource path="res://Resources/Theme/pressed_styleboxtexture.tres" type="StyleBox" id=7]
-[ext_resource path="res://Resources/Theme/normal_styleboxtexture.tres" type="StyleBox" id=8]
-[ext_resource path="res://Resources/Theme/panel_styleboxtexture.tres" type="StyleBox" id=9]
-[ext_resource path="res://Resources/Theme/slot_styleboxtexture.tres" type="StyleBox" id=10]
-[ext_resource path="res://Resources/Theme/disabled_styleboxtexture.tres" type="StyleBox" id=11]
-[ext_resource path="res://Art/Buttons/previous_page.png" type="Texture" id=12]
-[ext_resource path="res://Art/Buttons/next_page.png" type="Texture" id=13]
-[ext_resource path="res://Server/Gameplay/HackerRepresentation.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Resources/BackdooredShader.tres" type="Shader" id=15]
+[ext_resource path="res://Server/Gameplay/HackerView.gd" type="Script" id=5]
 [ext_resource path="res://Server/Gameplay/TerminalProgressionView.gd" type="Script" id=16]
-
-[sub_resource type="StyleBoxEmpty" id=1]
-
-[sub_resource type="StyleBoxEmpty" id=12]
-
-[sub_resource type="Theme" id=13]
-Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
-Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
-Button/colors/font_color_focus = Color( 0.94, 0.94, 0.94, 1 )
-Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
-Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
-Button/constants/hseparation = 2
-Button/fonts/font = ExtResource( 6 )
-Button/styles/disabled = ExtResource( 11 )
-Button/styles/focus = SubResource( 1 )
-Button/styles/hover = ExtResource( 10 )
-Button/styles/normal = ExtResource( 10 )
-Button/styles/pressed = ExtResource( 7 )
-ItemList/colors/font_color_selected = Color( 0, 0, 0, 1 )
-ItemList/fonts/font = ExtResource( 6 )
-ItemList/styles/bg = ExtResource( 9 )
-ItemList/styles/bg_focus = SubResource( 12 )
-ItemList/styles/selected = ExtResource( 7 )
-ItemList/styles/selected_focus = ExtResource( 7 )
-Label/fonts/font = ExtResource( 6 )
-Panel/styles/panel = ExtResource( 9 )
-PopupDialog/styles/panel = ExtResource( 9 )
-TabContainer/colors/font_color_bg = Color( 1, 1, 1, 1 )
-TabContainer/colors/font_color_fg = Color( 0.254902, 0.254902, 0.254902, 1 )
-TabContainer/fonts/font = ExtResource( 6 )
-TabContainer/icons/decrement = ExtResource( 12 )
-TabContainer/icons/decrement_highlight = ExtResource( 12 )
-TabContainer/icons/increment = ExtResource( 13 )
-TabContainer/icons/increment_highlight = ExtResource( 13 )
-TabContainer/styles/panel = ExtResource( 9 )
-TabContainer/styles/tab_bg = ExtResource( 8 )
-TabContainer/styles/tab_disabled = ExtResource( 11 )
-TabContainer/styles/tab_fg = ExtResource( 7 )
-VScrollBar/styles/grabber = ExtResource( 8 )
-VScrollBar/styles/grabber_highlight = ExtResource( 8 )
-VScrollBar/styles/grabber_pressed = ExtResource( 7 )
-VScrollBar/styles/scroll = ExtResource( 10 )
+[ext_resource path="res://Server/Gameplay/Gameplay.gd" type="Script" id=17]
 
 [sub_resource type="ShaderMaterial" id=14]
 shader = ExtResource( 4 )
 shader_param/rotation_speed = 0.5
-shader_param/resolution = 40.0
+shader_param/resolution = 48.0
 shader_param/color = Vector3( 0.75, 0.25, 0.25 )
-
-[sub_resource type="ShaderMaterial" id=15]
-shader = ExtResource( 15 )
-shader_param/shake_power = 0.05
-shader_param/shake_rate = 0.5
-shader_param/shake_speed = 5.0
-shader_param/shake_block_size = 22.0
-shader_param/shake_color_rate = 0.01
 
 [node name="Gameplay" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
+script = ExtResource( 17 )
 
 [node name="Countdown" type="Label" parent="."]
 margin_left = 666.0
@@ -109,49 +51,11 @@ margin_bottom = 256.0
 rect_scale = Vector2( 10, 10 )
 
 [node name="TerminalProgressionView" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 3.0
-margin_top = 5.0
-margin_right = 46.0
-margin_bottom = 86.0
+margin_left = 24.0
+margin_top = 46.0
+margin_right = 24.0
+margin_bottom = 46.0
 script = ExtResource( 16 )
-
-[node name="TerminalProgress" parent="CenterContainer/TerminalProgressionView" instance=ExtResource( 5 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 43.0
-margin_bottom = 13.0
-
-[node name="TerminalProgress2" parent="CenterContainer/TerminalProgressionView" instance=ExtResource( 5 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 17.0
-margin_right = 43.0
-margin_bottom = 30.0
-theme = SubResource( 13 )
-
-[node name="TerminalProgress3" parent="CenterContainer/TerminalProgressionView" instance=ExtResource( 5 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 34.0
-margin_right = 43.0
-margin_bottom = 47.0
-theme = SubResource( 13 )
-
-[node name="TerminalProgress4" parent="CenterContainer/TerminalProgressionView" instance=ExtResource( 5 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 51.0
-margin_right = 43.0
-margin_bottom = 64.0
-theme = SubResource( 13 )
-
-[node name="TerminalProgress5" parent="CenterContainer/TerminalProgressionView" instance=ExtResource( 5 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 68.0
-margin_right = 43.0
-margin_bottom = 81.0
-theme = SubResource( 13 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
 material = SubResource( 14 )
@@ -163,87 +67,19 @@ rect_scale = Vector2( 13, 13 )
 texture = ExtResource( 3 )
 expand = true
 
-[node name="GridContainer" type="GridContainer" parent="."]
-margin_left = 1421.0
-margin_top = 200.0
-margin_right = 1447.0
-margin_bottom = 271.0
-rect_scale = Vector2( 11, 11 )
-columns = 2
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+margin_left = 1311.0
+margin_top = 73.0
+margin_right = 1367.0
+margin_bottom = 168.0
+rect_scale = Vector2( 10, 10 )
 
-[node name="Control" parent="GridContainer" instance=ExtResource( 14 )]
-modulate = Color( 0.968627, 0.737255, 1, 1 )
-material = SubResource( 15 )
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 11.0
-margin_bottom = 11.0
-
-[node name="Control2" parent="GridContainer" instance=ExtResource( 14 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 15.0
-margin_right = 26.0
-margin_bottom = 11.0
-
-[node name="Control3" parent="GridContainer" instance=ExtResource( 14 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 15.0
-margin_right = 11.0
-margin_bottom = 26.0
-
-[node name="Control4" parent="GridContainer" instance=ExtResource( 14 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 15.0
-margin_top = 15.0
-margin_right = 26.0
-margin_bottom = 26.0
-
-[node name="Control5" parent="GridContainer" instance=ExtResource( 14 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 30.0
-margin_right = 11.0
-margin_bottom = 41.0
-
-[node name="Control6" parent="GridContainer" instance=ExtResource( 14 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 15.0
-margin_top = 30.0
-margin_right = 26.0
-margin_bottom = 41.0
-
-[node name="Control7" parent="GridContainer" instance=ExtResource( 14 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 45.0
-margin_right = 11.0
-margin_bottom = 56.0
-
-[node name="Control8" parent="GridContainer" instance=ExtResource( 14 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 15.0
-margin_top = 45.0
-margin_right = 26.0
-margin_bottom = 56.0
-
-[node name="Control9" parent="GridContainer" instance=ExtResource( 14 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 60.0
-margin_right = 11.0
-margin_bottom = 71.0
-
-[node name="Control10" parent="GridContainer" instance=ExtResource( 14 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 15.0
-margin_top = 60.0
-margin_right = 26.0
-margin_bottom = 71.0
+[node name="HackerView" type="GridContainer" parent="CenterContainer2"]
+margin_left = 28.0
+margin_top = 47.0
+margin_right = 28.0
+margin_bottom = 47.0
+columns = 3
+script = ExtResource( 5 )
 
 [connection signal="timeout" from="Countdown/Timer" to="Countdown" method="_on_second_passed"]

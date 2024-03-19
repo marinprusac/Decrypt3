@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "Keyboard",
 "language": "GDScript",
-"path": "res://Client/Tool Nodes/Keyboard/Keyboard.gd"
+"path": "res://Tool Nodes/Keyboard/Keyboard.gd"
 }, {
 "base": "Control",
 "class": "Login",
@@ -42,12 +42,17 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "MyTools",
 "language": "GDScript",
-"path": "res://Client/Tool Nodes/MyTools.gd"
+"path": "res://Tool Nodes/MyTools.gd"
 }, {
 "base": "Resource",
 "class": "PlayerData",
 "language": "GDScript",
 "path": "res://Server/GameData/PlayerData.gd"
+}, {
+"base": "Resource",
+"class": "PortData",
+"language": "GDScript",
+"path": "res://Server/GameData/PortData.gd"
 }, {
 "base": "Resource",
 "class": "Settings",
@@ -68,6 +73,7 @@ _global_script_class_icons={
 "MessageData": "",
 "MyTools": "",
 "PlayerData": "",
+"PortData": "",
 "Settings": "",
 "TerminalData": ""
 }
@@ -82,6 +88,7 @@ config/icon="res://Art/icon.png"
 
 window/size/width=1920
 window/size/height=1080
+window/size/fullscreen=true
 window/handheld/orientation="portrait"
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"

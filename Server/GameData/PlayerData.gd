@@ -1,39 +1,45 @@
 extends Resource
 class_name PlayerData
 
-var settings: Settings
+var name: String
+var role: String
 
-var name: String = ""
-var role: String = ""
+var known_ports: Array
 
-var abilities = []
-var effects = []
-var messages = []
+var abilities: Array
+var effects: Array
+var messages: Array
 
-func _init(name: String, role: String, settings: Settings):
+func _init(name: String, role: String, regular_cooldown_mins: float, expertise_cooldown_mins: float):
 	self.name = name
 	self.role = role
 	
-	var hack_cd = settings.regular_cooldown_mins
-	var protect_cd = settings.regular_cooldown_mins
-	var scan_cd = settings.regular_cooldown_mins
+	abilities = []
+	effects = []
+	messages = []
+	known_ports = []
+	
+	var hack_cd = regular_cooldown_mins
+	var protect_cd = regular_cooldown_mins
+	var scan_cd = regular_cooldown_mins
 	
 	if role == "Red Team Whitehat":
-		hack_cd = settings.expertise_cooldown_mins
+		hack_cd = expertise_cooldown_mins
 	if role == "Blue Team Whitehat":
-		protect_cd = settings.expertise_cooldown_mins
+		protect_cd = expertise_cooldown_mins
 	if role == "Yellow Team Whitehat":
-		scan_cd = settings.expertise_cooldown_mins
+		scan_cd = expertise_cooldown_mins
 	if role == "Blackhat":
-		hack_cd = settings.expertise_cooldown_mins
-		protect_cd = settings.expertise_cooldown_mins
-		scan_cd = settings.expertise_cooldown_mins
-		abilities.append(AbilityData.new("Backdoor", settings.regular_cooldown_mins))
+		hack_cd = expertise_cooldown_mins
+		protect_cd = expertise_cooldown_mins
+		scan_cd = expertise_cooldown_mins
+		abilities.append(AbilityData.new("Backdoor", regular_cooldown_mins))
+	
 
 	abilities.append(AbilityData.new("Hack", hack_cd))
 	abilities.append(AbilityData.new("Protect", protect_cd))
 	abilities.append(AbilityData.new("Scan", scan_cd))
-	abilities.append(AbilityData.new("Crack", settings.expertise_cooldown_mins))
+	abilities.append(AbilityData.new("Crack", expertise_cooldown_mins))
 
 #func add_ability(ability: AbilityData):
 #	abilities.append(ability)

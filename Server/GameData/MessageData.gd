@@ -1,9 +1,9 @@
 extends Resource
 class_name MessageData
 
-var title
-var content
-var icon
+var title: String
+var content: String
+var icon: String
 
 func _init(title, content, icon):
 	self.title = title

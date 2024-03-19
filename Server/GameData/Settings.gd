@@ -14,10 +14,13 @@ export var yellow_team_ratio: float = 1
 export var regular_cooldown_mins: float = 12
 export var expertise_cooldown_mins: float = 4
 
-# game objectives and length
+# terminals
 export var terminal_count: int = 3
 export var ports_per_terminal: int = 3
 export var digits_per_port: int = 2
+export var blackhat_advantage: int = 1
+
+# game duration
 export var initial_game_duration_mins: float = 60
 export var game_duration_increment_mins: float = 15
 
