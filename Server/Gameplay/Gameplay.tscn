@@ -1,24 +1,36 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Resources/MainTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Server/Gameplay/Countdown.gd" type="Script" id=2]
 [ext_resource path="res://Art/radioactive.png" type="Texture" id=3]
 [ext_resource path="res://Resources/PixelatedRotated.tres" type="Shader" id=4]
 [ext_resource path="res://Server/Gameplay/HackerView.gd" type="Script" id=5]
+[ext_resource path="res://Server/Gameplay/NuclearSymbol.gd" type="Script" id=6]
 [ext_resource path="res://Server/Gameplay/TerminalProgressionView.gd" type="Script" id=16]
 [ext_resource path="res://Server/Gameplay/Gameplay.gd" type="Script" id=17]
 
 [sub_resource type="ShaderMaterial" id=14]
 shader = ExtResource( 4 )
-shader_param/rotation_speed = 0.5
+shader_param/rotation = 0.0
 shader_param/resolution = 48.0
-shader_param/color = Vector3( 0.75, 0.25, 0.25 )
+shader_param/color = Vector3( 0.25, 0.75, 0.25 )
 
 [node name="Gameplay" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
 script = ExtResource( 17 )
+
+[node name="NuclearSymbol" type="TextureRect" parent="."]
+material = SubResource( 14 )
+margin_left = 676.0
+margin_top = 287.0
+margin_right = 720.0
+margin_bottom = 331.0
+rect_scale = Vector2( 13, 13 )
+texture = ExtResource( 3 )
+expand = true
+script = ExtResource( 6 )
 
 [node name="Countdown" type="Label" parent="."]
 margin_left = 666.0
@@ -33,16 +45,6 @@ script = ExtResource( 2 )
 
 [node name="Timer" type="Timer" parent="Countdown"]
 
-[node name="Line2D" type="Line2D" parent="."]
-position = Vector2( 97, 11 )
-points = PoolVector2Array( 364, 268, 459, 269, 551, 355, 628, 355 )
-default_color = Color( 0.75, 0.25, 0.25, 1 )
-
-[node name="Line2D2" type="Line2D" parent="."]
-position = Vector2( 98, 10 )
-points = PoolVector2Array( 361, 437, 443, 439, 473, 469, 561, 469 )
-default_color = Color( 0.75, 0.25, 0.25, 1 )
-
 [node name="CenterContainer" type="CenterContainer" parent="."]
 margin_left = 5.0
 margin_top = 164.0
@@ -56,16 +58,6 @@ margin_top = 46.0
 margin_right = 24.0
 margin_bottom = 46.0
 script = ExtResource( 16 )
-
-[node name="TextureRect" type="TextureRect" parent="."]
-material = SubResource( 14 )
-margin_left = 676.0
-margin_top = 333.0
-margin_right = 720.0
-margin_bottom = 377.0
-rect_scale = Vector2( 13, 13 )
-texture = ExtResource( 3 )
-expand = true
 
 [node name="CenterContainer2" type="CenterContainer" parent="."]
 margin_left = 1311.0
