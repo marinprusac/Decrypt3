@@ -1,5 +1,43 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Resources/MainTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Client/Scenes/Connecting/Connecting.gd" type="Script" id=2]
+[ext_resource path="res://Resources/MonoPixelFont.tres" type="DynamicFont" id=3]
 
 [node name="Connecting" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 624.0
+margin_top = 334.0
+margin_right = 685.0
+margin_bottom = 374.0
+rect_scale = Vector2( 11, 11 )
+
+[node name="Sign" type="Label" parent="VBoxContainer"]
+use_parent_material = true
+margin_right = 61.0
+margin_bottom = 7.0
+custom_fonts/font = ExtResource( 3 )
+text = "Connecting"
+align = 1
+valign = 1
+
+[node name="Dots" type="Label" parent="VBoxContainer"]
+use_parent_material = true
+margin_top = 11.0
+margin_right = 61.0
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 3 )
+text = "..."
+align = 1
+valign = 1
+
+[node name="CancelButton" type="Button" parent="VBoxContainer"]
+margin_top = 22.0
+margin_right = 61.0
+margin_bottom = 35.0
+text = "Cancel"
+
+[connection signal="pressed" from="VBoxContainer/CancelButton" to="." method="_on_cancel"]

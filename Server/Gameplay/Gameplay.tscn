@@ -3,7 +3,7 @@
 [ext_resource path="res://Resources/MainTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Server/Gameplay/Countdown.gd" type="Script" id=2]
 [ext_resource path="res://Art/radioactive.png" type="Texture" id=3]
-[ext_resource path="res://Resources/PixelatedRotated.tres" type="Shader" id=4]
+[ext_resource path="res://Resources/Shaders/PixelatedRotated.tres" type="Shader" id=4]
 [ext_resource path="res://Server/Gameplay/HackerView.gd" type="Script" id=5]
 [ext_resource path="res://Server/Gameplay/NuclearSymbol.gd" type="Script" id=6]
 [ext_resource path="res://Server/Gameplay/TerminalProgressionView.gd" type="Script" id=16]
@@ -13,7 +13,7 @@
 shader = ExtResource( 4 )
 shader_param/rotation = 0.0
 shader_param/resolution = 48.0
-shader_param/color = Vector3( 0.25, 0.75, 0.25 )
+shader_param/color = Vector3( 0.5, 0.5, 0.5 )
 
 [node name="Gameplay" type="Control"]
 anchor_right = 1.0
@@ -33,9 +33,9 @@ expand = true
 script = ExtResource( 6 )
 
 [node name="Countdown" type="Label" parent="."]
-margin_left = 666.0
+margin_left = 2.0
 margin_top = 43.0
-margin_right = 715.0
+margin_right = 176.0
 margin_bottom = 57.0
 rect_scale = Vector2( 11, 11 )
 text = "00:00:00"
@@ -43,35 +43,30 @@ align = 1
 valign = 1
 script = ExtResource( 2 )
 
-[node name="Timer" type="Timer" parent="Countdown"]
-
 [node name="CenterContainer" type="CenterContainer" parent="."]
-margin_left = 5.0
-margin_top = 164.0
-margin_right = 54.0
-margin_bottom = 256.0
+margin_top = 150.0
+margin_right = 50.0
+margin_bottom = 243.0
 rect_scale = Vector2( 10, 10 )
 
 [node name="TerminalProgressionView" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 24.0
+margin_left = 25.0
 margin_top = 46.0
-margin_right = 24.0
+margin_right = 25.0
 margin_bottom = 46.0
 script = ExtResource( 16 )
 
 [node name="CenterContainer2" type="CenterContainer" parent="."]
-margin_left = 1311.0
-margin_top = 73.0
-margin_right = 1367.0
-margin_bottom = 168.0
+margin_left = 1420.0
+margin_top = 150.0
+margin_right = 1470.0
+margin_bottom = 243.0
 rect_scale = Vector2( 10, 10 )
 
 [node name="HackerView" type="GridContainer" parent="CenterContainer2"]
-margin_left = 28.0
-margin_top = 47.0
-margin_right = 28.0
-margin_bottom = 47.0
+margin_left = 25.0
+margin_top = 46.0
+margin_right = 25.0
+margin_bottom = 46.0
 columns = 3
 script = ExtResource( 5 )
-
-[connection signal="timeout" from="Countdown/Timer" to="Countdown" method="_on_second_passed"]

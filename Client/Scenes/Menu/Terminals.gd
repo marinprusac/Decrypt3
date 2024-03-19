@@ -14,7 +14,7 @@ enum {
 
 var activity_mode = UNSOLVED
 
-func initialize(terminals):
+func initialize(terminals: Dictionary):
 	terminals_data = terminals
 	for tname in terminals.keys():
 		var terminal_packet = terminals_data[tname]

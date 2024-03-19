@@ -8,7 +8,7 @@ var players_data: Dictionary = {}
 
 var activity_mode = "none"
 
-func initialize(players, player_name):
+func initialize(players: Dictionary, player_name: String):
 	players_data = players
 	for player in players.keys():
 		var player_packet = players[player]

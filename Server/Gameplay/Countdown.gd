@@ -1,11 +1,23 @@
 extends Label
 
-export var starting_seconds = 3600
-var current_seconds = starting_seconds
+var safe_color = Color(.25, .75, .25, 1)
+var trouble_color = Color(.75, .25, .25, 1)
+
+func start(end_time):
+	refresh(end_time)
+
+func refresh(end_time):
+	text = get_print(end_time)
+
+func end(victory):
+	text = "Nuclear Launcher DECRYPTED!" if victory else "Nuclear Launcher SEIZED!"
+	modulate = safe_color if victory else trouble_color
 
 
-func get_print():
-	var seconds = current_seconds
+func get_print(end_time):
+	var now = Time.get_unix_time_from_system()
+	var seconds_left = end_time - now
+	var seconds = int(seconds_left)
 	var minutes = int(seconds/60)
 	seconds = seconds%60
 	var hours = int(minutes/60)
@@ -25,15 +37,4 @@ func get_print():
 	txt += str(seconds)
 	
 	return txt
-
-func _on_second_passed():
-	current_seconds -= 1
-	text = get_print()
-
-	if current_seconds <= 0:
-		$Timer.stop()
-		return
-	
-
-
 

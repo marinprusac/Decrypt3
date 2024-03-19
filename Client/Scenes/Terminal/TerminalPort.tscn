@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Resources/Theme/MonoPixelFont.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Tool Nodes/TextDisplay/TextDisplay.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Resources/MonoPixelFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Client/TextDisplay/TextDisplay.tscn" type="PackedScene" id=2]
 
 
 [node name="TerminalPort" type="VBoxContainer"]

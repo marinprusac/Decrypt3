@@ -1,7 +1,6 @@
 [gd_resource type="DynamicFont" load_steps=2 format=2]
 
-[ext_resource path="res://Resources/monogramextended.ttf" type="DynamicFontData" id=1]
-
+[ext_resource path="res://Resources/Theme/monogramextended.ttf" type="DynamicFontData" id=1]
 
 [resource]
 extra_spacing_top = -4

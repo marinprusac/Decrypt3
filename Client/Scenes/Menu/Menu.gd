@@ -12,7 +12,7 @@ func initialize(welcome_packet_content: Dictionary):
 	var players = welcome_packet_content["players"]
 	var terminals = welcome_packet_content["terminals"]
 	var player_name = welcome_packet_content["you"]["name"]
-	var abilities = welcome_packet_content["abilities"]
+	var abilities = welcome_packet_content["you"]["abilities"]
 	$Players.initialize(players, player_name)
 	$CenterContainer/Terminals.initialize(terminals)
 	$Abilities.refresh(abilities)

@@ -4,7 +4,7 @@
 [ext_resource path="res://Art/blackhat.png" type="Texture" id=2]
 [ext_resource path="res://Art/whitehat.png" type="Texture" id=3]
 [ext_resource path="res://Server/Gameplay/HackerRepresentation.gd" type="Script" id=4]
-[ext_resource path="res://Resources/BackdooredShader.tres" type="Shader" id=5]
+[ext_resource path="res://Resources/Shaders/BackdooredShader.tres" type="Shader" id=5]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 5 )

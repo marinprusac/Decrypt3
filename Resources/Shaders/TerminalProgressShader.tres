@@ -17,21 +17,13 @@ void fragment(){
 	float pro_fact = 0.0;
 	
 	if(endangered){
-		original -= sin(TIME)/4.0+0.25;
-		end_fact += sin(TIME)/4.0+0.25;
+		original -= sin(TIME*2.0)/4.0+0.25;
+		end_fact += sin(TIME*2.0)/4.0+0.25;
 	}
 	if(progressed){
-		original -= sin(-TIME)/4.0+0.25;
-		pro_fact += sin(-TIME)/4.0+0.25;
+		original -= sin(-TIME*2.0)/4.0+0.25;
+		pro_fact += sin(-TIME*2.0)/4.0+0.25;
 	}
 	
 	COLOR = vec4(pixelColor.rgb*original + color_endangered*end_fact + color_progressed * pro_fact, pixelColor.a);
-	
-	
-
-	
-
-	
-	
-	
 }"

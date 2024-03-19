@@ -24,8 +24,6 @@ func is_game_over():
 	
 	return true
 
-
-
 func _init(settings: Settings):
 	self.settings = settings
 	_add_players()
