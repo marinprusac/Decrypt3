@@ -4,11 +4,11 @@ extends VBoxContainer
 onready var terminal_progress_preload = preload("res://Server/Gameplay/TerminalProgress.tscn")
 
 
-func initialize(terminals: Array):
+func initialize(game_data: GameData):
 	for child in get_children():
 		child.queue_free()
 	
-	for terminal in terminals:
+	for terminal in game_data.terminals:
 		terminal = terminal as TerminalData
 		var new_term_instance = terminal_progress_preload.instance()
 		new_term_instance.material = new_term_instance.material.duplicate()
@@ -24,8 +24,8 @@ func initialize(terminals: Array):
 		new_term_instance.name = terminal.name
 		add_child(new_term_instance)
 
-func refresh(terminals: Array):
-	for terminal in terminals:
+func handle_changes(game_data: GameData):
+	for terminal in game_data.terminals:
 		terminal = terminal as TerminalData
 		var child = get_node(terminal.name)
 		var current_value = 0

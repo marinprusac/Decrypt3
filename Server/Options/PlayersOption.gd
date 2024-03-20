@@ -1,5 +1,8 @@
 extends VBoxContainer
 
+func _on_entered(player_name):
+	_on_add_player()
+
 func _on_add_player():
 	var player_name = $PlayerAdder/NameLineEdit.text
 	var list = $PlayerList

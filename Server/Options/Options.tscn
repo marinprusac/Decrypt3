@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Server/Options/Options.gd" type="Script" id=1]
 [ext_resource path="res://Resources/MainTheme.tres" type="Theme" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Server/Options/DurationsOption.gd" type="Script" id=6]
 [ext_resource path="res://Server/Options/RolesAndTeamsOption.gd" type="Script" id=7]
 [ext_resource path="res://Server/Options/PlayersOption.gd" type="Script" id=8]
+[ext_resource path="res://Server/Options/TerminalsOption.gd" type="Script" id=9]
 
 [node name="Options" type="Control"]
 anchor_right = 1.0
@@ -22,31 +23,62 @@ margin_right = 234.0
 margin_bottom = 52.0
 rect_scale = Vector2( 11, 11 )
 text = "Options"
+align = 1
 
-[node name="Panel" type="Panel" parent="."]
-margin_left = 66.0
-margin_top = 174.0
-margin_right = 184.0
-margin_bottom = 266.0
-rect_scale = Vector2( 4, 4 )
-
-[node name="Button" type="Button" parent="Panel"]
-margin_left = 9.0
-margin_top = 12.0
-margin_right = 110.0
-margin_bottom = 25.0
+[node name="SaveButton" type="Button" parent="."]
+margin_left = 794.0
+margin_top = 209.0
+margin_right = 860.0
+margin_bottom = 222.0
+rect_scale = Vector2( 5, 5 )
 text = "Save"
 
+[node name="Players" type="VBoxContainer" parent="."]
+margin_left = 73.0
+margin_top = 209.0
+margin_right = 245.0
+margin_bottom = 473.0
+rect_scale = Vector2( 3, 3 )
+script = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="Players"]
+margin_right = 172.0
+margin_bottom = 7.0
+text = "Players"
+
+[node name="PlayerList" type="ItemList" parent="Players"]
+margin_top = 11.0
+margin_right = 172.0
+margin_bottom = 247.0
+size_flags_vertical = 3
+max_columns = 0
+same_column_width = true
+
+[node name="PlayerAdder" type="HBoxContainer" parent="Players"]
+margin_top = 251.0
+margin_right = 172.0
+margin_bottom = 264.0
+
+[node name="NameLineEdit" type="LineEdit" parent="Players/PlayerAdder"]
+margin_right = 54.0
+margin_bottom = 13.0
+
+[node name="AddButton" type="Button" parent="Players/PlayerAdder"]
+margin_left = 58.0
+margin_right = 71.0
+margin_bottom = 13.0
+text = "+"
+
 [node name="RolesAndTeams" type="VBoxContainer" parent="."]
-margin_left = 43.0
-margin_top = 594.0
-margin_right = 170.0
-margin_bottom = 705.0
-rect_scale = Vector2( 4, 4 )
+margin_left = 728.0
+margin_top = 380.0
+margin_right = 877.0
+margin_bottom = 491.0
+rect_scale = Vector2( 3, 3 )
 script = ExtResource( 7 )
 
 [node name="RoleDistributionLabel" type="Label" parent="RolesAndTeams"]
-margin_right = 127.0
+margin_right = 149.0
 margin_bottom = 7.0
 size_flags_vertical = 1
 text = "Role Distribution"
@@ -54,19 +86,19 @@ align = 1
 
 [node name="RoleDistribution" type="GridContainer" parent="RolesAndTeams"]
 margin_top = 11.0
-margin_right = 127.0
+margin_right = 149.0
 margin_bottom = 37.0
 columns = 3
 
 [node name="WhitehatTexture" type="TextureRect" parent="RolesAndTeams/RoleDistribution"]
-margin_right = 32.0
+margin_right = 43.0
 margin_bottom = 11.0
 size_flags_horizontal = 3
 texture = ExtResource( 3 )
 
 [node name="WhitehatSlider" type="HSlider" parent="RolesAndTeams/RoleDistribution"]
-margin_left = 36.0
-margin_right = 91.0
+margin_left = 47.0
+margin_right = 102.0
 margin_bottom = 11.0
 rect_min_size = Vector2( 55, 11 )
 max_value = 1.0
@@ -74,9 +106,9 @@ step = 0.01
 value = 0.8
 
 [node name="WhitehatLabel" type="Label" parent="RolesAndTeams/RoleDistribution"]
-margin_left = 95.0
+margin_left = 106.0
 margin_top = 2.0
-margin_right = 127.0
+margin_right = 149.0
 margin_bottom = 9.0
 size_flags_horizontal = 3
 text = "80%"
@@ -84,15 +116,15 @@ align = 2
 
 [node name="BlackhatTexture" type="TextureRect" parent="RolesAndTeams/RoleDistribution"]
 margin_top = 15.0
-margin_right = 32.0
+margin_right = 43.0
 margin_bottom = 26.0
 size_flags_horizontal = 3
 texture = ExtResource( 4 )
 
 [node name="BlackhatSlider" type="HSlider" parent="RolesAndTeams/RoleDistribution"]
-margin_left = 36.0
+margin_left = 47.0
 margin_top = 15.0
-margin_right = 91.0
+margin_right = 102.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 55, 11 )
 custom_styles/grabber_area_highlight = ExtResource( 5 )
@@ -103,9 +135,9 @@ value = 0.2
 
 [node name="BlackhatLabel" type="Label" parent="RolesAndTeams/RoleDistribution"]
 modulate = Color( 0.341176, 0.341176, 0.341176, 1 )
-margin_left = 95.0
+margin_left = 106.0
 margin_top = 17.0
-margin_right = 127.0
+margin_right = 149.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 text = "20%"
@@ -113,7 +145,7 @@ align = 2
 
 [node name="TeamDistributionLabel" type="Label" parent="RolesAndTeams"]
 margin_top = 59.0
-margin_right = 127.0
+margin_right = 149.0
 margin_bottom = 66.0
 size_flags_vertical = 10
 text = "Team Distribution"
@@ -121,21 +153,21 @@ align = 1
 
 [node name="TeamDistribution" type="GridContainer" parent="RolesAndTeams"]
 margin_top = 70.0
-margin_right = 127.0
+margin_right = 149.0
 margin_bottom = 111.0
 columns = 3
 
 [node name="RedTexture" type="TextureRect" parent="RolesAndTeams/TeamDistribution"]
 modulate = Color( 1, 0.25, 0.25, 1 )
-margin_right = 32.0
+margin_right = 43.0
 margin_bottom = 11.0
 size_flags_horizontal = 3
 texture = ExtResource( 3 )
 
 [node name="RedSlider" type="HSlider" parent="RolesAndTeams/TeamDistribution"]
 modulate = Color( 1, 0.25, 0.25, 1 )
-margin_left = 36.0
-margin_right = 91.0
+margin_left = 47.0
+margin_right = 102.0
 margin_bottom = 11.0
 rect_min_size = Vector2( 55, 11 )
 max_value = 1.0
@@ -144,9 +176,9 @@ value = 0.35
 
 [node name="RedLabel" type="Label" parent="RolesAndTeams/TeamDistribution"]
 modulate = Color( 1, 0.25, 0.25, 1 )
-margin_left = 95.0
+margin_left = 106.0
 margin_top = 2.0
-margin_right = 127.0
+margin_right = 149.0
 margin_bottom = 9.0
 size_flags_horizontal = 3
 text = "35%"
@@ -155,16 +187,16 @@ align = 2
 [node name="BlueTexture" type="TextureRect" parent="RolesAndTeams/TeamDistribution"]
 modulate = Color( 0.25, 0.25, 1, 1 )
 margin_top = 15.0
-margin_right = 32.0
+margin_right = 43.0
 margin_bottom = 26.0
 size_flags_horizontal = 3
 texture = ExtResource( 3 )
 
 [node name="BlueSlider" type="HSlider" parent="RolesAndTeams/TeamDistribution"]
 modulate = Color( 0.25, 0.25, 1, 1 )
-margin_left = 36.0
+margin_left = 47.0
 margin_top = 15.0
-margin_right = 91.0
+margin_right = 102.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 55, 11 )
 max_value = 1.0
@@ -173,9 +205,9 @@ value = 0.35
 
 [node name="BlueLabel" type="Label" parent="RolesAndTeams/TeamDistribution"]
 modulate = Color( 0.25, 0.25, 1, 1 )
-margin_left = 95.0
+margin_left = 106.0
 margin_top = 17.0
-margin_right = 127.0
+margin_right = 149.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 text = "35%"
@@ -184,16 +216,16 @@ align = 2
 [node name="YellowTexture" type="TextureRect" parent="RolesAndTeams/TeamDistribution"]
 modulate = Color( 0.63, 0.63, 0.25, 1 )
 margin_top = 30.0
-margin_right = 32.0
+margin_right = 43.0
 margin_bottom = 41.0
 size_flags_horizontal = 3
 texture = ExtResource( 3 )
 
 [node name="YellowSlider" type="HSlider" parent="RolesAndTeams/TeamDistribution"]
 modulate = Color( 0.63, 0.63, 0.25, 1 )
-margin_left = 36.0
+margin_left = 47.0
 margin_top = 30.0
-margin_right = 91.0
+margin_right = 102.0
 margin_bottom = 41.0
 rect_min_size = Vector2( 55, 11 )
 max_value = 1.0
@@ -202,20 +234,20 @@ value = 0.3
 
 [node name="YellowLabel" type="Label" parent="RolesAndTeams/TeamDistribution"]
 modulate = Color( 0.63, 0.63, 0.25, 1 )
-margin_left = 95.0
+margin_left = 106.0
 margin_top = 32.0
-margin_right = 127.0
+margin_right = 149.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 text = "30%"
 align = 2
 
 [node name="Durations" type="VBoxContainer" parent="."]
-margin_left = 606.0
-margin_top = 197.0
-margin_right = 782.0
-margin_bottom = 407.0
-rect_scale = Vector2( 4, 4 )
+margin_left = 1282.0
+margin_top = 259.0
+margin_right = 1458.0
+margin_bottom = 488.0
+rect_scale = Vector2( 3, 3 )
 script = ExtResource( 6 )
 
 [node name="TimeUnit" type="HBoxContainer" parent="Durations"]
@@ -243,18 +275,18 @@ items = [ "seconds", null, false, 0, null, "minutes", null, false, 1, null, "hou
 selected = 0
 
 [node name="GameDurationLabel" type="Label" parent="Durations"]
-margin_top = 28.0
+margin_top = 35.0
 margin_right = 176.0
-margin_bottom = 35.0
+margin_bottom = 42.0
 size_flags_vertical = 10
 text = "Game Duration"
 align = 1
 valign = 1
 
 [node name="GameDuration" type="GridContainer" parent="Durations"]
-margin_top = 39.0
+margin_top = 46.0
 margin_right = 176.0
-margin_bottom = 65.0
+margin_bottom = 72.0
 columns = 3
 
 [node name="InititalLabel" type="Label" parent="Durations/GameDuration"]
@@ -309,18 +341,18 @@ text = "15"
 align = 2
 
 [node name="CooldownDurationLabel" type="Label" parent="Durations"]
-margin_top = 78.0
+margin_top = 91.0
 margin_right = 176.0
-margin_bottom = 85.0
+margin_bottom = 98.0
 size_flags_vertical = 10
 text = "Cooldown Duration"
 align = 1
 valign = 1
 
 [node name="CooldownDuration" type="GridContainer" parent="Durations"]
-margin_top = 89.0
+margin_top = 102.0
 margin_right = 176.0
-margin_bottom = 130.0
+margin_bottom = 143.0
 columns = 3
 
 [node name="AbilityLabel" type="Label" parent="Durations/CooldownDuration"]
@@ -404,18 +436,18 @@ text = "15"
 align = 2
 
 [node name="EffectDurationLabel" type="Label" parent="Durations"]
-margin_top = 143.0
+margin_top = 162.0
 margin_right = 176.0
-margin_bottom = 150.0
+margin_bottom = 169.0
 size_flags_vertical = 10
 text = "Effect Duration"
 align = 1
 valign = 1
 
 [node name="EffectDuration" type="GridContainer" parent="Durations"]
-margin_top = 154.0
+margin_top = 173.0
 margin_right = 176.0
-margin_bottom = 210.0
+margin_bottom = 229.0
 columns = 3
 
 [node name="HackedLabel" type="Label" parent="Durations/EffectDuration"]
@@ -522,41 +554,107 @@ size_flags_horizontal = 3
 text = "3"
 align = 2
 
-[node name="Players" type="VBoxContainer" parent="."]
-margin_left = 1392.0
-margin_top = 194.0
-margin_right = 1510.0
-margin_bottom = 402.0
-rect_scale = Vector2( 4, 4 )
-script = ExtResource( 8 )
+[node name="Terminals" type="VBoxContainer" parent="."]
+margin_left = 707.0
+margin_top = 786.0
+margin_right = 871.0
+margin_bottom = 838.0
+rect_scale = Vector2( 3, 3 )
+script = ExtResource( 9 )
 
-[node name="Label" type="Label" parent="Players"]
-margin_right = 118.0
+[node name="TerminalsLabel" type="Label" parent="Terminals"]
+margin_right = 164.0
 margin_bottom = 7.0
-text = "Players"
+text = "Objective"
+align = 1
 
-[node name="PlayerList" type="ItemList" parent="Players"]
+[node name="GridContainer" type="GridContainer" parent="Terminals"]
 margin_top = 11.0
-margin_right = 118.0
-margin_bottom = 191.0
-rect_min_size = Vector2( 0, 180 )
-max_columns = 2
+margin_right = 164.0
+margin_bottom = 52.0
+columns = 3
 
-[node name="PlayerAdder" type="HBoxContainer" parent="Players"]
-margin_top = 195.0
-margin_right = 118.0
-margin_bottom = 208.0
+[node name="TerminalCountLabel" type="Label" parent="Terminals/GridContainer"]
+margin_top = 2.0
+margin_right = 85.0
+margin_bottom = 9.0
+size_flags_horizontal = 3
+text = "Terminal count"
 
-[node name="NameLineEdit" type="LineEdit" parent="Players/PlayerAdder"]
-margin_right = 54.0
-margin_bottom = 13.0
+[node name="TerminalCountSlider" type="HSlider" parent="Terminals/GridContainer"]
+margin_left = 89.0
+margin_right = 139.0
+margin_bottom = 11.0
+rect_min_size = Vector2( 50, 0 )
+min_value = 1.0
+max_value = 5.0
+value = 5.0
 
-[node name="AddButton" type="Button" parent="Players/PlayerAdder"]
-margin_left = 58.0
-margin_right = 71.0
-margin_bottom = 13.0
-text = "+"
+[node name="TerminalCountValueLabel" type="Label" parent="Terminals/GridContainer"]
+margin_left = 143.0
+margin_top = 2.0
+margin_right = 164.0
+margin_bottom = 9.0
+size_flags_horizontal = 3
+text = "5"
+align = 2
 
+[node name="PortCountLabel" type="Label" parent="Terminals/GridContainer"]
+margin_top = 17.0
+margin_right = 85.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "Ports/terminal"
+
+[node name="PortCountSlider" type="HSlider" parent="Terminals/GridContainer"]
+margin_left = 89.0
+margin_top = 15.0
+margin_right = 139.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 50, 0 )
+min_value = 1.0
+max_value = 5.0
+value = 3.0
+
+[node name="PortCountValueLabel" type="Label" parent="Terminals/GridContainer"]
+margin_left = 143.0
+margin_top = 17.0
+margin_right = 164.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "3"
+align = 2
+
+[node name="DigitCountLabel" type="Label" parent="Terminals/GridContainer"]
+margin_top = 32.0
+margin_right = 85.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+text = "Digits/port"
+
+[node name="DigitCountSlider" type="HSlider" parent="Terminals/GridContainer"]
+margin_left = 89.0
+margin_top = 30.0
+margin_right = 139.0
+margin_bottom = 41.0
+rect_min_size = Vector2( 50, 0 )
+min_value = 1.0
+max_value = 5.0
+value = 2.0
+
+[node name="DigitCountValueLabel" type="Label" parent="Terminals/GridContainer"]
+margin_left = 143.0
+margin_top = 32.0
+margin_right = 164.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+text = "2"
+align = 2
+
+[connection signal="pressed" from="SaveButton" to="." method="_on_save_options"]
+[connection signal="item_selected" from="Players/PlayerList" to="Players" method="_on_player_deleted"]
+[connection signal="text_entered" from="Players/PlayerAdder/NameLineEdit" to="Players" method="_on_entered"]
+[connection signal="pressed" from="Players/PlayerAdder/AddButton" to="Players" method="_on_add_player"]
 [connection signal="value_changed" from="RolesAndTeams/RoleDistribution/WhitehatSlider" to="RolesAndTeams" method="_on_whitehat_value_changed"]
 [connection signal="value_changed" from="RolesAndTeams/RoleDistribution/BlackhatSlider" to="RolesAndTeams" method="_on_blackhat_value_changed"]
 [connection signal="value_changed" from="RolesAndTeams/TeamDistribution/RedSlider" to="RolesAndTeams" method="_on_red_value_changed"]
@@ -572,5 +670,6 @@ text = "+"
 [connection signal="value_changed" from="Durations/EffectDuration/ForgedSlider" to="Durations" method="_on_forged_value_changed"]
 [connection signal="value_changed" from="Durations/EffectDuration/ProtectionSlider" to="Durations" method="_on_protection_value_changed"]
 [connection signal="value_changed" from="Durations/EffectDuration/ClearanceSlider" to="Durations" method="_on_clearance_value_changed"]
-[connection signal="item_selected" from="Players/PlayerList" to="Players" method="_on_player_deleted"]
-[connection signal="pressed" from="Players/PlayerAdder/AddButton" to="Players" method="_on_add_player"]
+[connection signal="value_changed" from="Terminals/GridContainer/TerminalCountSlider" to="Terminals" method="_on_terminal_value_changed"]
+[connection signal="value_changed" from="Terminals/GridContainer/PortCountSlider" to="Terminals" method="_on_port_value_changed"]
+[connection signal="value_changed" from="Terminals/GridContainer/DigitCountSlider" to="Terminals" method="_on_digit_value_changed"]

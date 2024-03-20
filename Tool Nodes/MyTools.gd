@@ -1,18 +1,49 @@
 class_name MyTools
 
-static func divide_by_ratios(count: int, ratios: Array):
-	var array = []
-	var summed_ratios = 0.0
-	for ratio in ratios:
-		summed_ratios += ratio
-	var left_over = count
-	for i in range(len(ratios)-1):
-		var delegated =  ceil(left_over * float(ratios[i]) / summed_ratios)
-		left_over -= delegated
-		summed_ratios -= ratios[i]
-		array.append(delegated)
-	array.append(left_over)
-	return array
+class Sorter:
+	static func sort_ascending_comparator(a, b):
+		return a[1] < b[1]
+
+static func proportional_allocation(total_int: int, float_array: Array) -> Array:
+	var total_float = 0.0
+	var result = []
+	
+	# Calculate total float sum
+	for f in float_array:
+		total_float += f
+	
+	# Calculate proportional integers
+	for f in float_array:
+		result.append(int(total_int * (f / total_float)))
+	
+	# Adjust the result to match the total_int
+	
+	var sum_result = 0
+	for res in result:
+		sum_result += res
+	
+	var remainder = total_int - sum_result
+	if remainder != 0:
+		# Distribute the remainder to the elements with the highest fractional parts
+		var fractional_parts = []
+		for i in range(len(float_array)):
+			fractional_parts.append((float_array[i] / total_float) - int(float_array[i] / total_float))
+		var indices = []
+		for i in range(len(fractional_parts)):
+			indices.append([i, fractional_parts[i]])
+			
+		
+
+			
+		indices.sort_custom(Sorter, "sort_ascending_comparator")
+		
+		for i in indices:
+			result[i[0]] += 1 if remainder > 0 else -1
+			remainder -= 1 if remainder > 0 else -1
+			if remainder == 0:
+				break
+	
+	return result
 
 static func generate_repeated_elements_array(elements: Array, element_counts: Array):
 	var array = []
@@ -25,7 +56,6 @@ static func generate_repeated_elements_array(elements: Array, element_counts: Ar
 
 static func print_percentage(value):
 	return str(round(max(value*100,0)))+"%"
-
 
 static func fact(num: int):
 	var res = 1

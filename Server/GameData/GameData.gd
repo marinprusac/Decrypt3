@@ -11,7 +11,7 @@ var settings: Settings
 
 func start_game():
 	game_start = Time.get_unix_time_from_system()
-	game_end = game_start + settings.initial_game_duration_mins * 60.0
+	game_end = game_start + settings.game_duration_units * settings.base_time_unit_seconds
 
 func is_game_over():
 	var time = Time.get_unix_time_from_system()
@@ -35,8 +35,8 @@ func _add_players():
 
 	var player_count = len(settings.player_codes)
 	
-	var delegated_roles = MyTools.divide_by_ratios(player_count, [settings.whitehat_ratio, settings.blackhat_ratio])
-	var delegated_teams = MyTools.divide_by_ratios(delegated_roles[0], [settings.red_team_ratio, settings.blackhat_ratio, settings.yellow_team_ratio])
+	var delegated_roles = MyTools.proportional_allocation(player_count, [settings.whitehat_percent, settings.blackhat_percent])
+	var delegated_teams = MyTools.proportional_allocation(delegated_roles[0], [settings.red_team_percent, settings.blue_team_percent, settings.yellow_team_percent])
 	
 	var whitehat_count = delegated_roles[0]
 	var blackhat_count = delegated_roles[1]
@@ -54,8 +54,7 @@ func _add_players():
 		[blackhat_count, red_count, blue_count, yellow_count])
 	
 	for i in range(len(player_names)):
-		players.append(PlayerData.new(player_names[i], roles[i], settings.regular_cooldown_mins, settings.expertise_cooldown_mins))
-	
+		players.append(PlayerData.new(player_names[i], roles[i], settings.ability_cooldown_units * settings.base_time_unit_seconds, settings.expertise_cooldown_units * settings.base_time_unit_seconds))
 
 func _add_terminals():
 	terminals = []

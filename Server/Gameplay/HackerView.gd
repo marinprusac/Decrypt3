@@ -2,10 +2,10 @@ extends GridContainer
 
 onready var hacker_preload = preload("res://Server/Gameplay/HackerRepresentation.tscn")
 
-func initialize(players: Array):
+func initialize(game_data: GameData):
 	for child in get_children():
 		child.queue_free()
-	for player in players:
+	for player in game_data.players:
 		player = player as PlayerData
 		var new_hacker = hacker_preload.instance()
 		new_hacker.name = player.name
@@ -14,8 +14,8 @@ func initialize(players: Array):
 		new_hacker.whitehat = player.role != "Blackhat"
 		add_child(new_hacker)
 
-func refresh(players: Array):
-	for player in players:
+func handle_changes(game_data: GameData):
+	for player in game_data.players:
 		player = player as PlayerData
 		var child = get_node(player.name)
 		for effect in player.effects:
