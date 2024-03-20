@@ -23,6 +23,10 @@ static func generate_repeated_elements_array(elements: Array, element_counts: Ar
 		array.append_array(temp_array)
 	return array
 
+static func print_percentage(value):
+	return str(round(max(value*100,0)))+"%"
+
+
 static func fact(num: int):
 	var res = 1
 	for i in range(2, num+1):
@@ -47,7 +51,6 @@ static func calculate_win_chance(ports_per_terminal: Array, time_per_port, time_
 		chance *= calculate_terminal_decode_chance(port_count, time_per_port, time_left - previous_ports*time_per_port + time_increment*i)
 		previous_ports += port_count
 	return chance
-
 
 static func generate_random_codes(number_of_codes: int, number_of_digits: int):
 	if number_of_codes > pow(10, number_of_digits):
