@@ -22,3 +22,6 @@ func _init(name, port_count, digits_per_port):
 			password = "0" + password
 		
 		ports.append(PortData.new(name + str(i+1), password))
+
+func get_port(port_index):
+	return ports[port_index] as PortData

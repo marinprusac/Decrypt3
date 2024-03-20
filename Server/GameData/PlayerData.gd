@@ -44,12 +44,12 @@ func _init(name: String, role: String, regular_cooldown_mins: float, expertise_c
 #func add_ability(ability: AbilityData):
 #	abilities.append(ability)
 #
-#func get_ability(ability_name):
-#	for ability in abilities:
-#		if ability.name == ability_name:
-#			return ability
-#	return ERR_INVALID_PARAMETER
-#
+func get_ability(ability_name):
+	for ability in abilities:
+		if ability.name == ability_name:
+			return ability as AbilityData
+	return ERR_CANT_ACQUIRE_RESOURCE
+
 #func add_effect(effect: EffectData):
 #	effects.append(effect)
 #

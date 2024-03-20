@@ -62,4 +62,22 @@ func _add_terminals():
 	for i in range(settings.terminal_count):
 		var name = char(a_ascii + i)
 		terminals.append(TerminalData.new(name, settings.ports_per_terminal, settings.digits_per_port))
-	
+
+func get_player(player_name):
+	for player in players:
+		if player.name == player_name:
+			return player as PlayerData
+	return ERR_CANT_ACQUIRE_RESOURCE
+
+func get_terminal(terminal_name):
+	for terminal in terminals:
+		if terminal.name ==terminal_name:
+			return terminal as TerminalData
+	return ERR_CANT_ACQUIRE_RESOURCE
+
+func is_sole_unsolved_terminal():
+	var unsolved_terminals = 0
+	for term in terminals:
+		if not term.solved:
+			unsolved_terminals = 1
+	return unsolved_terminals == 1

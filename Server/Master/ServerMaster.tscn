@@ -27,10 +27,17 @@ visible = false
 [node name="Gameplay" parent="." instance=ExtResource( 1 )]
 visible = false
 
+[connection signal="packet_received" from="NetworkServer" to="ServerPackager" method="_on_receive_packet"]
+[connection signal="ability_used" from="ServerPackager" to="GameLogic" method="_on_ability_used"]
+[connection signal="backdoor_used" from="ServerPackager" to="GameLogic" method="_on_backdoor_used"]
+[connection signal="crack_used" from="ServerPackager" to="GameLogic" method="_on_crack_used"]
+[connection signal="player_codes_submitted" from="ServerPackager" to="NetworkServer" method="send_client_codes"]
+[connection signal="requested_packet_sending" from="ServerPackager" to="NetworkServer" method="send"]
 [connection signal="changed" from="GameLogic" to="Gameplay" method="handle_changes"]
 [connection signal="ended" from="GameLogic" to="Gameplay" method="end"]
 [connection signal="initialized" from="GameLogic" to="Gameplay" method="initialize"]
 [connection signal="pause_set" from="GameLogic" to="Gameplay" method="set_pause"]
 [connection signal="started" from="GameLogic" to="Gameplay" method="start"]
 [connection signal="done" from="Options" to="Gameplay" method="enter"]
+[connection signal="options_saved" from="Options" to="ServerPackager" method="submit_player_codes"]
 [connection signal="options_saved" from="Options" to="GameLogic" method="initialize"]

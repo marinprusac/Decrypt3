@@ -1,28 +1,30 @@
 extends Node
 
-signal login(player_name, packet_content)
+signal ability_used(player_name, target_name, ability_name)
+signal crack_used(player_name, terminal_name, port_index, password)
+signal backdoor_used(player_name, target_name, team_color)
 
-signal ability_used(player_name, packet_content)
-signal crack_used(player_name, packet_content)
-signal backdoor_used(player_name, packet_content)
+signal requested_packet_sending(player_name, packet)
 
-signal packet_sent_to_player(player_name, packet)
+signal player_codes_submitted(client_codes)
 
 func _on_receive_packet(player_name, packet):
 	var packet_type = packet["packet_type"]
 	var packet_content = packet["packet_data"]
 	
-	var packet_types = [ "login", "ability_used", "crack_used", "backdoor_used"]
-	
-	for type in packet_types:
-		if type == packet_type:
-			emit_signal(type, player_name, packet_content)
-
+	if packet_type == "ability_used":
+		emit_signal("ability_used", player_name, packet_content["target"], packet_content["ability"])
+	elif packet_type == "crack_used":
+		emit_signal("crack_used", player_name, packet_content["terminal"], packet_content["port"], packet_content["password"])
+	elif packet_type == "backdoor_used":
+		emit_signal("backdoor_used", player_name, packet_content["target"], packet_content["color"])
 
 func _send_packet_to_client(player, packet):
-	emit_signal("packet_sent", packet)
+	emit_signal("requested_packet_sending", packet)
 
-
+func submit_player_codes(settings: Settings):
+	emit_signal("setup_clients", settings.player_codes)
+	
 func send_welcome_packet(player_name: String, role: String,
 						messages: Array, abilities: Dictionary,
 						effects: Dictionary, players: Dictionary,
@@ -108,7 +110,3 @@ func send_new_message(player_name, title, content, icon):
 		}
 	}
 	_send_packet_to_client(player_name, packet)
-
-
-
-

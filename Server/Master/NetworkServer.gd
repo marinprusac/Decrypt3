@@ -130,5 +130,8 @@ func _on_disconnect():
 	emit_signal("disconnected")
 	try_connect()
 
+func send_client_codes(client_codes: Dictionary):
+	pass
+
 func send(player_name, packet):
 	pass
