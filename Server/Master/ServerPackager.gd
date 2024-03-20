@@ -23,7 +23,7 @@ func _send_packet_to_client(player, packet):
 	emit_signal("requested_packet_sending", packet)
 
 func submit_player_codes(settings: Settings):
-	emit_signal("setup_clients", settings.player_codes)
+	emit_signal("player_codes_submitted", settings.player_codes)
 	
 func send_welcome_packet(player_name: String, role: String,
 						messages: Array, abilities: Dictionary,

@@ -53,8 +53,25 @@ func _add_players():
 		["Blackhat", "Red Team Whitehat", "Blue Team Whitehat", "Yellow Team Whitehat"],
 		[blackhat_count, red_count, blue_count, yellow_count])
 	
+	var reg_cd = settings.base_time_unit_seconds * settings.ability_cooldown_units
+	var exp_cd = settings.base_time_unit_seconds * settings.expertise_cooldown_units
+	var spc_cd = settings.base_time_unit_seconds * settings.special_cooldown_units
+	var clr_d = settings.base_time_unit_seconds * settings.clearance_duration_units
+	var frg_d = settings.base_time_unit_seconds * settings.forged_duration_units
+	var hck_d = settings.base_time_unit_seconds * settings.hacked_duration_units
+	var pro_d = settings.base_time_unit_seconds * settings.protection_duration_units
+	
+	
 	for i in range(len(player_names)):
-		players.append(PlayerData.new(player_names[i], roles[i], settings.ability_cooldown_units * settings.base_time_unit_seconds, settings.expertise_cooldown_units * settings.base_time_unit_seconds))
+		var role = roles[i]
+		if role == "Blackhat":
+			players.append(BlackhatData.new(player_names[i], exp_cd, spc_cd, clr_d, hck_d, frg_d, pro_d))
+		elif role == "Red Team Whitehat":
+			players.append(RedWhitehatData.new(player_names[i], reg_cd, exp_cd, hck_d, frg_d, pro_d))
+		elif role == "Blue Team Whitehat":
+			players.append(BlueWhitehatData.new(player_names[i], reg_cd, exp_cd, hck_d, frg_d, pro_d))
+		elif role == "Yellow Team Whitehat":
+			players.append(YellowWhitehatData.new(player_names[i], reg_cd, exp_cd, hck_d, frg_d, pro_d))
 
 func _add_terminals():
 	terminals = []
@@ -81,3 +98,18 @@ func is_sole_unsolved_terminal():
 		if not term.solved:
 			unsolved_terminals = 1
 	return unsolved_terminals == 1
+
+func get_terminals_dict(player: PlayerData):
+	var dict = {}
+	for terminal in terminals:
+		var targetable = is_sole_unsolved_terminal() or player.get_ability("Crack").last_target != terminal.name
+		var terminal_dict = terminal.get_dict(targetable, player.known_ports)
+		dict[terminal.name] = terminal_dict
+	return dict
+
+func get_players_dict(player: PlayerData):
+	var dict = {}
+	for another in players:
+		dict[another.name] = another.get_dict(player)
+	return dict
+

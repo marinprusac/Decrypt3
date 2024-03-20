@@ -39,27 +39,22 @@ func _on_connect():
 				}],
 				"abilities": {
 					"Hack": {
-						"usable": true,
 						"start_cooldown": 13000,
 						"end_cooldown": 17000
 					},
 					"Protect": {
-						"usable": true,
 						"start_cooldown": Time.get_unix_time_from_system() - 180,
 						"end_cooldown": Time.get_unix_time_from_system() + 60
 					},
 					"Scan": {
-						"usable": true,
 						"start_cooldown": Time.get_unix_time_from_system() - 12*60/2,
 						"end_cooldown": Time.get_unix_time_from_system() + 12*60/2
 					},
 					"Crack": {
-						"usable": true,
 						"start_cooldown": Time.get_unix_time_from_system(),
 						"end_cooldown": Time.get_unix_time_from_system() + 5
 					},
 					"Backdoor": {
-						"usable": false,
 						"start_cooldown": null,
 						"end_cooldown": null,
 					}

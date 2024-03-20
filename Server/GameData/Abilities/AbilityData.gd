@@ -2,16 +2,13 @@ extends Resource
 class_name AbilityData
 
 var name: String
-var last_target: String
 var cooldown: float
-var start_cd
-var end_cd
+var start_cd = null
+var end_cd = null
 
 func _init(name, cooldown):
 	self.name = name
 	self.cooldown = cooldown
-	start_cd = null
-	end_cd = null
 
 func is_on_cooldown():
 	var now = Time.get_unix_time_from_system()
@@ -19,7 +16,13 @@ func is_on_cooldown():
 		return false
 	return end_cd > now
 
-func use(last_target):
+func start_cooldown():
 	start_cd = Time.get_unix_time_from_system()
 	end_cd = start_cd + cooldown
-	self.last_target = last_target
+
+func get_dict():
+	return {
+		"start_cooldown": start_cd,
+		"end_cooldown": end_cd
+	}
+

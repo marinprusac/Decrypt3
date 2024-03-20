@@ -6,6 +6,16 @@ signal pause_set(paused)
 signal ended(winner_exists, whitehat_victory)
 signal changed(game_data)
 
+signal send_welcome(player_name, role, messages, abilities, effects, players, terminals)
+signal send_started(player_name)
+signal send_paused(player_name, paused)
+signal send_ended(player_name, no_winner, victory)
+signal send_abilities_refresh(player_name, abilities)
+signal send_effects_refresh(player_name, effects)
+signal send_terminals_refresh(player_name, terminals)
+signal send_players_refresh(player_name, players)
+signal send_new_message(player_name, message)
+
 var settings: Settings
 var game_data: GameData
 var running = false
@@ -71,13 +81,9 @@ func _on_crack_used(player_name, terminal_name, port_index, password):
 		return
 	if ability.is_on_cooldown():
 		return
-	if ability.last_target == terminal_name:
+	if not game_data.is_sole_unsolved_terminal() and ability.last_target == terminal_name:
 		return
-	
-	if game_data.is_sole_unsolved_terminal():
-		ability.use(null)
-	else:
-		ability.use(terminal_name)
+	ability.use(terminal_name)
 
 func _on_backdoor_used(player_name, target_name, team_color):
 	var player = game_data.get_player(player_name) as PlayerData
