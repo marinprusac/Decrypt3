@@ -9,7 +9,7 @@ var interpolating_chance = 1
 
 var base_unit = 0
 var initial_time = 0
-var time_end = 0
+var end_time = 0
 var time_increment = 0
 var unsolved_ports = []
 
@@ -22,8 +22,12 @@ func initialize(game_data: GameData):
 	handle_changes(game_data)
 
 func start():
-	time_end = Time.get_unix_time_from_system() + initial_time
+	end_time = Time.get_unix_time_from_system() + initial_time
 	running = true
+
+func set_pause(paused: bool):
+	running = not paused
+
 
 func end(victory):
 	running = false
@@ -31,7 +35,7 @@ func end(victory):
 
 
 func handle_changes(game_data: GameData):
-	time_end = game_data.game_end
+	end_time = game_data.game_end
 	unsolved_ports = []
 	for terminal in game_data.terminals:
 		if not terminal.solved:
@@ -48,7 +52,7 @@ func _process(delta):
 		return
 	
 	var now = Time.get_unix_time_from_system()
-	var time_left = (time_end - now)
+	var time_left = (end_time - now)
 	chance = MyTools.calculate_win_chance(unsolved_ports, 4.5*base_unit, time_left, time_increment)
 	
 	var factor = 0.2

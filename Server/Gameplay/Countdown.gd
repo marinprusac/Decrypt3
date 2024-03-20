@@ -15,10 +15,14 @@ func start():
 	end_time = Time.get_unix_time_from_system() + initial_time
 	running = true
 
+func set_pause(paused: bool):
+	running = not paused
+
 func handle_changes(game_data: GameData):
 	end_time = game_data.game_end
 
 func end(victory):
+	running = false
 	text = "Nuclear Launcher DECRYPTED!" if victory else "Nuclear Launcher SEIZED!"
 	modulate = safe_color if victory else trouble_color
 
