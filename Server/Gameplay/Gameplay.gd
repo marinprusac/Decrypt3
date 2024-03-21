@@ -30,3 +30,4 @@ func end(winner_exists, whitehat_victory):
 	else:
 		$Countdown.end(whitehat_victory)
 		$NuclearSymbol.end(whitehat_victory)
+

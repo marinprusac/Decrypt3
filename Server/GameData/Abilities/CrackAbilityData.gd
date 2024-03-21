@@ -12,13 +12,14 @@ func use(source: PlayerData, target_terminal: TerminalData, target_port: PortDat
 	
 	if password == target_port.password:
 		source.known_ports.append(target_port.name)
+		target_port.solved = true
 		var all_there = true
 		for port in target_terminal.ports:
 			if not port.name in source.known_ports:
 				all_there = false
 				break
 		if all_there:
-			return "solved"
+			target_terminal.solved = true
 		return "equal"
 	elif password > target_port.password:
 		return "lower"

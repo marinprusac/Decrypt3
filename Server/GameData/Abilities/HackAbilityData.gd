@@ -15,12 +15,11 @@ func use(target: PlayerData):
 	last_target = target
 	start_cooldown()
 	
-	if is_protected(target):
+	if target.has_effect("Protected"):
 		return "protected"
 	
-	var previous_effect = target.get_effect("Forged") as ForgedEffectData
-	if previous_effect != null:
-		previous_effect.end += forge_duration
+	if target.has_effect("Forged"):
+		target.get_effect("Forged").end += forge_duration
 	else:
 		target.effects.append(ForgedEffectData.new(forge_duration))
 	

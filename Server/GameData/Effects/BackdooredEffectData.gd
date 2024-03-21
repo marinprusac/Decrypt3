@@ -1,5 +1,5 @@
 extends EffectData
 class_name BackdooredEffectData
 
-func _init(source: PlayerData, target: PlayerData).("Backdoored", true):
+func _init().("Backdoored", true):
 	pass

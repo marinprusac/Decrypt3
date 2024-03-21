@@ -78,7 +78,9 @@ func _add_terminals():
 	var a_ascii = "A".to_ascii()[0]
 	for i in range(settings.terminal_count):
 		var name = char(a_ascii + i)
-		terminals.append(TerminalData.new(name, settings.ports_per_terminal, settings.digits_per_port))
+		var terminal = TerminalData.new(name, settings.ports_per_terminal, settings.digits_per_port)
+		encrypt_terminal(terminal)
+		terminals.append(terminal)
 
 func get_player(player_name):
 	for player in players:
@@ -99,6 +101,17 @@ func is_sole_unsolved_terminal():
 			unsolved_terminals = 1
 	return unsolved_terminals == 1
 
+func encrypt_terminal(terminal: TerminalData):
+	var random_blackhat_known = terminal.ports[randi()%settings.ports_per_terminal]
+	terminal.solved = false
+	for port in terminal.ports:
+		port.solved = false
+		port.password = MyTools.generate_random_codes(1, settings.digits_per_port)[0]
+		for player in players:
+			player.known_ports.erase(port.name)
+			if player.role == "Blackhat" and port == random_blackhat_known:
+				player.known_ports.append(port.name)
+
 func get_terminals_dict(player: PlayerData):
 	var dict = {}
 	for terminal in terminals:
@@ -112,4 +125,3 @@ func get_players_dict(player: PlayerData):
 	for another in players:
 		dict[another.name] = another.get_dict(player)
 	return dict
-

@@ -9,9 +9,6 @@ func _init(name, cooldown).(name, cooldown):
 func can_use(target: PlayerData):
 	return target != last_target and not is_on_cooldown()
 
-func is_protected(target: PlayerData):
-	return target.has_effect("Protected")
-
 func is_team(target: PlayerData, color: String):
 	if color == "red" and target.role.begins_with("Red"):
 		return true
