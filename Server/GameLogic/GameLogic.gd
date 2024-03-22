@@ -14,7 +14,7 @@ signal send_abilities_refresh(player_name, abilities)
 signal send_effects_refresh(player_name, effects)
 signal send_terminals_refresh(player_name, terminals)
 signal send_players_refresh(player_name, players)
-signal send_new_message(player_name, message)
+signal send_new_message(player_name, title, content, icon)
 
 var settings: Settings
 var game_data: GameData
@@ -55,48 +55,22 @@ func end(winner_exists, whitehat_victory):
 
 func _on_change():
 	emit_signal("changed", game_data)
-
-func _on_ability_used(player_name, target_name, ability_name):
-	var player = game_data.get_player(player_name) as PlayerData
-	var target = game_data.get_player(target_name) as PlayerData
-	var ability = player.get_ability(ability_name) as AbilityData
-	if ability == ERR_CANT_ACQUIRE_RESOURCE:
-		push_error("No such ability!")
-		return
-	if ability.is_on_cooldown():
-		return
-	if ability.last_target == target_name:
-		return
-	ability.use(target_name)
 	
+func _on_hack_used(player_name, target_name):
+	pass
+
+func _on_scan_used(player, target, team_color):
+	pass
+
+func _on_protect_used(player_name, target_name):
+	pass
+	
+func _on_backdoor_used(player_name, target_name, team_color):
+	pass
 
 func _on_crack_used(player_name, terminal_name, port_index, password):
-	var player = game_data.get_player(player_name) as PlayerData
-	var terminal = game_data.get_terminal(terminal_name) as TerminalData
-	var port = terminal.get_port(port_index) as PortData
-	var ability = player.get_ability("Crack") as AbilityData
-	
-	if ability == ERR_CANT_ACQUIRE_RESOURCE:
-		push_error("No such ability!")
-		return
-	if ability.is_on_cooldown():
-		return
-	if not game_data.is_sole_unsolved_terminal() and ability.last_target == terminal_name:
-		return
-	ability.use(terminal_name)
+	pass
 
-func _on_backdoor_used(player_name, target_name, team_color):
-	var player = game_data.get_player(player_name) as PlayerData
-	var target = game_data.get_player(target_name) as PlayerData
-	var ability = player.get_ability("Backdoor") as AbilityData
-	if ability == ERR_CANT_ACQUIRE_RESOURCE:
-		push_error("No such ability!")
-		return
-	if ability.is_on_cooldown():
-		return
-	if ability.last_target == target_name:
-		return
-	ability.use(target_name)
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_up"):

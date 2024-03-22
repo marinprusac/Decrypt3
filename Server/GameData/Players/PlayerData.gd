@@ -63,9 +63,7 @@ func get_usable_abilities(player: PlayerData):
 
 func get_known_effects(player: PlayerData):
 	var effects = []
-	if player == self:
-		return []
-	if player.role == "Blackhat":
+	if player.role == "Blackhat" or player == self:
 		if has_effect("Backdoored"):
 			effects.append("Backdoored")
 		if has_effect("Clearance"):

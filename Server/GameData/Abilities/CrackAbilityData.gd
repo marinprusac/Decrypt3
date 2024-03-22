@@ -4,7 +4,8 @@ class_name CrackAbilityData
 func _init(cooldown).("Crack", cooldown):
 	pass
 
-func use(source: PlayerData, target_terminal: TerminalData, target_port: PortData, password: String):
+func use(source: PlayerData, target_terminal: TerminalData,
+		target_port: PortData, password: String) -> MessageData:
 	if not can_use(source, target_terminal, target_port):
 		push_error("Illegal ability.")
 	last_target = target_terminal
@@ -20,9 +21,9 @@ func use(source: PlayerData, target_terminal: TerminalData, target_port: PortDat
 				break
 		if all_there:
 			target_terminal.solved = true
-		return "equal"
+		return MessageData.new("Port Solved", "Your guess of " + password + " was correct. Port is solved.", "password")
 	elif password > target_port.password:
-		return "lower"
+		return MessageData.new("Crack result", "Your guess of " + password + " was wrong. Real port password is lower.", "password")
 	else:
-		return "higher"
+		return MessageData.new("Crack result", "Your guess of " + password + " was correct. Port is solved.", "password")
 		

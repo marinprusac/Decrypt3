@@ -8,15 +8,15 @@ func _init(cooldown, hack_duration, forge_duration).("Hack", cooldown):
 		self.hack_duration = hack_duration
 		self.forge_duration = forge_duration
 
-func use(target: PlayerData):
+func use(target: PlayerData) -> MessageData:
 	if not can_use(target):
 		push_error("Illegal target!")
-		return
+		return null
 	last_target = target
 	start_cooldown()
 	
 	if target.has_effect("Protected"):
-		return "protected"
+		return MessageData.new("Hack Failed", target.name + " was protected from your attack.", "hack")
 	
 	if target.has_effect("Forged"):
 		target.get_effect("Forged").end += forge_duration
@@ -30,4 +30,4 @@ func use(target: PlayerData):
 		else:
 			ability.end_cd += hack_duration
 	
-	return "yes"
+	return MessageData.new("Hack Successful", target.name + " was hacked successfully.", "hack")

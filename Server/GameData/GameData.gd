@@ -82,17 +82,17 @@ func _add_terminals():
 		encrypt_terminal(terminal)
 		terminals.append(terminal)
 
-func get_player(player_name):
+func get_player(player_name) -> PlayerData:
 	for player in players:
 		if player.name == player_name:
 			return player as PlayerData
-	return ERR_CANT_ACQUIRE_RESOURCE
+	return null
 
-func get_terminal(terminal_name):
+func get_terminal(terminal_name) -> TerminalData:
 	for terminal in terminals:
 		if terminal.name ==terminal_name:
 			return terminal as TerminalData
-	return ERR_CANT_ACQUIRE_RESOURCE
+	return null
 
 func is_sole_unsolved_terminal():
 	var unsolved_terminals = 0

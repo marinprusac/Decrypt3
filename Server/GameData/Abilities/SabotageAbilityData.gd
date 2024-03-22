@@ -4,7 +4,7 @@ class_name SabotageAbilityData
 func _init(cooldown).("Sabotage", cooldown):
 	self.cooldown = cooldown
 
-func use(source: PlayerData, game_data: GameData, target_terminal: TerminalData, target_port: PortData, password: String):
+func use(source: PlayerData, game_data, target_terminal: TerminalData, target_port: PortData, password: String):
 	if not can_use(source, target_terminal, target_port):
 		push_error("Illegal ability.")
 	last_target = target_terminal
