@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "AbilityData",
 "language": "GDScript",
-"path": "res://Server/GameData/Abilities/AbilityData.gd"
+"path": "res://Server/GameData/Abilities/Abstract/AbilityData.gd"
 }, {
 "base": "PlayerTargetedAbilityData",
 "class": "BackdoorAbilityData",
@@ -92,7 +92,7 @@ _global_script_classes=[ {
 "base": "AbilityData",
 "class": "PlayerTargetedAbilityData",
 "language": "GDScript",
-"path": "res://Server/GameData/Abilities/PlayerTargetedAbilityData.gd"
+"path": "res://Server/GameData/Abilities/Abstract/PlayerTargetedAbilityData.gd"
 }, {
 "base": "Resource",
 "class": "PortData",
@@ -137,7 +137,7 @@ _global_script_classes=[ {
 "base": "AbilityData",
 "class": "TerminalTargetedAbilityData",
 "language": "GDScript",
-"path": "res://Server/GameData/Abilities/TerminalTargetedAbilityData.gd"
+"path": "res://Server/GameData/Abilities/Abstract/TerminalTargetedAbilityData.gd"
 }, {
 "base": "PlayerData",
 "class": "WhitehatData",

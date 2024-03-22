@@ -122,6 +122,6 @@ func get_terminals_dict(player: PlayerData):
 
 func get_players_dict(player: PlayerData):
 	var dict = {}
-	for another in players:
-		dict[another.name] = another.get_dict(player)
+	for other in players:
+		dict[other.name] = {"ally": player == other or player.role == "Blackhat" and other.role == "Blackat"}
 	return dict
