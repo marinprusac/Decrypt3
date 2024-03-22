@@ -46,6 +46,7 @@ visible = false
 [connection signal="send_paused" from="GameLogic" to="ServerPackager" method="send_pause_packet"]
 [connection signal="send_started" from="GameLogic" to="ServerPackager" method="send_start_packet"]
 [connection signal="send_terminals_refresh" from="GameLogic" to="ServerPackager" method="send_terminals_refresh_packet"]
+[connection signal="send_welcome" from="GameLogic" to="ServerPackager" method="send_welcome_packet"]
 [connection signal="started" from="GameLogic" to="Gameplay" method="start"]
 [connection signal="done" from="Options" to="Gameplay" method="enter"]
 [connection signal="options_saved" from="Options" to="ServerPackager" method="submit_player_codes"]
