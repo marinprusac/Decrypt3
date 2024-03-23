@@ -97,3 +97,8 @@ static func generate_random_codes(number_of_codes: int, number_of_digits: int):
 			i-=1
 	return array
 
+static func get_data_from_raw(raw):
+	return JSON.parse(raw).result
+
+static func get_raw_from_data(data):
+	return JSON.print(data).to_utf8()

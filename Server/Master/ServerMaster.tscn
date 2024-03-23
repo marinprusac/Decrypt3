@@ -27,13 +27,13 @@ visible = false
 visible = false
 
 [connection signal="connected" from="NetworkServer" to="Connecting" method="_on_stop_connecting"]
+[connection signal="connected" from="NetworkServer" to="Options" method="enter"]
 [connection signal="failed_to_connect" from="NetworkServer" to="Connecting" method="_on_stop_connecting"]
 [connection signal="packet_received" from="NetworkServer" to="ServerPackager" method="_on_receive_packet"]
 [connection signal="trying_to_connect" from="NetworkServer" to="Connecting" method="_on_trying_to_connect"]
 [connection signal="backdoor_used" from="ServerPackager" to="GameLogic" method="_on_backdoor_used"]
 [connection signal="crack_used" from="ServerPackager" to="GameLogic" method="_on_crack_used"]
 [connection signal="hack_used" from="ServerPackager" to="GameLogic" method="_on_hack_used"]
-[connection signal="player_codes_submitted" from="ServerPackager" to="NetworkServer" method="send_client_codes"]
 [connection signal="player_joined" from="ServerPackager" to="GameLogic" method="_on_player_joined"]
 [connection signal="protect_used" from="ServerPackager" to="GameLogic" method="_on_protect_used"]
 [connection signal="requested_packet_sending" from="ServerPackager" to="NetworkServer" method="send"]
@@ -53,5 +53,7 @@ visible = false
 [connection signal="send_welcome" from="GameLogic" to="ServerPackager" method="send_welcome_packet"]
 [connection signal="started" from="GameLogic" to="ServerPackager" method="send_start_packet"]
 [connection signal="started" from="GameLogic" to="Gameplay" method="start"]
+[connection signal="started_single" from="GameLogic" to="ServerPackager" method="send_start_to_single"]
 [connection signal="done" from="Options" to="Gameplay" method="enter"]
 [connection signal="options_saved" from="Options" to="GameLogic" method="initialize"]
+[connection signal="requested_to_start" from="Gameplay" to="GameLogic" method="start"]

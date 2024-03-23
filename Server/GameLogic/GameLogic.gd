@@ -2,6 +2,7 @@ extends Node
 
 signal initialized(game_data)
 signal started()
+signal started_single(player)
 signal pause_set(paused)
 signal ended(winner_exists, whitehat_victory)
 signal changed(game_data)
@@ -32,6 +33,10 @@ func start():
 		return
 	running = true
 	game_data.start_game()
+	
+	for player in game_data.players:
+		emit_signal("send_welcome", player)
+	
 	emit_signal("started")
 
 func set_pause(paused: bool):
@@ -68,8 +73,9 @@ func _on_change():
 	emit_signal("changed", game_data)
 
 func _on_player_joined(player):
-	print("joined")
-	emit_signal("send_welcome", player)
+	if running:
+		emit_signal("send_welcome", player)
+		emit_signal("started_single", player)
 
 func _on_hack_used(player: PlayerData, target: PlayerData):
 	var hack = player.get_ability("Hack")
@@ -243,16 +249,6 @@ func _on_sabotage_used(player: PlayerData, terminal: TerminalData, port: PortDat
 
 	_send_abilities_refresh(player)
 	_on_change()
-
-func _process(delta):
-	if Input.is_action_just_pressed("ui_up"):
-		start()
-	if Input.is_action_just_pressed("ui_down"):
-		end(true, false)
-	if Input.is_action_just_pressed("ui_left"):
-		set_pause(true)
-	if Input.is_action_just_pressed("ui_right"):
-		set_pause(false)
 
 
 

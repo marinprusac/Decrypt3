@@ -22,9 +22,11 @@ func initialize(data: KnownData):
 	var terminals = data.terminals
 	var player_name = data.name
 	var abilities = data.abilities
+	$Name.text = data.name
 	$Abilities.initialize(data)
 	$Players.initialize(data)
 	$CenterContainer/Terminals.initialize(data)
+	enter()
 
 func _on_disconnected():
 	visible = false

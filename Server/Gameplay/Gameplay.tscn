@@ -70,3 +70,13 @@ margin_right = 25.0
 margin_bottom = 46.0
 columns = 3
 script = ExtResource( 5 )
+
+[node name="StartButton" type="Button" parent="."]
+margin_left = 881.0
+margin_top = 191.0
+margin_right = 918.0
+margin_bottom = 204.0
+rect_scale = Vector2( 4, 4 )
+text = "Start"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]

@@ -1,5 +1,7 @@
 extends Control
 
+signal requested_to_start()
+
 
 func enter():
 	visible = true
@@ -31,3 +33,8 @@ func end(winner_exists, whitehat_victory):
 		$Countdown.end(whitehat_victory)
 		$NuclearSymbol.end(whitehat_victory)
 
+
+
+func _on_StartButton_pressed():
+	$StartButton.visible = false
+	emit_signal("requested_to_start")

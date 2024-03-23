@@ -55,6 +55,3 @@ func _on_save_options():
 	visible = false
 	emit_signal("options_saved", settings)
 	emit_signal("done")
-
-func _ready():
-	enter()

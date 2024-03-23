@@ -42,12 +42,8 @@ margin_top = 346.0
 margin_right = 191.0
 margin_bottom = 466.0
 
-[connection signal="connected" from="NetworkClient" to="Connecting" method="_on_stop_connecting"]
-[connection signal="connected" from="NetworkClient" to="Menu" method="enter"]
-[connection signal="failed_to_connect" from="NetworkClient" to="Login" method="enter"]
-[connection signal="failed_to_connect" from="NetworkClient" to="Connecting" method="_on_stop_connecting"]
+[connection signal="connected" from="NetworkClient" to="Login" method="enter"]
 [connection signal="packet_received" from="NetworkClient" to="ClientPackager" method="_on_receive_packet"]
-[connection signal="trying_to_connect" from="NetworkClient" to="Connecting" method="_on_trying_to_connect"]
 [connection signal="ended" from="ClientPackager" to="Menu" method="_on_ended"]
 [connection signal="new_message" from="ClientPackager" to="Messages" method="_on_new_message"]
 [connection signal="new_message" from="ClientPackager" to="MessagePopup" method="open_message"]
@@ -56,11 +52,13 @@ margin_bottom = 466.0
 [connection signal="refresh" from="ClientPackager" to="Messages" method="refresh"]
 [connection signal="refresh" from="ClientPackager" to="TerminalWindow" method="refresh"]
 [connection signal="started" from="ClientPackager" to="Menu" method="_on_started"]
+[connection signal="welcome" from="ClientPackager" to="Connecting" method="_on_stop_connecting"]
 [connection signal="welcome" from="ClientPackager" to="Menu" method="initialize"]
 [connection signal="welcome" from="ClientPackager" to="Messages" method="initialize"]
 [connection signal="welcome" from="ClientPackager" to="Info" method="initialize"]
 [connection signal="welcome" from="ClientPackager" to="TerminalWindow" method="initialize"]
-[connection signal="password_submitted" from="Login" to="NetworkClient" method="try_connect"]
+[connection signal="password_submitted" from="Login" to="ClientPackager" method="_on_send_login_packet"]
+[connection signal="password_submitted" from="Login" to="Connecting" method="_on_trying_to_connect"]
 [connection signal="connecting_canceled" from="Connecting" to="Login" method="enter"]
 [connection signal="opened_info" from="Menu" to="Info" method="enter"]
 [connection signal="opened_messages" from="Menu" to="Messages" method="enter"]

@@ -9,18 +9,18 @@ signal crack_used(terminal, port, password)
 signal sabotage_used(terminal, port, password)
 signal backdoor_used(player, target, team_color)
 
-signal player_codes_submitted(client_codes)
-signal requested_packet_sending(player_name, packet)
+signal requested_packet_sending(packet)
 
 var game_data: GameData = null
 
 func submit_game_data(game_data: GameData):
 	self.game_data = game_data
-	emit_signal("player_codes_submitted", game_data.settings.player_codes)
+	emit_signal("requested_packet_sending", {"packet_type": "player_codes", "packet_content": game_data.settings.player_codes})
 
-func _on_receive_packet(player_name, packet):
+func _on_receive_packet(packet):
 	var packet_type = packet["packet_type"]
 	var packet_content = packet["packet_content"]
+	var player_name = packet["player"]
 	
 	var player = game_data.get_player(player_name)
 	if packet_type == "joined":
@@ -57,7 +57,8 @@ func _on_receive_packet(player_name, packet):
 		emit_signal("backdoor_used", player, target, color)
 
 func _send_packet_to_client(player, packet):
-	emit_signal("requested_packet_sending", player.name, packet)
+	packet["player"] = player.name
+	emit_signal("requested_packet_sending", packet)
 	
 func send_welcome_packet(player: PlayerData):
 	var packet = {
@@ -73,14 +74,17 @@ func send_welcome_packet(player: PlayerData):
 	}
 	_send_packet_to_client(player, packet)
 
+func send_start_to_single(player):
+	var packet = {
+		"packet_type": "started",
+		"packet_content": {
+		}
+	}
+	_send_packet_to_client(player, packet)
+
 func send_start_packet():
 	for player in game_data.players:
-		var packet = {
-			"packet_type": "started",
-			"packet_content": {
-			}
-		}
-		_send_packet_to_client(player, packet)
+		send_start_to_single(player)
 
 func send_pause_packet(player, time_elapsed = null):
 	var packet = {

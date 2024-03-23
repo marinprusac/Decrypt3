@@ -189,7 +189,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Decrypt 3"
-run/main_scene="res://SimulatedNetwork/SimulatedNetwork.tscn"
+run/main_scene="res://Server/Master/ServerMaster.tscn"
 config/icon="res://Art/icon.png"
 
 [display]

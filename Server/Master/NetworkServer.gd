@@ -1,36 +1,50 @@
 extends Node
 
+var _client = WebSocketClient.new()
+
 signal trying_to_connect()
 signal connected()
 signal failed_to_connect()
 signal disconnected()
 
-signal client_codes_sent(codes)
-signal packet_sent(player_name, packet)
-signal packet_received(player_name, packet)
+signal packet_received(packet)
 
-export var url = ""
-export var port = 0
-
+export var url = "127.0.0.1"
+export var port = 9080
+var websocket_url = "ws://" + url + ":" + str(port)
 
 func try_connect():
 	emit_signal("trying_to_connect")
-
+	var err = _client.connect_to_url(websocket_url, PoolStringArray(), false)
+	if err != OK:
+		print("Unable to connect")
+		emit_signal("failed_to_connect")
+		
 func force_disconnect():
-	pass
+	_client.disconnect_from_host()
 
-func _on_connect():
-	emit_signal("connected")
+func send(packet):
+	_client.get_peer(1).put_packet(MyTools.get_raw_from_data(packet))
 
-func _on_receive(player_name, packet):
-	emit_signal("packet_received", player_name, packet)
-
-func _on_disconnect():
+func _closed(was_clean = false):
+	print("Closed, clean: ", was_clean)
 	emit_signal("disconnected")
+	
+func _connected(proto = ""):
+	print("Connected with protocol: ", proto)
+	emit_signal("connected")
+	send({"packet_type": "server_connect", "packet_content": {}})
+	
+func _on_data():
+	var message = _client.get_peer(1).get_packet().get_string_from_utf8()
+	emit_signal("packet_received", MyTools.get_data_from_raw(message))
 
-func send_client_codes(client_codes: Dictionary):
-	emit_signal("client_codes_sent", client_codes)
+func _ready():
+	_client.connect("connection_closed", self, "_closed")
+	_client.connect("connection_error", self, "_closed")
+	_client.connect("connection_established", self, "_connected")
+	_client.connect("data_received", self, "_on_data")
+	try_connect()
 
-func send(player_name, packet):
-	emit_signal("packet_sent", player_name, packet)
-
+func _process(delta):
+	_client.poll()
