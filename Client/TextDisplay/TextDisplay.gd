@@ -6,6 +6,11 @@ var content = ""
 func _ready():
 	text = "_".repeat(length)
 
+func change_length(length):
+	self.length = length
+	content = content.substr(0, length)
+	update_text()
+
 func get_content():
 	return content
 

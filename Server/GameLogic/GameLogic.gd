@@ -104,6 +104,7 @@ func _on_hack_used(player: PlayerData, target: PlayerData):
 		_send_abilities_refresh(target)
 	
 	_send_abilities_refresh(player)
+	_on_change()
 
 func _on_protect_used(player: PlayerData, target: PlayerData):
 	var protect = player.get_ability("Protect")
@@ -120,6 +121,7 @@ func _on_protect_used(player: PlayerData, target: PlayerData):
 	
 	_send_abilities_refresh(player)
 	_send_msg(player, MessageData.new("Protect Successful", "You successfully protected " + target.name + ".", "protect"))
+	_on_change()
 
 func _on_scan_used(player: PlayerData, target: PlayerData, team_color: String):
 	var scan = player.get_ability("Scan")
@@ -142,12 +144,13 @@ func _on_scan_used(player: PlayerData, target: PlayerData, team_color: String):
 	if result == "protected":
 		_send_msg(player, MessageData.new("Scan Failed", target.name + " was protected from your scan.", "scan"))
 	elif result == "yes":
-		_send_msg(player, MessageData.new("Scan Successful", "Scan concluded that " + target.name + " DOESN'T belong to the " + team_color + " team.", "scan"))
-	elif result == "no":
 		_send_msg(player, MessageData.new("Scan Successful", "Scan concluded that " + target.name + " DOES belong to the " + team_color + " team.", "scan"))
+	elif result == "no":
+		_send_msg(player, MessageData.new("Scan Successful", "Scan concluded that " + target.name + " DOESN'T belong to the " + team_color + " team.", "scan"))
 
 	_send_abilities_refresh(player)
-	
+	_on_change()
+
 func _on_backdoor_used(player: PlayerData, target: PlayerData, team_color: String):
 	var backdoor = player.get_ability("Backdoor")
 	if not backdoor.can_use(player, target):
@@ -162,21 +165,22 @@ func _on_backdoor_used(player: PlayerData, target: PlayerData, team_color: Strin
 		else:
 			if not target.is_team(team_color):
 				_send_msg(player, MessageData.new("Backdoor Failed", target.name + " doesn't belong to the " + team_color + " team.", "backdoor"))
-
-			for ability in target.abilities:
-				ability.cooldown *= 1.2
-			for ability in player.abilities:
-				ability.cooldown *= 0.9
-			target.add_effect(BackdooredEffectData.new())
-			_send_msg(player, MessageData.new("Backdoor Successful", target.name + " was successfully backdoored as a " + team_color + " team member.", "backdoor"))
-			_send_msg(target,  MessageData.new("YOU'RE BACKDOORED", "Someone discovered what team you belong to and successfully backdoored you. Your abilities now take longer to reload.", "backdoor"))
+			else:
+				for ability in target.abilities:
+					ability.cooldown *= 1.2
+				for ability in player.abilities:
+					ability.cooldown *= 0.9
+				target.add_effect(BackdooredEffectData.new())
+				_send_msg(player, MessageData.new("Backdoor Successful", target.name + " was successfully backdoored as a " + team_color + " team member.", "backdoor"))
+				_send_msg(target,  MessageData.new("YOU'RE BACKDOORED", "Someone discovered what team you belong to and successfully backdoored you. Your abilities now take longer to reload.", "backdoor"))
 	else:
 		target.remove_effect("Clearance")
 		target.add_effect(ClearanceEffectData.new(backdoor.effect_duration, team_color))
 		_send_msg(player, MessageData.new("Clearance Successful", target.name + " successfully gained a temporary "+ team_color +" team clearance.", "backdoor"))
-		_send_msg(player, MessageData.new("YOU'RE CLEARANCED", player.name + " has granted you a temporary "+ team_color +" team clearance.", "backdoor"))
+		_send_msg(target, MessageData.new("YOU'RE CLEARANCED", player.name + " has granted you a temporary "+ team_color +" team clearance.", "backdoor"))
 	
 	_send_abilities_refresh(player)
+	_on_change()
 
 func _on_crack_used(player: PlayerData, terminal: TerminalData, port: PortData, password: String):
 	var crack = player.get_ability("Crack")
@@ -207,6 +211,7 @@ func _on_crack_used(player: PlayerData, terminal: TerminalData, port: PortData, 
 		_send_msg(player, MessageData.new("Crack Result", "Your guess of %s for port %s (terminal %s) was wrong. Real port password is higher." % [password, port.name, terminal.name], "password"))
 
 	_send_abilities_refresh(player)
+	_on_change()
 
 func _on_sabotage_used(player: PlayerData, terminal: TerminalData, port: PortData, password: String):
 	var sabotage = player.get_ability("Sabotage")
@@ -237,6 +242,7 @@ func _on_sabotage_used(player: PlayerData, terminal: TerminalData, port: PortDat
 		_send_msg(player, MessageData.new("Sabotage Result", "Your guess of %s for port %s (terminal %s) was wrong. Real port password is higher." % [password, port.name, terminal.name], "password"))
 
 	_send_abilities_refresh(player)
+	_on_change()
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_up"):

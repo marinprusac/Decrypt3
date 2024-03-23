@@ -3,7 +3,6 @@
 [ext_resource path="res://Resources/MonoPixelFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Client/TextDisplay/TextDisplay.tscn" type="PackedScene" id=2]
 
-
 [node name="TerminalPort" type="VBoxContainer"]
 margin_right = 13.0
 margin_bottom = 35.0

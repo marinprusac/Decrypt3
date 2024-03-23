@@ -18,7 +18,7 @@ func handle_changes(game_data: GameData):
 	for player in game_data.players:
 		player = player as PlayerData
 		var child = get_node(player.name)
-		for effect in player.effects:
-			if effect.name == "Backdoored":
-				child.set_backdoored(true)
-		child.set_backdoored(false)
+		if player.has_effect("Backdoored"):
+			child.set_backdoored(true)
+		else:
+			child.set_backdoored(false)
