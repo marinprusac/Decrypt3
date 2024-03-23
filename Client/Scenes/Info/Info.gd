@@ -3,9 +3,8 @@ extends Control
 signal exited_info()
 
 
-func initialize(welcome_packet):
-	var player_role = welcome_packet["you"]["role"]
-	var text = "Your role is " + player_role + "."
+func initialize(data: KnownData):
+	var text = "Your role is " + data.role + "."
 	$"TabContainer/Roles/TabContainer/Your Role/Label".text = text
 
 func _on_disconnected():

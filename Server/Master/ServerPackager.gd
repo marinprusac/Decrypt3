@@ -1,10 +1,12 @@
 extends Node
 
+signal player_joined(player)
+
 signal hack_used(player, target)
 signal protect_used(player, target)
 signal scan_used(player, target, team_color)
-signal crack_used(player, terminal, port, password)
-signal sabotage_used(player, target, port, password)
+signal crack_used(terminal, port, password)
+signal sabotage_used(terminal, port, password)
 signal backdoor_used(player, target, team_color)
 
 signal player_codes_submitted(client_codes)
@@ -18,20 +20,22 @@ func submit_game_data(game_data: GameData):
 
 func _on_receive_packet(player_name, packet):
 	var packet_type = packet["packet_type"]
-	var packet_content = packet["packet_data"]
+	var packet_content = packet["packet_content"]
 	
 	var player = game_data.get_player(player_name)
+	if packet_type == "joined":
+		emit_signal("player_joined", player)
 	
 	if packet_type == "hack_used":
-		var target = packet_content["target"]
+		var target = game_data.get_player(packet_content["target"])
 		emit_signal("hack_used", player, target)
 		
 	if packet_type == "protect_used":
-		var target = packet_content["target"]
+		var target = game_data.get_player(packet_content["target"])
 		emit_signal("protect_used", player, target)
 		
 	if packet_type == "scan_used":
-		var target = packet_content["target"]
+		var target = game_data.get_player(packet_content["target"])
 		var color = packet_content["color"]
 		emit_signal("scan_used", player, target, color)
 		
@@ -48,7 +52,7 @@ func _on_receive_packet(player_name, packet):
 		emit_signal("sabotage_used", player, terminal, port, password)
 		
 	elif packet_type == "backdoor_used":
-		var target = packet_content["target"]
+		var target = game_data.get_player(packet_content["target"])
 		var color = packet_content["color"]
 		emit_signal("backdoor_used", player, target, color)
 
@@ -69,20 +73,21 @@ func send_welcome_packet(player: PlayerData):
 	}
 	_send_packet_to_client(player, packet)
 
-func send_start_packet(player):
-	var packet = {
-		"packet_type": "started",
-		"packet_content": {
-			"abilities": player.get_abilities_dict(),
-			"effects": player.get_known_effects(player)
+func send_start_packet():
+	for player in game_data.players:
+		var packet = {
+			"packet_type": "started",
+			"packet_content": {
+			}
 		}
-	}
-	_send_packet_to_client(player, packet)
+		_send_packet_to_client(player, packet)
 
-func send_pause_packet(player):
+func send_pause_packet(player, time_elapsed = null):
 	var packet = {
 		"packet_type": "paused",
-		"packet_content": {}
+		"packet_content": {
+			"time_elapsed": time_elapsed
+		}
 	}
 	_send_packet_to_client(player, packet)
 

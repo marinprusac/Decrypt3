@@ -20,7 +20,7 @@ func start_cooldown():
 	start_cd = Time.get_unix_time_from_system()
 	end_cd = start_cd + cooldown
 
-func get_dict(player, targets):
+func to_dict(player, targets):
 	return {
 		"start_cooldown": start_cd,
 		"end_cooldown": end_cd

@@ -7,7 +7,7 @@
 [ext_resource path="res://Server/Options/Options.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Server/GameLogic/GameLogic.gd" type="Script" id=7]
 
-[node name="ServerMaster" type="Node"]
+[node name="ServerMaster" type="Control"]
 
 [node name="NetworkServer" type="Node" parent="."]
 script = ExtResource( 5 )
@@ -19,7 +19,6 @@ script = ExtResource( 4 )
 script = ExtResource( 7 )
 
 [node name="Connecting" parent="." instance=ExtResource( 3 )]
-visible = false
 
 [node name="Options" parent="." instance=ExtResource( 6 )]
 visible = false
@@ -27,17 +26,22 @@ visible = false
 [node name="Gameplay" parent="." instance=ExtResource( 1 )]
 visible = false
 
+[connection signal="connected" from="NetworkServer" to="Connecting" method="_on_stop_connecting"]
+[connection signal="failed_to_connect" from="NetworkServer" to="Connecting" method="_on_stop_connecting"]
 [connection signal="packet_received" from="NetworkServer" to="ServerPackager" method="_on_receive_packet"]
+[connection signal="trying_to_connect" from="NetworkServer" to="Connecting" method="_on_trying_to_connect"]
 [connection signal="backdoor_used" from="ServerPackager" to="GameLogic" method="_on_backdoor_used"]
 [connection signal="crack_used" from="ServerPackager" to="GameLogic" method="_on_crack_used"]
 [connection signal="hack_used" from="ServerPackager" to="GameLogic" method="_on_hack_used"]
 [connection signal="player_codes_submitted" from="ServerPackager" to="NetworkServer" method="send_client_codes"]
+[connection signal="player_joined" from="ServerPackager" to="GameLogic" method="_on_player_joined"]
 [connection signal="protect_used" from="ServerPackager" to="GameLogic" method="_on_protect_used"]
 [connection signal="requested_packet_sending" from="ServerPackager" to="NetworkServer" method="send"]
 [connection signal="sabotage_used" from="ServerPackager" to="GameLogic" method="_on_sabotage_used"]
 [connection signal="scan_used" from="ServerPackager" to="GameLogic" method="_on_scan_used"]
 [connection signal="changed" from="GameLogic" to="Gameplay" method="handle_changes"]
 [connection signal="ended" from="GameLogic" to="Gameplay" method="end"]
+[connection signal="initialized" from="GameLogic" to="ServerPackager" method="submit_game_data"]
 [connection signal="initialized" from="GameLogic" to="Gameplay" method="initialize"]
 [connection signal="pause_set" from="GameLogic" to="Gameplay" method="set_pause"]
 [connection signal="send_abilities_refresh" from="GameLogic" to="ServerPackager" method="send_abilities_refresh_packet"]
@@ -47,7 +51,7 @@ visible = false
 [connection signal="send_started" from="GameLogic" to="ServerPackager" method="send_start_packet"]
 [connection signal="send_terminals_refresh" from="GameLogic" to="ServerPackager" method="send_terminals_refresh_packet"]
 [connection signal="send_welcome" from="GameLogic" to="ServerPackager" method="send_welcome_packet"]
+[connection signal="started" from="GameLogic" to="ServerPackager" method="send_start_packet"]
 [connection signal="started" from="GameLogic" to="Gameplay" method="start"]
 [connection signal="done" from="Options" to="Gameplay" method="enter"]
-[connection signal="options_saved" from="Options" to="ServerPackager" method="submit_player_codes"]
 [connection signal="options_saved" from="Options" to="GameLogic" method="initialize"]

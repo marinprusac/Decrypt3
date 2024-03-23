@@ -35,16 +35,17 @@ func start():
 	emit_signal("started")
 
 func set_pause(paused: bool):
+	var time_passed_paused = null
 	if paused != (time_paused == null):
 		return
 	if paused:
 		time_paused = Time.get_unix_time_from_system()
 	else:
-		var time_passed_paused = Time.get_unix_time_from_system() - time_paused
+		Time.get_unix_time_from_system() - time_paused
 		game_data.game_end = time_passed_paused + game_data.game_end
 		_on_change()
 		time_paused = null
-	emit_signal("pause_set", paused)
+	emit_signal("pause_set", paused, time_passed_paused)
 		
 func end(winner_exists, whitehat_victory):
 	if not running:
@@ -55,7 +56,7 @@ func end(winner_exists, whitehat_victory):
 
 func _send_msg(player: PlayerData, message: MessageData):
 	player.messages.append(message)
-	emit_signal("send_new_message", message)
+	emit_signal("send_new_message", player, message)
 	
 func _send_abilities_refresh(player: PlayerData):
 	emit_signal("send_abilities_refresh", player)
@@ -65,10 +66,20 @@ func _send_terminals_refresh(player):
 
 func _on_change():
 	emit_signal("changed", game_data)
-	
+
+func _on_player_joined(player):
+	print("joined")
+	emit_signal("send_welcome", player)
+
 func _on_hack_used(player: PlayerData, target: PlayerData):
 	var hack = player.get_ability("Hack")
-	if not hack.can_use(target):
+	if not hack.can_use(player, target):
+		print(player.name)
+		print(target.name)
+		print(hack.is_on_cooldown())
+		print(hack.is_valid_target(player, target))
+		print(hack.can_use(player, target))
+		_send_abilities_refresh(player)
 		return
 		
 	hack.last_target = target
@@ -76,27 +87,27 @@ func _on_hack_used(player: PlayerData, target: PlayerData):
 	
 	if target.has_effect("Protected"):
 		_send_msg(player, MessageData.new("Hack Failed", target.name + " was protected from your hack.", "hack"))
-	
-	if target.has_effect("Forged"):
-		target.get_effect("Forged").end += hack.forge_duration
 	else:
-		target.effects.append(ForgedEffectData.new(hack.forge_duration))
-	
-	for ability in target.abilities:
-		if not ability.is_on_cooldown():
-			ability.start_cd = Time.get_unix_time_from_system()
-			ability.end_cd = ability.start_cd + hack.hack_duration
+		if target.has_effect("Forged"):
+			target.get_effect("Forged").end += hack.forge_duration
 		else:
-			ability.end_cd += hack.hack_duration
+			target.effects.append(ForgedEffectData.new(hack.forge_duration))
+		
+		for ability in target.abilities:
+			if not ability.is_on_cooldown():
+				ability.start_cd = Time.get_unix_time_from_system()
+				ability.end_cd = ability.start_cd + hack.hack_duration
+			else:
+				ability.end_cd += hack.hack_duration
+		_send_msg(player, MessageData.new("Hack Successful", target.name + " was hacked successfully.", "hack"))
+		_send_msg(target, MessageData.new("YOU'RE HACKED", "Someone has hacked you. Your abilities are shortly disabled and you might seem suspicious.", "hack"))
+		_send_abilities_refresh(target)
 	
 	_send_abilities_refresh(player)
-	_send_abilities_refresh(target)
-	_send_msg(player, MessageData.new("Hack Successful", target.name + " was hacked successfully.", "hack"))
-	_send_msg(target, MessageData.new("YOU'RE HACKED", "Someone has hacked you. Your abilities are shortly disabled and you might seem suspicious.", "hack"))
 
 func _on_protect_used(player: PlayerData, target: PlayerData):
 	var protect = player.get_ability("Protect")
-	if not protect.can_use(target):
+	if not protect.can_use(player, target):
 		return
 	
 	protect.last_target = target
@@ -112,7 +123,7 @@ func _on_protect_used(player: PlayerData, target: PlayerData):
 
 func _on_scan_used(player: PlayerData, target: PlayerData, team_color: String):
 	var scan = player.get_ability("Scan")
-	if not scan.can_use(target):
+	if not scan.can_use(player, target):
 		return
 	
 	scan.last_target = target
@@ -121,7 +132,7 @@ func _on_scan_used(player: PlayerData, target: PlayerData, team_color: String):
 	var result = "no"
 	if target.has_effect("Clearance") and target.get_effect("Clearance").color == team_color:
 		result = "yes"
-	if player.is_team(target, team_color):
+	if target.is_team(team_color):
 		result = "yes"
 	if target.has_effect("Hacked"):
 		result = "no"
@@ -139,7 +150,7 @@ func _on_scan_used(player: PlayerData, target: PlayerData, team_color: String):
 	
 func _on_backdoor_used(player: PlayerData, target: PlayerData, team_color: String):
 	var backdoor = player.get_ability("Backdoor")
-	if not backdoor.can_use(target):
+	if not backdoor.can_use(player, target):
 		return null
 		
 	backdoor.last_target = target
@@ -148,17 +159,17 @@ func _on_backdoor_used(player: PlayerData, target: PlayerData, team_color: Strin
 	if target.role != "Blackhat":
 		if target.has_effect("Protected"):
 			_send_msg(player, MessageData.new("Backdoor Failed", target.name + " was protected from your attack.", "backdoor"))
+		else:
+			if not target.is_team(team_color):
+				_send_msg(player, MessageData.new("Backdoor Failed", target.name + " doesn't belong to the " + team_color + " team.", "backdoor"))
 
-		if not target.is_team(target, team_color):
-			_send_msg(player, MessageData.new("Backdoor Failed", target.name + " doesn't belong to the " + team_color + " team.", "backdoor"))
-
-		for ability in target.abilities:
-			ability.cooldown *= 1.2
-		for ability in player.abilities:
-			ability.cooldown *= 0.9
-		target.add_effect(BackdooredEffectData.new())
-		_send_msg(player, MessageData.new("Backdoor Successful", target.name + " was successfully backdoored as a " + team_color + " team member.", "backdoor"))
-		_send_msg(target,  MessageData.new("YOU'RE BACKDOORED", "Someone discovered what team you belong to and successfully backdoored you. Your abilities now take longer to reload.", "backdoor"))
+			for ability in target.abilities:
+				ability.cooldown *= 1.2
+			for ability in player.abilities:
+				ability.cooldown *= 0.9
+			target.add_effect(BackdooredEffectData.new())
+			_send_msg(player, MessageData.new("Backdoor Successful", target.name + " was successfully backdoored as a " + team_color + " team member.", "backdoor"))
+			_send_msg(target,  MessageData.new("YOU'RE BACKDOORED", "Someone discovered what team you belong to and successfully backdoored you. Your abilities now take longer to reload.", "backdoor"))
 	else:
 		target.remove_effect("Clearance")
 		target.add_effect(ClearanceEffectData.new(backdoor.effect_duration, team_color))
@@ -236,3 +247,6 @@ func _process(delta):
 		set_pause(true)
 	if Input.is_action_just_pressed("ui_right"):
 		set_pause(false)
+
+
+

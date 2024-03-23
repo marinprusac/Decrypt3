@@ -48,6 +48,7 @@ func get_messages_array():
 	var array = []
 	for message in messages:
 		array.append(message.get_dict())
+	return array
 
 func get_abilities_dict(players, terminals):
 	var dict = {}
@@ -57,3 +58,6 @@ func get_abilities_dict(players, terminals):
 		if ability is PlayerTargetedAbilityData:
 			dict[ability.name] = ability.to_dict(self, players)
 	return dict
+
+func is_team(color):
+	return false

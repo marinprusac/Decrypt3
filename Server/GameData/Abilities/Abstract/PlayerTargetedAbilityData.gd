@@ -21,11 +21,11 @@ func is_team(target, color: String):
 func can_use(player, target):
 	return not is_on_cooldown() and is_valid_target(player, target)
 
-func get_dict(player, players):
+func to_dict(player, players):
 	var usable_on = []
 	for target in players:
 		if is_valid_target(player, target):
-			usable_on.append(player.name)
+			usable_on.append(target.name)
 
 	return {
 		"start_cooldown": start_cd,

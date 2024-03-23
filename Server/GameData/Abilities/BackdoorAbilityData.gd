@@ -10,14 +10,14 @@ func is_valid_target(player, target):
 	return target != player and target != last_target and not target.has_effect("Backdoored")
 
 
-func get_dict(player, players):
+func to_dict(player, players):
 	var backdoored = []
 	var usable_on = []
 	
 	for target in players:
 		if is_valid_target(player, target):
 			usable_on.append(target.name)
-		if not target.has_effect("Backdoored"):
+		if target.has_effect("Backdoored"):
 			backdoored.append(target.name)
 	
 	return {

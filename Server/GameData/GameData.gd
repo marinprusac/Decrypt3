@@ -84,6 +84,8 @@ func _add_terminals():
 
 func get_player(player_name) -> PlayerData:
 	for player in players:
+		print(player.name)
+		print(player_name)
 		if player.name == player_name:
 			return player as PlayerData
 	return null

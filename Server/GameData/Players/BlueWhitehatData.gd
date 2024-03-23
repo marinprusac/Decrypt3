@@ -6,3 +6,5 @@ func _init(name, reg_cd, exp_cd, hack_duration, forge_duration, protection_durat
 	abilities.append(ProtectAbilityData.new(exp_cd, protection_duration))
 	abilities.append(ScanAbilityData.new(reg_cd))
 
+func is_team(color):
+	return color == "blue"

@@ -10,7 +10,7 @@ func get_settings():
 	var codes = MyTools.generate_random_codes(player_count, 3)
 	var player_codes = {}
 	for i in range(player_count):
-		player_codes[codes[i]] = $Players/PlayerList.get_item_text(i)
+		player_codes[$Players/PlayerList.get_item_text(i)] = codes[i]
 	settings.player_codes = player_codes
 	
 	settings.whitehat_percent = $RolesAndTeams/RoleDistribution/WhitehatSlider.value

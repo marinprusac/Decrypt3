@@ -4,37 +4,52 @@ signal exited_messages()
 
 
 var texture_dict = {
-	"Hack": preload("res://Art/Abilities/hack.png"),
-	"Protect": preload("res://Art/Abilities/protect.png"),
-	"Scan": preload("res://Art/Abilities/scan.png"),
-	"Password": preload("res://Art/Abilities/password.png"),
-	"Backdoor": preload("res://Art/Abilities/backdoor.png")
+	"hack": preload("res://Art/Abilities/hack.png"),
+	"protect": preload("res://Art/Abilities/protect.png"),
+	"scan": preload("res://Art/Abilities/scan.png"),
+	"password": preload("res://Art/Abilities/password.png"),
+	"backdoor": preload("res://Art/Abilities/backdoor.png")
 }
 
 
-var messages_data: Array = []
+var data: KnownData
 
 func enter():
 	visible = true
 
-func initialize(welcome_packet):
-	messages_data = welcome_packet["messages"]
+func initialize(data: KnownData):
+	self.data = data
 	re_add()
 
 func _on_disconnected():
-	messages_data = []
+	data = null
 	re_add()
 	visible = false
 
-func refresh(new_message):
-	messages_data.append(new_message)
+func _on_new_message(msg):
+	deselect_all()
+	add_item(msg)
 	re_add()
+
+func refresh():
+	pass
+
+func _on_game_state_changed(game_state):
+	if game_state == data.GameState.PREP:
+		pass
+	elif game_state == data.GameState.RUNNING:
+		pass
+	elif game_state == data.GameState.PAUSED:
+		pass
+	elif game_state == data.GameState.ENDED:
+		deselect_all()
+		visible = false
 
 func re_add():
 	$ItemList.clear()
-	for i in range(len(messages_data)):
-		var index = len(messages_data)-1-i
-		var message_packet = messages_data[index]
+	for i in range(len(data.messages)):
+		var index = len(data.messages)-1-i
+		var message_packet = data.messages[index]
 		add_item(message_packet)
 		
 
@@ -49,7 +64,7 @@ func add_item(message_packet):
 	
 
 func _on_select(index):
-	$Popup.open_message(messages_data[len(messages_data)-1-index])
+	$Popup.open_message(data.messages[len(data.messages)-1-index])
 
 func _on_deselect():
 	deselect_all()

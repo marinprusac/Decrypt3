@@ -5,20 +5,22 @@ signal quitted()
 
 var terminal_port_preload = preload("res://Client/Scenes/Terminal/TerminalPort.tscn")
 
-var terminals_data: Dictionary = {}
+var data: KnownData
 
 var terminal_name = "?"
 var guessing_index = -1
 
-func initialize(welcome_packet):
-	terminals_data = welcome_packet["terminals"]
+func initialize(data: KnownData):
+	self.data = data
 
+func refresh():
+	_on_quit()
 
 func _on_open_terminal(terminal_name, crack_mode):
 	clear()
 	visible = true
 	self.terminal_name = terminal_name
-	var terminal_packet = terminals_data[terminal_name]
+	var terminal_packet = data.terminals[terminal_name]
 	var port_passwords = terminal_packet["port_passwords"]
 	
 	$Title.text = "Terminal " + terminal_name
@@ -39,9 +41,6 @@ func _on_open_terminal(terminal_name, crack_mode):
 		
 		port_button.visible = crack_mode and password == ""
 		port_button.connect("pressed", self, "_on_choose_guess", [i])
-
-		
-
 
 func _on_choose_guess(index: int):
 	$Keyboard.visible = true
@@ -86,4 +85,5 @@ func clear():
 
 func _on_quit():
 	visible = false
+	guessing_index = -1
 	emit_signal("quitted")

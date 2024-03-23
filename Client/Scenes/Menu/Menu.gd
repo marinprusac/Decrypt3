@@ -1,48 +1,53 @@
 extends Control
 
+
 signal opened_terminal(terminal_name, crack_mode)
-signal used_ability(ability_name, target_name)
 signal opened_info()
 signal opened_messages()
+
+signal used_hack(target)
+signal used_protect(target)
+signal used_scan(target, color)
+signal used_crack(terminal, port, pasword)
+signal used_sabotage(terminal, port, pasword)
+signal used_backdoor(target, color)
+
+var data: KnownData
 
 func enter():
 	visible = true
 
-func initialize(welcome_packet_content: Dictionary):
-	var players = welcome_packet_content["players"]
-	var terminals = welcome_packet_content["terminals"]
-	var player_name = welcome_packet_content["you"]["name"]
-	var abilities = welcome_packet_content["you"]["abilities"]
-	$Players.initialize(players, player_name)
-	$CenterContainer/Terminals.initialize(terminals)
-	$Abilities.refresh(abilities)
+func initialize(data: KnownData):
+	var players = data.players
+	var terminals = data.terminals
+	var player_name = data.name
+	var abilities = data.abilities
+	$Abilities.initialize(data)
+	$Players.initialize(data)
+	$CenterContainer/Terminals.initialize(data)
 
 func _on_disconnected():
-	$Abilities.clear()
-	$CenterContainer/Terminals.clear()
-	$Players.clear()
 	visible = false
 
-func refresh_abilities(abilities_packet: Dictionary):
-	$Abilities.refresh(abilities_packet)
+func _on_started():
+	print("started")
 
-func refresh_players(players_packet: Dictionary):
-	$Players.refresh(players_packet)
-
-func refresh_terminals(terminals_packet: Dictionary):
-	$CenterContainer/Terminals.refresh(terminals_packet)
+func _on_ended():
+	visible = false
+	
+func refresh():
+	$Abilities.refresh()
+	$Players.refresh()
+	$CenterContainer/Terminals.refresh()
 
 func open_terminal(terminal_name, crack_mode):
 	visible = false
 	print("Opening terminal ", terminal_name, ". Crack mode: ", crack_mode)
 	emit_signal("opened_terminal", terminal_name, crack_mode)
-	$Abilities.deselect()
 
-func use_player_ability(ability_name, target_name):
-	print("Used ability ", ability_name, " on ", target_name)
-	emit_signal("used_ability", ability_name, target_name)
-	$Abilities.deselect()
-	
+func _on_chosen_terminal(terminal_name, port_index, password):
+	$Abilities._on_chosen_terminal(terminal_name, port_index, password)
+
 func open_info():
 	visible = false
 	emit_signal("opened_info")
@@ -50,3 +55,21 @@ func open_info():
 func open_messages():
 	visible = false
 	emit_signal("opened_messages")
+
+func _used_backdoor(target, color):
+	emit_signal("used_backdoor", target, color)
+
+func _used_crack(terminal, port, pasword):
+	emit_signal("used_crack", terminal, port, pasword)
+
+func _used_hack(target):
+	emit_signal("used_hack", target)
+
+func _used_protect(target):
+	emit_signal("used_protect", target)
+
+func _used_sabotage(terminal, port, pasword):
+	emit_signal("used_sabotage", terminal, port, pasword)
+
+func _used_scan(target, color):
+	emit_signal("used_scan", target, color)

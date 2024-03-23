@@ -1,0 +1,141 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://SimulatedNetwork/SimulatedNetwork.gd" type="Script" id=1]
+[ext_resource path="res://Server/GameLogic/GameLogic.gd" type="Script" id=2]
+[ext_resource path="res://Server/Master/ServerPackager.gd" type="Script" id=3]
+[ext_resource path="res://Server/Master/NetworkServer.gd" type="Script" id=4]
+[ext_resource path="res://Client/NetworkClient.gd" type="Script" id=5]
+[ext_resource path="res://Client/ClientPackager.gd" type="Script" id=6]
+[ext_resource path="res://Server/Connecting/Connecting.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Client/Scenes/Connecting/Connecting.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Client/Scenes/Notifications/Messages.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Server/Options/Options.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Client/Scenes/Terminal/TerminalWindow.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Client/Scenes/Notifications/Popup.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Client/Scenes/Info/Info.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Client/Scenes/Menu/Menu.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Server/Gameplay/Gameplay.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Client/Scenes/Login/Login.tscn" type="PackedScene" id=16]
+
+[node name="SimulatedNetwork" type="Node"]
+script = ExtResource( 1 )
+
+[node name="ClientMaster" type="Control" parent="."]
+
+[node name="NetworkClient" type="Node" parent="ClientMaster"]
+script = ExtResource( 5 )
+
+[node name="ClientPackager" type="Node" parent="ClientMaster"]
+script = ExtResource( 6 )
+
+[node name="Login" parent="ClientMaster" instance=ExtResource( 16 )]
+visible = false
+
+[node name="Connecting" parent="ClientMaster" instance=ExtResource( 8 )]
+visible = false
+
+[node name="Menu" parent="ClientMaster" instance=ExtResource( 14 )]
+visible = false
+
+[node name="Messages" parent="ClientMaster" instance=ExtResource( 9 )]
+visible = false
+
+[node name="Info" parent="ClientMaster" instance=ExtResource( 13 )]
+visible = false
+
+[node name="TerminalWindow" parent="ClientMaster" instance=ExtResource( 11 )]
+visible = false
+
+[node name="MessagePopup" parent="ClientMaster" instance=ExtResource( 12 )]
+margin_left = 21.0
+margin_top = 346.0
+margin_right = 191.0
+margin_bottom = 466.0
+
+[node name="ServerMaster" type="Control" parent="."]
+margin_left = 831.0
+margin_top = 42.0
+margin_right = 831.0
+margin_bottom = 42.0
+
+[node name="NetworkServer" type="Node" parent="ServerMaster"]
+script = ExtResource( 4 )
+
+[node name="ServerPackager" type="Node" parent="ServerMaster"]
+script = ExtResource( 3 )
+
+[node name="GameLogic" type="Node" parent="ServerMaster"]
+script = ExtResource( 2 )
+
+[node name="Connecting" parent="ServerMaster" instance=ExtResource( 7 )]
+
+[node name="Options" parent="ServerMaster" instance=ExtResource( 10 )]
+visible = false
+
+[node name="Gameplay" parent="ServerMaster" instance=ExtResource( 15 )]
+visible = false
+
+[connection signal="connected" from="ClientMaster/NetworkClient" to="ClientMaster/Connecting" method="_on_stop_connecting"]
+[connection signal="connected" from="ClientMaster/NetworkClient" to="ClientMaster/Menu" method="enter"]
+[connection signal="failed_to_connect" from="ClientMaster/NetworkClient" to="ClientMaster/Login" method="enter"]
+[connection signal="failed_to_connect" from="ClientMaster/NetworkClient" to="ClientMaster/Connecting" method="_on_stop_connecting"]
+[connection signal="packet_received" from="ClientMaster/NetworkClient" to="ClientMaster/ClientPackager" method="_on_receive_packet"]
+[connection signal="sent" from="ClientMaster/NetworkClient" to="." method="client_send"]
+[connection signal="trying_to_connect" from="ClientMaster/NetworkClient" to="ClientMaster/Connecting" method="_on_trying_to_connect"]
+[connection signal="ended" from="ClientMaster/ClientPackager" to="ClientMaster/Menu" method="_on_ended"]
+[connection signal="new_message" from="ClientMaster/ClientPackager" to="ClientMaster/Messages" method="_on_new_message"]
+[connection signal="new_message" from="ClientMaster/ClientPackager" to="ClientMaster/MessagePopup" method="open_message"]
+[connection signal="packet_sent" from="ClientMaster/ClientPackager" to="ClientMaster/NetworkClient" method="send"]
+[connection signal="refresh" from="ClientMaster/ClientPackager" to="ClientMaster/Menu" method="refresh"]
+[connection signal="refresh" from="ClientMaster/ClientPackager" to="ClientMaster/Messages" method="refresh"]
+[connection signal="refresh" from="ClientMaster/ClientPackager" to="ClientMaster/TerminalWindow" method="refresh"]
+[connection signal="started" from="ClientMaster/ClientPackager" to="ClientMaster/Menu" method="_on_started"]
+[connection signal="welcome" from="ClientMaster/ClientPackager" to="ClientMaster/Menu" method="initialize"]
+[connection signal="welcome" from="ClientMaster/ClientPackager" to="ClientMaster/Messages" method="initialize"]
+[connection signal="welcome" from="ClientMaster/ClientPackager" to="ClientMaster/Info" method="initialize"]
+[connection signal="welcome" from="ClientMaster/ClientPackager" to="ClientMaster/TerminalWindow" method="initialize"]
+[connection signal="password_submitted" from="ClientMaster/Login" to="ClientMaster/NetworkClient" method="try_connect"]
+[connection signal="connecting_canceled" from="ClientMaster/Connecting" to="ClientMaster/Login" method="enter"]
+[connection signal="opened_info" from="ClientMaster/Menu" to="ClientMaster/Info" method="enter"]
+[connection signal="opened_messages" from="ClientMaster/Menu" to="ClientMaster/Messages" method="enter"]
+[connection signal="opened_terminal" from="ClientMaster/Menu" to="ClientMaster/TerminalWindow" method="_on_open_terminal"]
+[connection signal="used_backdoor" from="ClientMaster/Menu" to="ClientMaster/ClientPackager" method="_on_send_backdoor_packet"]
+[connection signal="used_crack" from="ClientMaster/Menu" to="ClientMaster/ClientPackager" method="_on_send_crack_packet"]
+[connection signal="used_hack" from="ClientMaster/Menu" to="ClientMaster/ClientPackager" method="_on_send_hack_packet"]
+[connection signal="used_protect" from="ClientMaster/Menu" to="ClientMaster/ClientPackager" method="_on_send_protect_packet"]
+[connection signal="used_sabotage" from="ClientMaster/Menu" to="ClientMaster/ClientPackager" method="_on_send_sabotage_packet"]
+[connection signal="used_scan" from="ClientMaster/Menu" to="ClientMaster/ClientPackager" method="_on_send_scan_packet"]
+[connection signal="exited_messages" from="ClientMaster/Messages" to="ClientMaster/Menu" method="enter"]
+[connection signal="exited_info" from="ClientMaster/Info" to="ClientMaster/Menu" method="enter"]
+[connection signal="password_submitted" from="ClientMaster/TerminalWindow" to="ClientMaster/Menu" method="_on_chosen_terminal"]
+[connection signal="quitted" from="ClientMaster/TerminalWindow" to="ClientMaster/Menu" method="enter"]
+[connection signal="connected" from="ServerMaster/NetworkServer" to="ServerMaster/Connecting" method="_on_stop_connecting"]
+[connection signal="failed_to_connect" from="ServerMaster/NetworkServer" to="ServerMaster/Connecting" method="_on_stop_connecting"]
+[connection signal="packet_received" from="ServerMaster/NetworkServer" to="ServerMaster/ServerPackager" method="_on_receive_packet"]
+[connection signal="packet_sent" from="ServerMaster/NetworkServer" to="." method="server_send"]
+[connection signal="trying_to_connect" from="ServerMaster/NetworkServer" to="ServerMaster/Connecting" method="_on_trying_to_connect"]
+[connection signal="backdoor_used" from="ServerMaster/ServerPackager" to="ServerMaster/GameLogic" method="_on_backdoor_used"]
+[connection signal="crack_used" from="ServerMaster/ServerPackager" to="ServerMaster/GameLogic" method="_on_crack_used"]
+[connection signal="hack_used" from="ServerMaster/ServerPackager" to="ServerMaster/GameLogic" method="_on_hack_used"]
+[connection signal="player_codes_submitted" from="ServerMaster/ServerPackager" to="ServerMaster/NetworkServer" method="send_client_codes"]
+[connection signal="player_joined" from="ServerMaster/ServerPackager" to="ServerMaster/GameLogic" method="_on_player_joined"]
+[connection signal="protect_used" from="ServerMaster/ServerPackager" to="ServerMaster/GameLogic" method="_on_protect_used"]
+[connection signal="requested_packet_sending" from="ServerMaster/ServerPackager" to="ServerMaster/NetworkServer" method="send"]
+[connection signal="sabotage_used" from="ServerMaster/ServerPackager" to="ServerMaster/GameLogic" method="_on_sabotage_used"]
+[connection signal="scan_used" from="ServerMaster/ServerPackager" to="ServerMaster/GameLogic" method="_on_scan_used"]
+[connection signal="changed" from="ServerMaster/GameLogic" to="ServerMaster/Gameplay" method="handle_changes"]
+[connection signal="ended" from="ServerMaster/GameLogic" to="ServerMaster/Gameplay" method="end"]
+[connection signal="initialized" from="ServerMaster/GameLogic" to="ServerMaster/ServerPackager" method="submit_game_data"]
+[connection signal="initialized" from="ServerMaster/GameLogic" to="ServerMaster/Gameplay" method="initialize"]
+[connection signal="pause_set" from="ServerMaster/GameLogic" to="ServerMaster/Gameplay" method="set_pause"]
+[connection signal="send_abilities_refresh" from="ServerMaster/GameLogic" to="ServerMaster/ServerPackager" method="send_abilities_refresh_packet"]
+[connection signal="send_ended" from="ServerMaster/GameLogic" to="ServerMaster/ServerPackager" method="send_end_packet"]
+[connection signal="send_new_message" from="ServerMaster/GameLogic" to="ServerMaster/ServerPackager" method="send_new_message_packet"]
+[connection signal="send_paused" from="ServerMaster/GameLogic" to="ServerMaster/ServerPackager" method="send_pause_packet"]
+[connection signal="send_started" from="ServerMaster/GameLogic" to="ServerMaster/ServerPackager" method="send_start_packet"]
+[connection signal="send_terminals_refresh" from="ServerMaster/GameLogic" to="ServerMaster/ServerPackager" method="send_terminals_refresh_packet"]
+[connection signal="send_welcome" from="ServerMaster/GameLogic" to="ServerMaster/ServerPackager" method="send_welcome_packet"]
+[connection signal="started" from="ServerMaster/GameLogic" to="ServerMaster/ServerPackager" method="send_start_packet"]
+[connection signal="started" from="ServerMaster/GameLogic" to="ServerMaster/Gameplay" method="start"]
+[connection signal="done" from="ServerMaster/Options" to="ServerMaster/Gameplay" method="enter"]
+[connection signal="options_saved" from="ServerMaster/Options" to="ServerMaster/GameLogic" method="initialize"]

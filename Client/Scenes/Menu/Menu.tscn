@@ -15,12 +15,11 @@
 [ext_resource path="res://Client/Scenes/Menu/Terminals.gd" type="Script" id=13]
 [ext_resource path="res://Client/Scenes/Menu/Players.gd" type="Script" id=14]
 
-
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
 shader_param/readyness = 1.0
-shader_param/other_selected = null
-shader_param/selected = null
+shader_param/other_selected = false
+shader_param/selected = false
 shader_param/color = Vector3( 0.5, 1, 0.5 )
 
 [sub_resource type="ShaderMaterial" id=2]
@@ -115,7 +114,11 @@ margin_bottom = 994.0
 rect_scale = Vector2( 7, 7 )
 script = ExtResource( 3 )
 
-[node name="Crack" type="Button" parent="Abilities"]
+[node name="NormalButtons" type="Control" parent="Abilities"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Crack" type="Button" parent="Abilities/NormalButtons"]
 material = SubResource( 1 )
 margin_left = 10.0
 margin_right = 27.0
@@ -124,7 +127,7 @@ theme = ExtResource( 9 )
 toggle_mode = true
 icon = ExtResource( 2 )
 
-[node name="Backdoor" type="Button" parent="Abilities"]
+[node name="Backdoor" type="Button" parent="Abilities/NormalButtons"]
 material = SubResource( 2 )
 margin_left = 31.0
 margin_right = 48.0
@@ -133,7 +136,7 @@ theme = ExtResource( 9 )
 toggle_mode = true
 icon = ExtResource( 4 )
 
-[node name="Hack" type="Button" parent="Abilities"]
+[node name="Hack" type="Button" parent="Abilities/NormalButtons"]
 material = SubResource( 3 )
 margin_top = 21.0
 margin_right = 17.0
@@ -142,7 +145,7 @@ theme = ExtResource( 9 )
 toggle_mode = true
 icon = ExtResource( 5 )
 
-[node name="Protect" type="Button" parent="Abilities"]
+[node name="Protect" type="Button" parent="Abilities/NormalButtons"]
 material = SubResource( 4 )
 margin_left = 21.0
 margin_top = 21.0
@@ -152,7 +155,7 @@ theme = ExtResource( 9 )
 toggle_mode = true
 icon = ExtResource( 6 )
 
-[node name="Scan" type="Button" parent="Abilities"]
+[node name="Scan" type="Button" parent="Abilities/NormalButtons"]
 material = SubResource( 5 )
 margin_left = 42.0
 margin_top = 21.0
@@ -162,16 +165,54 @@ theme = ExtResource( 9 )
 toggle_mode = true
 icon = ExtResource( 11 )
 
+[node name="ColorButtons" type="HBoxContainer" parent="Abilities"]
+visible = false
+margin_left = 5.28571
+margin_top = -14.7143
+margin_right = 52.2857
+margin_bottom = -1.71429
+
+[node name="RedButton" type="Button" parent="Abilities/ColorButtons"]
+modulate = Color( 1, 0.5, 0.5, 1 )
+margin_right = 13.0
+margin_bottom = 13.0
+text = "R"
+
+[node name="BlueButton" type="Button" parent="Abilities/ColorButtons"]
+modulate = Color( 0.5, 0.5, 1, 1 )
+margin_left = 17.0
+margin_right = 30.0
+margin_bottom = 13.0
+text = "B"
+
+[node name="YellowButton" type="Button" parent="Abilities/ColorButtons"]
+modulate = Color( 0.75, 0.75, 0.5, 1 )
+margin_left = 34.0
+margin_right = 47.0
+margin_bottom = 13.0
+text = "Y"
+
 [connection signal="pressed" from="Notices" to="." method="open_messages"]
 [connection signal="pressed" from="Info" to="." method="open_info"]
 [connection signal="pressed_terminal_button" from="CenterContainer/Terminals" to="." method="open_terminal"]
-[connection signal="used_ability_on_player" from="Players" to="." method="use_player_ability"]
-[connection signal="ability_toggled" from="Abilities" to="Notices" method="_on_ability_toggled"]
-[connection signal="ability_toggled" from="Abilities" to="Info" method="_on_ability_toggled"]
-[connection signal="ability_toggled" from="Abilities" to="CenterContainer/Terminals" method="_on_ability_toggled"]
-[connection signal="ability_toggled" from="Abilities" to="Players" method="_on_ability_toggled"]
-[connection signal="toggled" from="Abilities/Crack" to="Abilities" method="_on_button_toggled"]
-[connection signal="toggled" from="Abilities/Backdoor" to="Abilities" method="_on_button_toggled"]
-[connection signal="toggled" from="Abilities/Hack" to="Abilities" method="_on_button_toggled"]
-[connection signal="toggled" from="Abilities/Protect" to="Abilities" method="_on_button_toggled"]
-[connection signal="toggled" from="Abilities/Scan" to="Abilities" method="_on_button_toggled"]
+[connection signal="player_chosen" from="Players" to="Abilities" method="_on_chosen_player"]
+[connection signal="deselected" from="Abilities" to="CenterContainer/Terminals" method="_on_deselected_ability"]
+[connection signal="deselected" from="Abilities" to="Players" method="_on_deselected_ability"]
+[connection signal="selected_player_ability" from="Abilities" to="CenterContainer/Terminals" method="_on_selected_wrong_ability"]
+[connection signal="selected_player_ability" from="Abilities" to="Players" method="_on_selected_ability"]
+[connection signal="selected_terminal_ability" from="Abilities" to="CenterContainer/Terminals" method="_on_selected_ability"]
+[connection signal="selected_terminal_ability" from="Abilities" to="Players" method="_on_selected_wrong_ability"]
+[connection signal="used_backdoor" from="Abilities" to="." method="_used_backdoor"]
+[connection signal="used_crack" from="Abilities" to="." method="_used_crack"]
+[connection signal="used_hack" from="Abilities" to="." method="_used_hack"]
+[connection signal="used_protect" from="Abilities" to="." method="_used_protect"]
+[connection signal="used_sabotage" from="Abilities" to="." method="_used_sabotage"]
+[connection signal="used_scan" from="Abilities" to="." method="_used_scan"]
+[connection signal="toggled" from="Abilities/NormalButtons/Crack" to="Abilities" method="_on_button_toggled"]
+[connection signal="toggled" from="Abilities/NormalButtons/Backdoor" to="Abilities" method="_on_button_toggled"]
+[connection signal="toggled" from="Abilities/NormalButtons/Hack" to="Abilities" method="_on_button_toggled"]
+[connection signal="toggled" from="Abilities/NormalButtons/Protect" to="Abilities" method="_on_button_toggled"]
+[connection signal="toggled" from="Abilities/NormalButtons/Scan" to="Abilities" method="_on_button_toggled"]
+[connection signal="pressed" from="Abilities/ColorButtons/RedButton" to="Abilities" method="_on_chosen_red_button"]
+[connection signal="pressed" from="Abilities/ColorButtons/BlueButton" to="Abilities" method="_on_chosen_blue_button"]
+[connection signal="pressed" from="Abilities/ColorButtons/YellowButton" to="Abilities" method="_on_chosen_yellow_button"]

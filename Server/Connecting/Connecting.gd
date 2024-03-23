@@ -11,3 +11,4 @@ func _on_stop_connecting():
 func _on_cancel():
 	_on_stop_connecting()
 	emit_signal("connecting_canceled")
+
