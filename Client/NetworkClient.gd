@@ -9,8 +9,9 @@ signal disconnected()
 
 signal packet_received(packet)
 
-export var url = "127.0.0.1"
-export var port = 9080
+var url: String = "95.217.12.179"
+var port: int = 9080
+
 var websocket_url = "ws://" + url + ":" + str(port)
 
 func try_connect():

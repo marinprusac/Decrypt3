@@ -9,8 +9,8 @@ signal disconnected()
 
 signal packet_received(packet)
 
-export var url = "127.0.0.1"
-export var port = 9080
+const url = "95.217.12.179"
+const port = 9080
 var websocket_url = "ws://" + url + ":" + str(port)
 
 func try_connect():
@@ -19,6 +19,8 @@ func try_connect():
 	if err != OK:
 		print("Unable to connect")
 		emit_signal("failed_to_connect")
+	else:
+		print("No errors")
 		
 func force_disconnect():
 	_client.disconnect_from_host()
