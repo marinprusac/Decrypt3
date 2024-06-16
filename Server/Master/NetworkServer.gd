@@ -9,7 +9,7 @@ signal disconnected()
 
 signal packet_received(packet)
 
-const url = "95.217.12.179"
+const url = "onedecrypt.tech"
 const port = 9080
 var websocket_url = "ws://" + url + ":" + str(port)
 
@@ -17,7 +17,7 @@ func try_connect():
 	emit_signal("trying_to_connect")
 	var err = _client.connect_to_url(websocket_url, PoolStringArray(), false)
 	if err != OK:
-		print("Unable to connect")
+		print("Unable to connect", err)
 		emit_signal("failed_to_connect")
 	else:
 		print("No errors")

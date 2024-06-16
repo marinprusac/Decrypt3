@@ -1,67 +1,21 @@
 extends Node
 
-# The URL we will connect to
-export var websocket_url = "ws://127.0.0.1:9080"
+var key_address = "res://Certificates/key.key"
+var cert_address = "res://Certificates/cert.crt"
 
-# Our WebSocketClient instance
-var _client = WebSocketClient.new()
+func generate():
+	# Create and set key and self-signed certificate.
+	var crypto = Crypto.new()
+	var key = crypto.generate_rsa(4096)
+	var cert = crypto.generate_self_signed_certificate(key, "CN=onedecrypt,O=onedecrypt,C=HR", "10140101000000", "50140101000000")
+	
+	key.save(key_address)
+	cert.save(cert_address)
+
+func validate():
+	var key = load(key_address)
+	var cert = load(cert_address)
 
 func _ready():
-	# Connect base signals to get notified of connection open, close, and errors.
-	_client.connect("connection_closed", self, "_closed")
-	_client.connect("connection_error", self, "_closed")
-	_client.connect("connection_established", self, "_connected")
-	# This signal is emitted when not using the Multiplayer API every time
-	# a full packet is received.
-	# Alternatively, you could check get_peer(1).get_available_packets() in a loop.
-	_client.connect("data_received", self, "_on_data")
-
-	print("Starting...")
-
-	# Initiate connection to the given URL.
-	var err = _client.connect_to_url(websocket_url, PoolStringArray(), false)
-	if err != OK:
-		print("Unable to connect")
-		set_process(false)
-
-func _closed(was_clean = false):
-	# was_clean will tell you if the disconnection was correctly notified
-	# by the remote peer before closing the socket.
-	print("Closed, clean: ", was_clean)
-	set_process(false)
-
-func _connected(proto = ""):
-	# This is called on connection, "proto" will be the selected WebSocket
-	# sub-protocol (which is optional)
-	print("Connected with protocol: ", proto)
-	# You MUST always use get_peer(1).put_packet to send data to server,
-	# and not put_packet directly when not using the MultiplayerAPI.
-	var data = {
-		"packet_type": "login",
-		"packet_content": "123"
-	}
-	send(data)
-	
-
-func _on_data():
-	# Print the received packet, you MUST always use get_peer(1).get_packet
-	# to receive data from server, and not get_packet directly when not
-	# using the MultiplayerAPI.
-	print("Got data from server: ", _client.get_peer(1).get_packet().get_string_from_utf8())
-
-func _process(_delta):
-	# Call this in _process or _physics_process. Data transfer, and signals
-	# emission will only happen when calling this function.
-	_client.poll()
-
-func get_data_from_raw(raw):
-	return JSON.parse(raw).result
-
-func get_raw_from_data(data):
-	return JSON.print(data).to_utf8()
-
-func send(packet):
-	_client.get_peer(1).put_packet(get_raw_from_data(packet))
-
-
+	generate()
 

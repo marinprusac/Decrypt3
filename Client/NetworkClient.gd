@@ -9,7 +9,7 @@ signal disconnected()
 
 signal packet_received(packet)
 
-var url: String = "95.217.12.179"
+var url: String = "onedecrypt.tech"
 var port: int = 9080
 
 var websocket_url = "ws://" + url + ":" + str(port)

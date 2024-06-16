@@ -189,8 +189,9 @@ _global_script_class_icons={
 [application]
 
 config/name="Decrypt 3"
+config/description="Social deception hacking game."
 run/main_scene="res://Client/Master/ClientMaster.tscn"
-config/icon="res://Art/icon.png"
+config/icon="res://Art/big_blackhat.png"
 
 [display]
 
@@ -201,10 +202,16 @@ window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 window/size/width.web=720
 window/size/height.web=1280
+window/size/width.Windows=1920
+window/size/height.Windows=1080
 
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[network]
+
+ssl/certificates="res://Certificates/cert.crt"
 
 [physics]
 
