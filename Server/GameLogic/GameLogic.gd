@@ -250,5 +250,10 @@ func _on_sabotage_used(player: PlayerData, terminal: TerminalData, port: PortDat
 	_send_abilities_refresh(player)
 	_on_change()
 
+func _process(delta):
+	if not running:
+		return
 
+	if game_data.is_game_over():
+		end(true, Time.get_unix_time_from_system() < game_data.game_end)
 

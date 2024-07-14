@@ -190,7 +190,7 @@ _global_script_class_icons={
 
 config/name="Decrypt 3"
 config/description="Social deception hacking game."
-run/main_scene="res://Client/Master/ClientMaster.tscn"
+run/main_scene="res://Server/Master/ServerMaster.tscn"
 config/icon="res://Art/big_blackhat.png"
 
 [display]
