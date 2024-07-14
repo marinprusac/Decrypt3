@@ -78,7 +78,7 @@ func _on_player_joined(player):
 		emit_signal("started_single", player)
 
 func _on_hack_used(player: PlayerData, target: PlayerData):
-	var hack = player.get_ability("Hack")
+	var hack: HackAbilityData = player.get_ability("Hack")
 	if not hack.can_use(player, target):
 		print(player.name)
 		print(target.name)
@@ -189,7 +189,7 @@ func _on_backdoor_used(player: PlayerData, target: PlayerData, team_color: Strin
 	_on_change()
 
 func _on_crack_used(player: PlayerData, terminal: TerminalData, port: PortData, password: String):
-	var crack = player.get_ability("Crack")
+	var crack: CrackAbilityData = player.get_ability("Crack")
 	if not crack.can_use(player, terminal, port):
 		return
 	
